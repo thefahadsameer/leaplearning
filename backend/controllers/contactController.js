@@ -37,19 +37,19 @@ exports.submitContact = async (req, res) => {
     }
 
     // 2️⃣ Send Email
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: "support@leaplearning.co.in",
-      subject: "New Contact Inquiry",
-      html: `
-        <h3>New Inquiry Received</h3>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Phone:</b> ${phone}</p>
-        <p><b>Time Slot:</b> ${timeSlot}</p>
-        <p><b>Message:</b> ${message}</p>
-      `,
-    });
+    // await transporter.sendMail({
+    //   from: process.env.EMAIL_USER,
+    //   to: "support@leaplearning.co.in",
+    //   subject: "New Contact Inquiry",
+    //   html: `
+    //     <h3>New Inquiry Received</h3>
+    //     <p><b>Name:</b> ${name}</p>
+    //     <p><b>Email:</b> ${email}</p>
+    //     <p><b>Phone:</b> ${phone}</p>
+    //     <p><b>Time Slot:</b> ${timeSlot}</p>
+    //     <p><b>Message:</b> ${message}</p>
+    //   `,
+    // });
 
     res.json({ success: true });
 
