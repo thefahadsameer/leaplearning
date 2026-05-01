@@ -7,14 +7,14 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Resend Email
+// Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.submitContact = async (req, res) => {
   try {
     const { name, email, phone, message, timeSlot } = req.body;
 
-    // 1️⃣ Save to Supabase (UNCHANGED)
+    /* ================= SAVE TO DB ================= */
     const { error } = await supabase.from("contacts").insert([
       {
         name,
@@ -30,10 +30,10 @@ exports.submitContact = async (req, res) => {
       return res.status(500).json({ error: "Database error" });
     }
 
-    // 2️⃣ Send Email (FIXED)
+    /* ================= SEND EMAIL ================= */
     try {
       await resend.emails.send({
-        from: "Leap Learning <support@leaplearning.co.in>", // your verified domain
+        from: "Leap Learning <support@leaplearning.co.in>",
         to: ["support@leaplearning.co.in"],
         reply_to: email,
         subject: "New Contact Inquiry",
@@ -47,15 +47,13 @@ exports.submitContact = async (req, res) => {
         `,
       });
     } catch (emailError) {
-      // DO NOT BREAK API
       console.error("Email Error:", emailError);
     }
 
-    // RESPONSE (UNCHANGED)
-    res.json({ success: true });
+    return res.json({ success: true });
 
   } catch (err) {
     console.error("Server Error:", err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 };

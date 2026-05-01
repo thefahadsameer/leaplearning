@@ -1,10 +1,62 @@
+import { useState } from "react";
 import "../styles/Contact.css";
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    timeSlot: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      console.log("Sending data:", formData); // DEBUG
+
+      const res = await fetch("https://leaplearning.onrender.com/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      console.log("Response:", data); // DEBUG
+
+      if (data.success) {
+        alert("Inquiry submitted successfully!");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          timeSlot: "",
+          message: "",
+        });
+      } else {
+        alert("Submission failed");
+      }
+
+    } catch (err) {
+      console.error("Frontend Error:", err);
+      alert("Server error");
+    }
+  };
+
   return (
     <div className="contact-page">
 
-      {/* ===== HERO ===== */}
       <section className="contact-hero">
         <div className="contact-container">
           <h1>Get In Touch With Our Advisory Team</h1>
@@ -15,12 +67,9 @@ function Contact() {
         </div>
       </section>
 
-
-      {/* ===== MAIN SECTION ===== */}
       <section className="contact-section">
         <div className="contact-container contact-grid">
 
-          {/* LEFT INFO */}
           <div className="contact-info">
             <h2>Contact Information</h2>
 
@@ -41,29 +90,48 @@ function Contact() {
             </div>
           </div>
 
-
-          {/* RIGHT FORM */}
           <div className="contact-form-wrapper">
-            <form className="contact-form">
+            <form className="contact-form" onSubmit={handleSubmit}>
 
               <div className="form-group">
                 <label>Full Name *</label>
-                <input type="text" placeholder="Enter your full name" required />
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
               </div>
 
               <div className="form-group">
                 <label>Email ID *</label>
-                <input type="email" placeholder="Enter your email address" required />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
               </div>
 
               <div className="form-group">
-                <label>Phone Number (Optional)</label>
-                <input type="tel" placeholder="Enter your phone number" />
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="form-group">
                 <label>Preferred Time Slot</label>
-                <select>
+                <select
+                  name="timeSlot"
+                  value={formData.timeSlot}
+                  onChange={handleChange}
+                >
                   <option value="">Select a time slot</option>
                   <option>10:00 AM – 12:00 PM</option>
                   <option>12:00 PM – 2:00 PM</option>
@@ -74,7 +142,12 @@ function Contact() {
 
               <div className="form-group">
                 <label>Message</label>
-                <textarea rows="4" placeholder="Write your message here..."></textarea>
+                <textarea
+                  rows="4"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                ></textarea>
               </div>
 
               <button type="submit" className="contact-btn">
