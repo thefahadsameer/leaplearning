@@ -1,0 +1,152 @@
+/* ================= FOOTER ================= */
+.footer {
+  width: 100%;
+  background-color: #f2f2f2;
+  padding: 80px 0 40px;
+  color: #333;
+}
+
+/* ================= CONTAINER ================= */
+.footer-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 50px;
+}
+
+/* ================= COLUMN ================= */
+.footer-col h3 {
+  font-size: 20px;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+.footer-col h4 {
+  font-size: 16px;
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+
+.footer-col p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ================= LINKS ================= */
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.footer-col ul li:hover {
+  color: #000;
+}
+
+/* Optional link class */
+.footer-link {
+  cursor: pointer;
+}
+
+.footer-link:hover {
+  color: #000;
+}
+
+/* ================= BOTTOM ================= */
+.footer-bottom {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+  border-top: 1px solid #ddd;
+  padding-top: 25px;
+}
+
+/* Hidden admin trigger */
+.admin-trigger {
+  user-select: none;
+  cursor: default;
+}
+
+/* ================================================= */
+/* ================= RESPONSIVE ==================== */
+/* ================================================= */
+
+/* ---------- Large Tablets ---------- */
+@media (max-width: 1200px) {
+  .footer-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 992px) {
+  .footer {
+    padding: 70px 0 35px;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .footer {
+    padding: 60px 0 30px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer-col h3,
+  .footer-col h4 {
+    font-size: 18px;
+  }
+
+  .footer-col p,
+  .footer-col ul li {
+    font-size: 13px;
+  }
+
+  .footer-bottom {
+    font-size: 12px;
+    margin-top: 40px;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+@media (max-width: 480px) {
+  .footer {
+    padding: 50px 0 25px;
+  }
+
+  .footer-col h3,
+  .footer-col h4 {
+    font-size: 16px;
+  }
+
+  .footer-col p,
+  .footer-col ul li {
+    font-size: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 11px;
+  }
+}

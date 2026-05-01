@@ -1,0 +1,32 @@
+# ================= ROOT DEPENDENCIES =================
+node_modules/
+
+# ================= FRONTEND =================
+leep-learning/node_modules/
+leep-learning/build/
+
+# ================= BACKEND =================
+backend/node_modules/
+
+# ================= ENV FILES =================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+backend/.env
+
+# ================= BUILD =================
+build/
+dist/
+
+# ================= TEST =================
+coverage/
+
+# ================= LOGS =================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ================= SYSTEM =================
+.DS_Store

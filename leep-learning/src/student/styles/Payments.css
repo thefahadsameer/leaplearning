@@ -1,0 +1,101 @@
+.payments-main {
+  padding: 30px;
+}
+
+/* HEADER */
+.payments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.payments-header h2 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+/* PAY BUTTON */
+.pay-btn {
+  background: linear-gradient(135deg, #ff7a00, #ff9f43);
+  border: none;
+  color: white;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 122, 0, 0.3);
+}
+
+/* =============================
+    AMOUNT INPUT
+============================= */
+.amount-box {
+  margin-bottom: 20px;
+  max-width: 300px;
+}
+
+.amount-box label {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.amount-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  margin-top: 5px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.amount-box input:focus {
+  border-color: #ff7a00;
+  box-shadow: 0 0 0 2px rgba(255, 122, 0, 0.1);
+}
+
+/* =============================
+    PAYMENT LIST
+============================= */
+.payment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* CARD */
+.payment-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px;
+  border-radius: 14px;
+
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+
+  transition: 0.3s;
+}
+
+.payment-card:hover {
+  transform: translateY(-3px);
+}
+
+/* STATUS */
+.status {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.status.success {
+  background: #d1fae5;
+  color: #065f46;
+}

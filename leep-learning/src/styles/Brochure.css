@@ -1,0 +1,140 @@
+/* ================= PAGE ================= */
+.brochure-page {
+  min-height: 85svh; /* Better mobile handling */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  padding: 100px 20px;
+  text-align: center;
+}
+
+/* ================= CONTAINER ================= */
+.brochure-container {
+  max-width: 720px;
+  width: 100%;
+}
+
+/* ================= BADGE ================= */
+.brochure-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: #1e293b;
+  color: #ffffff;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  border-radius: 30px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ================= TITLE ================= */
+.brochure-title {
+  font-size: 46px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+/* ================= TEXT ================= */
+.brochure-description {
+  font-size: 18px;
+  color: #475569;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.brochure-subtext {
+  font-size: 17px;
+  color: #64748b;
+  margin-bottom: 40px;
+}
+
+/* ================= BUTTON ================= */
+.brochure-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 36px;
+  background: #1e293b;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.brochure-btn:hover {
+  background: #0f172a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+}
+
+/* ================================================= */
+/* ================= RESPONSIVE ==================== */
+/* ================================================= */
+
+/* ---------- Tablets ---------- */
+@media (max-width: 992px) {
+  .brochure-page {
+    padding: 80px 20px;
+  }
+
+  .brochure-title {
+    font-size: 36px;
+  }
+
+  .brochure-description {
+    font-size: 16px;
+  }
+
+  .brochure-subtext {
+    font-size: 15px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .brochure-page {
+    padding: 70px 20px;
+  }
+
+  .brochure-title {
+    font-size: 28px;
+  }
+
+  .brochure-description {
+    font-size: 15px;
+  }
+
+  .brochure-subtext {
+    font-size: 14px;
+  }
+
+  .brochure-btn {
+    width: 100%;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+@media (max-width: 480px) {
+  .brochure-page {
+    padding: 60px 16px;
+  }
+
+  .brochure-title {
+    font-size: 24px;
+  }
+
+  .brochure-badge {
+    font-size: 11px;
+    padding: 6px 16px;
+  }
+
+  .brochure-btn {
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+}

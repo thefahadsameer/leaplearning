@@ -1,0 +1,125 @@
+/* ================= SECTION ================= */
+.logos-section {
+  width: 100%;
+  padding: 120px 0;
+  background: #fdfaf6;
+  position: relative;
+}
+
+/* ================= CONTAINER ================= */
+.logos-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+/* ================= HEADING ================= */
+.logos-text {
+  font-size: 20px;
+  color: #111111;
+  margin-bottom: 70px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+/* ================= ROW ================= */
+.logos-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  flex-wrap: wrap;
+}
+
+/* ================= LOGO ITEM ================= */
+.logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+/* ================= IMAGE ================= */
+.logo-item img {
+  max-height: 95px;
+  max-width: 240px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.75;
+  transition: all 0.3s ease;
+}
+
+/* ================= HOVER ================= */
+.logo-item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* ================================================= */
+/* ================= RESPONSIVE ==================== */
+/* ================================================= */
+
+/* ---------- Large Tablets ---------- */
+@media (max-width: 1200px) {
+  .logos-row {
+    gap: 70px;
+  }
+
+  .logos-text {
+    font-size: 18px;
+  }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 992px) {
+  .logos-section {
+    padding: 90px 0;
+  }
+
+  .logos-row {
+    gap: 60px;
+  }
+
+  .logo-item img {
+    max-height: 80px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .logos-section {
+    padding: 70px 0;
+  }
+
+  .logos-text {
+    font-size: 15px;
+    margin-bottom: 50px;
+  }
+
+  .logos-row {
+    gap: 40px;
+  }
+
+  .logo-item img {
+    max-height: 65px;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+@media (max-width: 480px) {
+  .logos-section {
+    padding: 60px 0;
+  }
+
+  .logos-text {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+  }
+
+  .logo-item img {
+    max-height: 55px;
+  }
+}

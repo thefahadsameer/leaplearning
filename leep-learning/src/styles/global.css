@@ -1,0 +1,123 @@
+/* ================================
+   GLOBAL RESET & BASE
+   ================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  background-color: #ffffff;
+  color: #111;
+  line-height: 1.6;
+}
+
+/* Base elements */
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+img { max-width: 100%; display: block; }
+
+/* ================================
+   GLOBAL CONTAINER SYSTEM
+   ================================ */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ================================
+   TYPOGRAPHY (APPLE STYLE)
+   ================================ */
+
+h1 {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+h3 {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+h4 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+p {
+  font-size: 15.5px;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* ================================
+   SECTION SYSTEM
+   ================================ */
+
+.section {
+  padding: 80px 0;
+}
+
+.section-tight {
+  padding: 70px 0;
+}
+
+.section-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  text-align: center;
+  color: #666;
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+
+/* ================================
+   SPACING HELPERS
+   ================================ */
+
+.mt-40 { margin-top: 40px; }
+.mb-40 { margin-bottom: 40px; }
+
+/* ================================
+   SCROLLBAR
+   ================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f9fafb;
+}

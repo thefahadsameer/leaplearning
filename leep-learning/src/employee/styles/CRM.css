@@ -1,0 +1,312 @@
+/* ================= PAGE ================= */
+
+.crm-page {
+  padding: 20px;
+}
+
+.crm-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ================= CARD ================= */
+
+.crm-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow-x: auto;
+}
+
+/* ================= TABLE ================= */
+
+.crm-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.crm-table th {
+  background: #f1f5f9;
+  padding: 10px;
+  font-size: 13px;
+  text-align: left;
+  color: #374151;
+}
+
+.crm-table td {
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+  font-size: 13px;
+}
+
+/* ================= MODERN INPUT ================= */
+
+.input-modern {
+  width: 130px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.input-modern:focus {
+  border-color: #6366f1;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.input-modern.small {
+  width: 120px;
+}
+
+/* ================= PAID / PENDING ================= */
+
+.paid {
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.pending {
+  color: #dc2626;
+  font-weight: 500;
+}
+
+/* ================= REMARKS ================= */
+
+.remarks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 200px;
+}
+
+.remarks-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* CHIP */
+.remark-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #eef2ff;
+  color: #3730a3;
+  border-radius: 14px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* DELETE BUTTON */
+.remark-delete {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  background: #ef4444;
+  color: white;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.remark-delete:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* ================= FLOATING ACTION BAR ================= */
+
+.floating-actions {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  z-index: 1000;
+}
+
+/* BUTTONS */
+.action-btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+}
+
+.action-btn.primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.action-btn.primary:hover {
+  background: #2563eb;
+}
+
+.action-btn.danger {
+  background: #ef4444;
+  color: white;
+}
+
+.action-btn.danger:hover {
+  background: #dc2626;
+}
+
+/* ================= SCROLL FIX ================= */
+
+.crm-card::-webkit-scrollbar {
+  height: 6px;
+}
+
+.crm-card::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
+}
+
+/* PAYMENT MODAL */
+
+.payment-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.payment-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 280px;
+}
+
+.payment-box input,
+.payment-box select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.payment-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-actions button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.payment-actions button:first-child {
+  background: #16a34a;
+  color: white;
+}
+
+.payment-actions button:last-child {
+  background: #ef4444;
+  color: white;
+}
+
+/* ================= MOBILE CRM ================= */
+
+.crm-mobile-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.crm-card-mobile {
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-header h3 {
+  font-size: 16px;
+}
+
+.fee-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.crm-card-mobile input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* ================= DETAIL MODAL ================= */
+
+.detail-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.detail-box {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-box select,
+.detail-box input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: space-between;
+}

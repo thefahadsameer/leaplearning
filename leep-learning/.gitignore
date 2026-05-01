@@ -1,0 +1,18 @@
+# Root
+node_modules/
+.env
+
+# Backend
+backend/node_modules/
+backend/.env
+
+# Frontend
+leep-learning/node_modules/
+leep-learning/build/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

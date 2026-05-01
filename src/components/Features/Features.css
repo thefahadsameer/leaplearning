@@ -1,0 +1,152 @@
+/* ================= SECTION ================= */
+.features-section {
+  width: 100%;
+  padding: 120px 0;
+  background: linear-gradient(180deg, #ffffff, #f7f9fc);
+}
+
+/* ================= CONTAINER ================= */
+.features-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+/* ================= HEADER ================= */
+.features-container h2 {
+  font-size: 42px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.3;
+}
+
+.features-subtext {
+  max-width: 720px;
+  margin: 0 auto 70px;
+  font-size: 17px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ================= CARDS GRID ================= */
+.features-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 35px;
+}
+
+/* ================= CARD ================= */
+.feature-card {
+  background: #ffffff;
+  padding: 40px 28px;
+  border-radius: 14px;
+  text-align: left;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+/* ICON */
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+}
+
+/* TEXT */
+.feature-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  color: #111;
+}
+
+.feature-card p {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* ================================================= */
+/* ================= RESPONSIVE ==================== */
+/* ================================================= */
+
+/* ---------- Large Tablets ---------- */
+@media (max-width: 1200px) {
+  .features-cards {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .features-container h2 {
+    font-size: 38px;
+  }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 992px) {
+  .features-section {
+    padding: 100px 0;
+  }
+
+  .features-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-subtext {
+    margin-bottom: 50px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .features-section {
+    padding: 80px 0;
+  }
+
+  .features-container h2 {
+    font-size: 30px;
+  }
+
+  .features-subtext {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+
+  .features-cards {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .feature-card {
+    padding: 30px 22px;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+@media (max-width: 480px) {
+  .features-container h2 {
+    font-size: 26px;
+  }
+
+  .feature-card h3 {
+    font-size: 16px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+  }
+}

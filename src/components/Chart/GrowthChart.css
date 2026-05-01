@@ -1,0 +1,189 @@
+/* ================= SECTION ================= */
+.growth-section {
+  width: 100%;
+  padding: 120px 0;
+  background: #f8fafc;
+  color: #111;
+}
+
+/* ================= CONTAINER ================= */
+.growth-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+}
+
+/* ================= HEADER ================= */
+.growth-header {
+  margin-bottom: 70px;
+}
+
+.growth-header h2 {
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  line-height: 1.3;
+}
+
+.growth-header p {
+  max-width: 720px;
+  margin: auto;
+  font-size: 17px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ================= CHART CARD ================= */
+.chart-area {
+  background: #ffffff;
+  padding: 60px 50px;
+  border-radius: 18px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 380px;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+}
+
+/* baseline */
+.chart-area::before {
+  content: "";
+  position: absolute;
+  bottom: 60px;
+  left: 50px;
+  right: 50px;
+  height: 1px;
+  background: #e5e7eb;
+}
+
+/* ================= BAR WRAPPER ================= */
+.bar-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* ================= BAR STYLE ================= */
+.bar {
+  width: 60%;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(to top, #dc2626, #ef4444);
+  transition: transform 0.3s ease;
+  animation: growBar 0.9s ease forwards;
+  transform-origin: bottom;
+}
+
+.bar:hover {
+  transform: scaleY(1.05);
+}
+
+/* ================= PHASE LABEL ================= */
+.bar-wrapper span {
+  font-size: 14px;
+  color: #475569;
+}
+
+/* ================= HEIGHTS (Desktop) ================= */
+.bar-1 { height: 70px; }
+.bar-2 { height: 140px; }
+.bar-3 { height: 210px; }
+.bar-4 { height: 280px; }
+.bar-5 { height: 340px; }
+
+/* ================= ANIMATION ================= */
+@keyframes growBar {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* ================================================= */
+/* ================= RESPONSIVE ==================== */
+/* ================================================= */
+
+/* ---------- Large Tablets ---------- */
+@media (max-width: 1200px) {
+  .chart-area {
+    padding: 50px 40px;
+    height: 340px;
+  }
+
+  .bar-5 { height: 300px; }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 992px) {
+  .growth-section {
+    padding: 90px 0;
+  }
+
+  .growth-header h2 {
+    font-size: 36px;
+  }
+
+  .chart-area {
+    height: 300px;
+    padding: 40px 30px;
+  }
+
+  .bar {
+    width: 70%;
+  }
+
+  .bar-1 { height: 50px; }
+  .bar-2 { height: 100px; }
+  .bar-3 { height: 150px; }
+  .bar-4 { height: 200px; }
+  .bar-5 { height: 240px; }
+}
+
+/* ---------- Mobile (Stacked Layout) ---------- */
+@media (max-width: 768px) {
+  .chart-area {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    gap: 35px;
+    padding: 40px 20px;
+  }
+
+  .chart-area::before {
+    display: none;
+  }
+
+  .bar-wrapper {
+    width: 100%;
+  }
+
+  .bar {
+    width: 80%;
+  }
+
+  .bar-wrapper span {
+    font-size: 13px;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+@media (max-width: 480px) {
+  .growth-header h2 {
+    font-size: 28px;
+  }
+
+  .growth-header p {
+    font-size: 15px;
+  }
+
+  .growth-section {
+    padding: 70px 0;
+  }
+
+  .bar {
+    width: 90%;
+  }
+}

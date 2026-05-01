@@ -1,0 +1,180 @@
+/* ================= PAGE ================= */
+.employee-dashboard {
+  padding: 30px 40px;
+  background: #f8fafc;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.employee-sub {
+  margin-top: 4px;
+  margin-bottom: 18px;
+  color: #475569;
+  font-size: 14px;
+}
+
+/* ================= HEADER ================= */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ================= LOGOUT PILL ================= */
+/* ================= LOGOUT BUTTON (FIXED) ================= */
+.logout-btn {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+
+  padding: 10px 22px;
+  height: 42px;
+
+  border-radius: 999px; /* pill shape */
+  font-size: 14px;
+  font-weight: 600;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+
+
+/* ================= CARD ================= */
+.leads-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+/* ================= TABLE ================= */
+.leads-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  font-size: 14px;
+}
+
+.leads-table thead th {
+  background: #f1f5f9;
+  padding: 14px 16px;
+  text-align: left;
+  color: #334155;
+  font-weight: 600;
+}
+
+.leads-table td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+/* ================= STAGE ================= */
+.stage-select {
+  min-width: 180px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f8fafc;
+}
+
+/* ================= FEE ================= */
+.fee-input {
+  width: 140px;
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #f8fafc;
+  text-align: right;
+}
+
+/* ================= PAID / PENDING ================= */
+.paid-amount {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.pending-amount {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* ================= PAYMENTS ================= */
+.payment-item {
+  background: #f1f5f9;
+  border-radius: 10px;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-delete {
+  color: #ef4444;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* ================= ADD PAYMENT ================= */
+.add-payment-btn {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px dashed #3b82f6;
+  background: #eff6ff;
+  color: #2563eb;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ================= INLINE PAYMENT ================= */
+.inline-payment {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+  align-items: center;
+}
+
+.inline-payment input,
+.inline-payment select {
+  height: 36px;
+  padding: 0 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+}
+
+.inline-payment input {
+  width: 90px;
+}
+
+.inline-payment select {
+  width: 90px;
+}
+
+.inline-payment button {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.inline-payment button:hover {
+  background: #1d4ed8;
+}
+

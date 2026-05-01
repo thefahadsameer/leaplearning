@@ -1,0 +1,168 @@
+/* ================= SECTION ================= */
+.final-cta-section {
+  width: 100%;
+  padding: 130px 0;
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* ================= CONTAINER ================= */
+.final-cta-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 70px;
+}
+
+/* ================= LEFT CONTENT ================= */
+.final-cta-content {
+  flex: 1;
+}
+
+.final-cta-small {
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 18px;
+}
+
+.final-cta-title {
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 25px;
+  color: #0f172a;
+}
+
+.final-cta-text {
+  font-size: 18px;
+  color: #475569;
+  margin-bottom: 45px;
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+/* ================= BUTTON ================= */
+.final-cta-buttons {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cta-primary {
+  padding: 14px 36px;
+  background: #0f172a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.cta-primary:hover {
+  background: #1e293b;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+}
+
+/* ================= RIGHT IMAGE ================= */
+.final-cta-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.final-cta-image img {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+  object-fit: cover;
+}
+
+/* ================================================= */
+/* ================= RESPONSIVE ==================== */
+/* ================================================= */
+
+/* ---------- Large Tablets ---------- */
+@media (max-width: 1200px) {
+  .final-cta-title {
+    font-size: 40px;
+  }
+
+  .final-cta-container {
+    gap: 50px;
+  }
+}
+
+/* ---------- Tablets ---------- */
+@media (max-width: 992px) {
+  .final-cta-section {
+    padding: 100px 0;
+  }
+
+  .final-cta-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 50px;
+  }
+
+  .final-cta-text {
+    margin: 0 auto 35px;
+  }
+
+  .final-cta-buttons {
+    justify-content: center;
+  }
+
+  .final-cta-image img {
+    max-width: 450px;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .final-cta-section {
+    padding: 80px 0;
+  }
+
+  .final-cta-title {
+    font-size: 32px;
+  }
+
+  .final-cta-text {
+    font-size: 16px;
+  }
+
+  .final-cta-image img {
+    max-width: 100%;
+  }
+
+  .cta-primary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ---------- Small Phones ---------- */
+@media (max-width: 480px) {
+  .final-cta-title {
+    font-size: 28px;
+  }
+
+  .final-cta-small {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .final-cta-text {
+    font-size: 15px;
+  }
+}
