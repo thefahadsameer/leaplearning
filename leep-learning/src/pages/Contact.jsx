@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/Contact.css";
+import { MapPin, Mail, Clock } from "lucide-react";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -54,7 +55,7 @@ function Contact() {
       {/* HERO */}
       <section className="contact-hero">
         <h1>Contact Our Advisory Team</h1>
-        <p>Based in London, supporting students globally 🌍</p>
+        <p>Based in London, supporting students globally</p>
       </section>
 
       {/* MAIN */}
@@ -65,23 +66,32 @@ function Contact() {
           <div className="contact-left">
 
             <div className="contact-card">
-              <h3>📍 Office Location</h3>
+              <div className="icon-title">
+                <MapPin size={20} />
+                <h3>Office Location</h3>
+              </div>
               <p>London, United Kingdom</p>
             </div>
 
             <div className="contact-card">
-              <h3>📧 Email</h3>
+              <div className="icon-title">
+                <Mail size={20} />
+                <h3>Email</h3>
+              </div>
               <p>admissions@leaplearning.co.in</p>
             </div>
 
             <div className="contact-card">
-              <h3>⏰ Working Hours</h3>
+              <div className="icon-title">
+                <Clock size={20} />
+                <h3>Working Hours</h3>
+              </div>
               <p>Mon - Sat | 10 AM - 7 PM</p>
             </div>
 
           </div>
 
-          {/* RIGHT FORM */}
+          {/* FORM */}
           <div className="contact-form-wrapper">
             <form className="contact-form" onSubmit={handleSubmit}>
 
@@ -128,8 +138,8 @@ function Contact() {
       {/* MAP */}
       <section className="map-section">
         <iframe
-          title="map"
-          src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          title="London Office"
+          src="https://maps.google.com/maps?q=10%20Winterslow%20Rd,%20SW9%207RS,%20London&t=&z=15&ie=UTF8&iwloc=&output=embed"
           width="100%"
           height="400"
           style={{ border: 0 }}

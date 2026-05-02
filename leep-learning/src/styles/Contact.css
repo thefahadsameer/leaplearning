@@ -103,3 +103,14 @@
     grid-template-columns: 1fr;
   }
 }
+
+.icon-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.icon-title svg {
+  color: #1e293b;
+}
