@@ -126,9 +126,24 @@ function Contact() {
                 <label>Preferred Time</label>
                 <select name="timeSlot" value={formData.timeSlot} onChange={handleChange}>
                   <option value="">Select Time</option>
-                  <option>10 AM - 12 PM</option>
-                  <option>12 PM - 2 PM</option>
-                  <option>2 PM - 4 PM</option>
+                  <option>10 AM - 10:30 AM</option>
+                  <option>10:30 AM - 11 AM</option>
+                  <option>11 AM - 11:30 AM</option>
+                  <option>11:30 AM - 12 PM</option>
+                  <option>12 PM - 12:30 PM</option>
+                  <option>12:30 PM - 1 PM</option>
+                  <option>1 PM - 1:30 PM</option>
+                  <option>1:30 PM - 2 PM</option>
+                  <option>2 PM - 2:30 PM</option>
+                  <option>2:30 PM - 3 PM</option>
+                  <option>3 PM - 3:30 PM</option>
+                  <option>3:30 PM - 4 PM</option>
+                  <option>4 PM - 4:30 PM</option>
+                  <option>4:30 PM - 5 PM</option>
+                  <option>5 PM - 5:30 PM</option>
+                  <option>5:30 PM - 6 PM</option>
+                  <option>6 PM - 6:30 PM</option>
+                  <option>6:30 PM - 7 PM</option>
                 </select>
               </div>
 
