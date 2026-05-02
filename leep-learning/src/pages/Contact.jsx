@@ -54,7 +54,7 @@ function Contact() {
 
       {/* HERO */}
       <section className="contact-hero">
-        <h1>Contact Our Advisory Team</h1>
+        <h1>Contact Our Support Team</h1>
         <p>Based in London, supporting students globally</p>
       </section>
 
