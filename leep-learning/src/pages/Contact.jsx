@@ -67,7 +67,7 @@ function Contact() {
           {/* LEFT */}
           <div className="contact-info">
             <h2>Contact Information</h2>
-            <p>Noida, India</p>
+            <p>London, United Kingdom</p>
           </div>
 
           {/* RIGHT FORM */}
