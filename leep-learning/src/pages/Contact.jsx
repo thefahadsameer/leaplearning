@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/Contact.css";
-import { MapPin, Mail, Clock } from "lucide-react";
+import { MapPin, Mail, Clock, Phone } from "lucide-react";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -65,6 +65,7 @@ function Contact() {
           {/* LEFT SIDE */}
           <div className="contact-left">
 
+            {/* LOCATION */}
             <div className="contact-card">
               <div className="icon-title">
                 <MapPin size={20} />
@@ -73,14 +74,25 @@ function Contact() {
               <p>London, United Kingdom</p>
             </div>
 
+            {/* EMAIL */}
             <div className="contact-card">
               <div className="icon-title">
                 <Mail size={20} />
                 <h3>Email</h3>
               </div>
-              <p>admissions@leaplearning.co.in</p>
+              <p>support@leaplearning.co.in</p>
             </div>
 
+            {/* PHONE */}
+            <div className="contact-card">
+              <div className="icon-title">
+                <Phone size={20} />
+                <h3>Phone</h3>
+              </div>
+              <p>+44 7428 278975</p>
+            </div>
+
+            {/* WORKING HOURS */}
             <div className="contact-card">
               <div className="icon-title">
                 <Clock size={20} />
@@ -143,7 +155,6 @@ function Contact() {
           width="100%"
           height="400"
           style={{ border: 0 }}
-          allowFullScreen=""
           loading="lazy"
         ></iframe>
       </section>
