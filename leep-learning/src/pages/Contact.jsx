@@ -20,8 +20,6 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("🚀 Submitting form:", formData);
-
     try {
       const res = await fetch("https://leaplearning.onrender.com/api/contact", {
         method: "POST",
@@ -34,7 +32,7 @@ function Contact() {
       const data = await res.json();
 
       if (data.success) {
-        alert("✅ Inquiry submitted successfully!");
+        alert("Inquiry submitted successfully!");
         setFormData({
           name: "",
           email: "",
@@ -43,11 +41,9 @@ function Contact() {
           message: "",
         });
       } else {
-        alert("❌ Submission failed");
+        alert("Submission failed");
       }
-
     } catch (err) {
-      console.error("❌ Frontend Error:", err);
       alert("Server error");
     }
   };
@@ -55,19 +51,34 @@ function Contact() {
   return (
     <div className="contact-page">
 
+      {/* HERO */}
       <section className="contact-hero">
-        <div className="contact-container">
-          <h1>Get In Touch With Our Advisory Team</h1>
-        </div>
+        <h1>Contact Our Advisory Team</h1>
+        <p>Based in London, supporting students globally 🌍</p>
       </section>
 
+      {/* MAIN */}
       <section className="contact-section">
         <div className="contact-container contact-grid">
 
-          {/* LEFT */}
-          <div className="contact-info">
-            <h2>Contact Information</h2>
-            <p>London, United Kingdom</p>
+          {/* LEFT SIDE */}
+          <div className="contact-left">
+
+            <div className="contact-card">
+              <h3>📍 Office Location</h3>
+              <p>London, United Kingdom</p>
+            </div>
+
+            <div className="contact-card">
+              <h3>📧 Email</h3>
+              <p>admissions@leaplearning.co.in</p>
+            </div>
+
+            <div className="contact-card">
+              <h3>⏰ Working Hours</h3>
+              <p>Mon - Sat | 10 AM - 7 PM</p>
+            </div>
+
           </div>
 
           {/* RIGHT FORM */}
@@ -76,40 +87,22 @@ function Contact() {
 
               <div className="form-group">
                 <label>Name *</label>
-                <input
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
+                <input name="name" value={formData.name} onChange={handleChange} required />
               </div>
 
               <div className="form-group">
                 <label>Email *</label>
-                <input
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
+                <input name="email" value={formData.email} onChange={handleChange} required />
               </div>
 
               <div className="form-group">
                 <label>Phone</label>
-                <input
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
+                <input name="phone" value={formData.phone} onChange={handleChange} />
               </div>
 
               <div className="form-group">
                 <label>Preferred Time</label>
-                <select
-                  name="timeSlot"
-                  value={formData.timeSlot}
-                  onChange={handleChange}
-                >
+                <select name="timeSlot" value={formData.timeSlot} onChange={handleChange}>
                   <option value="">Select Time</option>
                   <option>10 AM - 12 PM</option>
                   <option>12 PM - 2 PM</option>
@@ -119,11 +112,7 @@ function Contact() {
 
               <div className="form-group">
                 <label>Message</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                />
+                <textarea name="message" value={formData.message} onChange={handleChange} />
               </div>
 
               <button type="submit" className="contact-btn">
@@ -135,6 +124,20 @@ function Contact() {
 
         </div>
       </section>
+
+      {/* MAP */}
+      <section className="map-section">
+        <iframe
+          title="map"
+          src="https://maps.google.com/maps?q=london&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          width="100%"
+          height="400"
+          style={{ border: 0 }}
+          allowFullScreen=""
+          loading="lazy"
+        ></iframe>
+      </section>
+
     </div>
   );
 }
