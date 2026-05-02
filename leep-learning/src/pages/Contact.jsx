@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/Contact.css";
-import { MapPin, Mail, Clock, Phone } from "lucide-react";
+import { MapPin, Mail, Clock, Phone, ChevronDown } from "lucide-react";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -11,11 +11,39 @@ function Contact() {
     message: "",
   });
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const timeOptions = [
+    "10 AM - 10:30 AM",
+    "10:30 AM - 11 AM",
+    "11 AM - 11:30 AM",
+    "11:30 AM - 12 PM",
+    "12 PM - 12:30 PM",
+    "12:30 PM - 1 PM",
+    "1 PM - 1:30 PM",
+    "1:30 PM - 2 PM",
+    "2 PM - 2:30 PM",
+    "2:30 PM - 3 PM",
+    "3 PM - 3:30 PM",
+    "3:30 PM - 4 PM",
+    "4 PM - 4:30 PM",
+    "4:30 PM - 5 PM",
+    "5 PM - 5:30 PM",
+    "5:30 PM - 6 PM",
+    "6 PM - 6:30 PM",
+    "6:30 PM - 7 PM",
+  ];
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleSelect = (value) => {
+    setFormData({ ...formData, timeSlot: value });
+    setDropdownOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -44,7 +72,7 @@ function Contact() {
       } else {
         alert("Submission failed");
       }
-    } catch (err) {
+    } catch {
       alert("Server error");
     }
   };
@@ -52,20 +80,16 @@ function Contact() {
   return (
     <div className="contact-page">
 
-      {/* HERO */}
       <section className="contact-hero">
         <h1>Contact Our Support Team</h1>
         <p>Based in London, supporting students globally</p>
       </section>
 
-      {/* MAIN */}
       <section className="contact-section">
         <div className="contact-container contact-grid">
 
-          {/* LEFT SIDE */}
           <div className="contact-left">
 
-            {/* LOCATION */}
             <div className="contact-card">
               <div className="icon-title">
                 <MapPin size={20} />
@@ -74,7 +98,6 @@ function Contact() {
               <p>London, United Kingdom</p>
             </div>
 
-            {/* EMAIL */}
             <div className="contact-card">
               <div className="icon-title">
                 <Mail size={20} />
@@ -83,7 +106,6 @@ function Contact() {
               <p>support@leaplearning.co.in</p>
             </div>
 
-            {/* PHONE */}
             <div className="contact-card">
               <div className="icon-title">
                 <Phone size={20} />
@@ -92,7 +114,6 @@ function Contact() {
               <p>+44 7428 278975</p>
             </div>
 
-            {/* WORKING HOURS */}
             <div className="contact-card">
               <div className="icon-title">
                 <Clock size={20} />
@@ -122,29 +143,30 @@ function Contact() {
                 <input name="phone" value={formData.phone} onChange={handleChange} />
               </div>
 
+              {/* PREMIUM DROPDOWN */}
               <div className="form-group">
                 <label>Preferred Time</label>
-                <select name="timeSlot" value={formData.timeSlot} onChange={handleChange}>
-                  <option value="">Select Time</option>
-                  <option>10 AM - 10:30 AM</option>
-                  <option>10:30 AM - 11 AM</option>
-                  <option>11 AM - 11:30 AM</option>
-                  <option>11:30 AM - 12 PM</option>
-                  <option>12 PM - 12:30 PM</option>
-                  <option>12:30 PM - 1 PM</option>
-                  <option>1 PM - 1:30 PM</option>
-                  <option>1:30 PM - 2 PM</option>
-                  <option>2 PM - 2:30 PM</option>
-                  <option>2:30 PM - 3 PM</option>
-                  <option>3 PM - 3:30 PM</option>
-                  <option>3:30 PM - 4 PM</option>
-                  <option>4 PM - 4:30 PM</option>
-                  <option>4:30 PM - 5 PM</option>
-                  <option>5 PM - 5:30 PM</option>
-                  <option>5:30 PM - 6 PM</option>
-                  <option>6 PM - 6:30 PM</option>
-                  <option>6:30 PM - 7 PM</option>
-                </select>
+
+                <div className="custom-select" onClick={() => setDropdownOpen(!dropdownOpen)}>
+                  <span>
+                    {formData.timeSlot || "Select Time"}
+                  </span>
+                  <ChevronDown size={18} />
+                </div>
+
+                {dropdownOpen && (
+                  <div className="dropdown-menu">
+                    {timeOptions.map((option, index) => (
+                      <div
+                        key={index}
+                        className="dropdown-item"
+                        onClick={() => handleSelect(option)}
+                      >
+                        {option}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div className="form-group">
@@ -162,7 +184,6 @@ function Contact() {
         </div>
       </section>
 
-      {/* MAP */}
       <section className="map-section">
         <iframe
           title="London Office"
