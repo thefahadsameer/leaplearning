@@ -12,6 +12,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.submitContact = async (req, res) => {
   try {
+    console.log("🔥 CONTACT API HIT");
+    console.log("BODY:", req.body);
+
     const { name, email, phone, message, timeSlot } = req.body;
 
     /* ================= SAVE TO DB ================= */
@@ -26,15 +29,21 @@ exports.submitContact = async (req, res) => {
     ]);
 
     if (error) {
-      console.error("Supabase Error:", error);
+      console.error("❌ Supabase Error:", error);
       return res.status(500).json({ error: "Database error" });
     }
 
     /* ================= SEND EMAIL ================= */
     try {
-      await resend.emails.send({
+      const emailResponse = await resend.emails.send({
         from: "Leap Learning <support@leaplearning.co.in>",
-        to: ["support@leaplearning.co.in"],
+        
+        // 🔥 TEMP: send to BOTH (debug purpose)
+        to: [
+          "support@leaplearning.co.in",
+          "insanestriker08@gmail.com"
+        ],
+
         reply_to: email,
         subject: "New Contact Inquiry",
         html: `
@@ -46,14 +55,17 @@ exports.submitContact = async (req, res) => {
           <p><b>Message:</b> ${message}</p>
         `,
       });
+
+      console.log("✅ EMAIL SENT:", emailResponse);
+
     } catch (emailError) {
-      console.error("Email Error:", emailError);
+      console.error("❌ EMAIL ERROR:", emailError);
     }
 
     return res.json({ success: true });
 
   } catch (err) {
-    console.error("Server Error:", err);
+    console.error("❌ SERVER ERROR:", err);
     return res.status(500).json({ error: "Server error" });
   }
 };

@@ -20,9 +20,9 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      console.log("Sending data:", formData); // DEBUG
+    console.log("🚀 Submitting form:", formData);
 
+    try {
       const res = await fetch("https://leaplearning.onrender.com/api/contact", {
         method: "POST",
         headers: {
@@ -31,12 +31,13 @@ function Contact() {
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
+      console.log("📡 Response status:", res.status);
 
-      console.log("Response:", data); // DEBUG
+      const data = await res.json();
+      console.log("📦 Response data:", data);
 
       if (data.success) {
-        alert("Inquiry submitted successfully!");
+        alert("✅ Inquiry submitted successfully!");
         setFormData({
           name: "",
           email: "",
@@ -45,11 +46,11 @@ function Contact() {
           message: "",
         });
       } else {
-        alert("Submission failed");
+        alert("❌ Submission failed");
       }
 
     } catch (err) {
-      console.error("Frontend Error:", err);
+      console.error("❌ Frontend Error:", err);
       alert("Server error");
     }
   };
@@ -60,10 +61,6 @@ function Contact() {
       <section className="contact-hero">
         <div className="contact-container">
           <h1>Get In Touch With Our Advisory Team</h1>
-          <p>
-            Connect with us to explore structured academic pathways
-            tailored to your goals.
-          </p>
         </div>
       </section>
 
@@ -72,94 +69,30 @@ function Contact() {
 
           <div className="contact-info">
             <h2>Contact Information</h2>
-
-            <div className="info-item">
-              <h4>Office Location</h4>
-              <p>Noida, Uttar Pradesh, India</p>
-            </div>
-
-            <div className="info-item">
-              <h4>Email</h4>
-              <p>admissions@leaplearning.co.in</p>
-            </div>
-
-            <div className="info-item">
-              <h4>Working Hours</h4>
-              <p>Monday – Saturday</p>
-              <p>10:00 AM – 7:00 PM</p>
-            </div>
+            <p>Noida, India</p>
           </div>
 
           <div className="contact-form-wrapper">
             <form className="contact-form" onSubmit={handleSubmit}>
 
-              <div className="form-group">
-                <label>Full Name *</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+              <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+              <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" />
 
-              <div className="form-group">
-                <label>Email ID *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              <select name="timeSlot" value={formData.timeSlot} onChange={handleChange}>
+                <option value="">Select Time</option>
+                <option>10 AM - 12 PM</option>
+              </select>
 
-              <div className="form-group">
-                <label>Phone Number</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-              </div>
+              <textarea name="message" value={formData.message} onChange={handleChange} />
 
-              <div className="form-group">
-                <label>Preferred Time Slot</label>
-                <select
-                  name="timeSlot"
-                  value={formData.timeSlot}
-                  onChange={handleChange}
-                >
-                  <option value="">Select a time slot</option>
-                  <option>10:00 AM – 12:00 PM</option>
-                  <option>12:00 PM – 2:00 PM</option>
-                  <option>2:00 PM – 4:00 PM</option>
-                  <option>4:00 PM – 6:00 PM</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label>Message</label>
-                <textarea
-                  rows="4"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                ></textarea>
-              </div>
-
-              <button type="submit" className="contact-btn">
-                Submit Inquiry
-              </button>
+              <button type="submit">Submit</button>
 
             </form>
           </div>
 
         </div>
       </section>
-
     </div>
   );
 }

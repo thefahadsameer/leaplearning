@@ -130,6 +130,76 @@
 //   console.log(`Server running on port ${PORT}`);
 // });
 
+
+
+
+
+
+
+
+// const express = require("express");
+// const cors = require("cors");
+// const path = require("path");
+// require("dotenv").config();
+
+// const app = express();
+
+// /* ================= CORS ================= */
+// app.use(
+//   cors({
+//     origin: [
+//       "https://www.leaplearning.co.in",
+//       "https://leaplearning.co.in",
+//       "http://localhost:3000",
+//     ],
+//     credentials: true,
+//   })
+// );
+
+// /* ================= ROUTES IMPORT ================= */
+// const paymentRoutes = require("./routes/paymentRoutes");
+// const studentRoutes = require("./routes/studentRoutes");
+// const adminRoutes = require("./routes/adminRoutes");
+// const contactRoutes = require("./routes/contactRoutes");
+
+// /* ===================================================
+//    WEBHOOK MUST USE RAW BODY BEFORE express.json()
+// =================================================== */
+// app.use(
+//   "/api/payments/webhook",
+//   express.raw({ type: "application/json" })
+// );
+
+// /* ================= NORMAL JSON ================= */
+// app.use(express.json());
+
+// /* ================= STATIC FILES ================= */
+// app.use(
+//   "/invoices",
+//   express.static(path.join(__dirname, "invoices"))
+// );
+
+// /* ================= CONTACT ROUTE (ONLY THIS) ================= */
+// app.use("/api/contact", contactRoutes);
+
+// /* ================= OTHER ROUTES ================= */
+// app.use("/api/students", studentRoutes);
+// app.use("/api/payments", paymentRoutes);
+// app.use("/api/admin", adminRoutes);
+
+// /* ================= HEALTH ================= */
+// app.get("/", (req, res) => {
+//   res.json({ message: "API running" });
+// });
+
+// /* ================= SERVER ================= */
+// const PORT = process.env.PORT || 10000;
+
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+
+
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -172,15 +242,18 @@ app.use(
   express.static(path.join(__dirname, "invoices"))
 );
 
-/* ================= CONTACT ROUTE (ONLY THIS) ================= */
+/* ===================================================
+   CONTACT ROUTE (CONTROLLER HANDLES EVERYTHING)
+   → /api/contact (POST)
+=================================================== */
 app.use("/api/contact", contactRoutes);
 
-/* ================= OTHER ROUTES ================= */
+/* ================= EXISTING ROUTES ================= */
 app.use("/api/students", studentRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 
-/* ================= HEALTH ================= */
+/* ================= HEALTH CHECK ================= */
 app.get("/", (req, res) => {
   res.json({ message: "API running" });
 });
