@@ -31,10 +31,7 @@ function Contact() {
         body: JSON.stringify(formData),
       });
 
-      console.log("📡 Response status:", res.status);
-
       const data = await res.json();
-      console.log("📦 Response data:", data);
 
       if (data.success) {
         alert("✅ Inquiry submitted successfully!");
@@ -67,26 +64,71 @@ function Contact() {
       <section className="contact-section">
         <div className="contact-container contact-grid">
 
+          {/* LEFT */}
           <div className="contact-info">
             <h2>Contact Information</h2>
             <p>Noida, India</p>
           </div>
 
+          {/* RIGHT FORM */}
           <div className="contact-form-wrapper">
             <form className="contact-form" onSubmit={handleSubmit}>
 
-              <input name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
-              <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
-              <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" />
+              <div className="form-group">
+                <label>Name *</label>
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-              <select name="timeSlot" value={formData.timeSlot} onChange={handleChange}>
-                <option value="">Select Time</option>
-                <option>10 AM - 12 PM</option>
-              </select>
+              <div className="form-group">
+                <label>Email *</label>
+                <input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-              <textarea name="message" value={formData.message} onChange={handleChange} />
+              <div className="form-group">
+                <label>Phone</label>
+                <input
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
 
-              <button type="submit">Submit</button>
+              <div className="form-group">
+                <label>Preferred Time</label>
+                <select
+                  name="timeSlot"
+                  value={formData.timeSlot}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Time</option>
+                  <option>10 AM - 12 PM</option>
+                  <option>12 PM - 2 PM</option>
+                  <option>2 PM - 4 PM</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>Message</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <button type="submit" className="contact-btn">
+                Submit Inquiry
+              </button>
 
             </form>
           </div>
