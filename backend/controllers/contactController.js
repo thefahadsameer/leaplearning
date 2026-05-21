@@ -1,15 +1,16 @@
 const { createClient } = require("@supabase/supabase-js");
 const { Resend } = require("resend");
 
-// Supabase
+// ================= SUPABASE =================
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Resend
+// ================= RESEND =================
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
   try {
     console.log("🔥 CONTACT API HIT");
@@ -17,7 +18,7 @@ exports.submitContact = async (req, res) => {
 
     const { name, email, phone, message, timeSlot } = req.body;
 
-    /* ================= SAVE TO DB ================= */
+    // ================= SAVE TO DATABASE =================
     const { error } = await supabase.from("contacts").insert([
       {
         name,
@@ -33,33 +34,104 @@ exports.submitContact = async (req, res) => {
       return res.status(500).json({ error: "Database error" });
     }
 
-    /* ================= SEND EMAIL ================= */
+    // ====================================================
+    // ADMIN EMAIL (GOES TO SUPPORT TEAM)
+    // ====================================================
     try {
-      const emailResponse = await resend.emails.send({
+      await resend.emails.send({
         from: "Leap Learning <support@leaplearning.co.in>",
-        
-        // 🔥 TEMP: send to BOTH (debug purpose)
-        to: [
-          "support@leaplearning.co.in",
-          "insanestriker08@gmail.com"
-        ],
+
+        // ONLY ADMIN EMAIL
+        to: "support@leaplearning.co.in",
 
         reply_to: email,
+
         subject: "New Contact Inquiry",
+
         html: `
-          <h3>New Inquiry Received</h3>
-          <p><b>Name:</b> ${name}</p>
-          <p><b>Email:</b> ${email}</p>
-          <p><b>Phone:</b> ${phone}</p>
-          <p><b>Time Slot:</b> ${timeSlot}</p>
-          <p><b>Message:</b> ${message}</p>
+          <div style="font-family: Arial, sans-serif; padding: 20px;">
+            
+            <h2 style="color:#0f172a;">
+              New Inquiry Received
+            </h2>
+
+            <p>
+              <strong>Name:</strong> ${name}
+            </p>
+
+            <p>
+              <strong>Email:</strong> ${email}
+            </p>
+
+            <p>
+              <strong>Phone:</strong> ${phone}
+            </p>
+
+            <p>
+              <strong>Preferred Time:</strong> ${timeSlot}
+            </p>
+
+            <p>
+              <strong>Message:</strong><br/>
+              ${message}
+            </p>
+
+          </div>
         `,
       });
 
-      console.log("✅ EMAIL SENT:", emailResponse);
+      console.log("✅ ADMIN EMAIL SENT");
 
-    } catch (emailError) {
-      console.error("❌ EMAIL ERROR:", emailError);
+    } catch (adminEmailError) {
+      console.error("❌ ADMIN EMAIL ERROR:", adminEmailError);
+    }
+
+    // ====================================================
+    // USER CONFIRMATION EMAIL
+    // ====================================================
+    try {
+      await resend.emails.send({
+        from: "Leap Learning <support@leaplearning.co.in>",
+
+        // SEND TO USER
+        to: email,
+
+        subject: "We Received Your Inquiry",
+
+        html: `
+          <div style="font-family: Arial, sans-serif; padding: 20px;">
+            
+            <h2 style="color:#0f172a;">
+              Thank You for Contacting Leap Learning
+            </h2>
+
+            <p>
+              Hi ${name},
+            </p>
+
+            <p>
+              We have successfully received your inquiry.
+            </p>
+
+            <p>
+              Our advisory team will contact you shortly.
+            </p>
+
+            <br/>
+
+            <p>
+              Regards,<br/>
+              Leap Learning Team
+            </p>
+
+          </div>
+        `,
+      });
+
+      console.log("✅ USER EMAIL SENT");
+
+    } catch (userEmailError) {
+      console.error("❌ USER EMAIL ERROR:", userEmailError);
     }
 
     return res.json({ success: true });
