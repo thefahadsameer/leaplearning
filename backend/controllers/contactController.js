@@ -18,7 +18,7 @@ const COUNSELOR_ICON =
   "https://cdn-icons-png.flaticon.com/512/1077/1077063.png";
 
 const UNIVERSITY_ICON =
-  "https://cdn-icons-png.flaticon.com/512/2995/2995620.png";
+  src="https://leaplearning.co.in/graduation-cap.png"
 
 const SUPPORT_ICON =
   "https://cdn-icons-png.flaticon.com/512/565/565547.png";
