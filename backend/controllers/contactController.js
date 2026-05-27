@@ -4,15 +4,14 @@ const { Resend } = require("resend");
 // ================= SUPABASE =================
 const supabase = createClient(
   process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
 );
 
 // ================= RESEND =================
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ================= LOGO URL =================
-const LOGO_URL =
-  "https://leaplearning.co.in/email-logo.png";
+const LOGO_URL = "https://leaplearning.co.in/email-logo.png";
 
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
@@ -139,7 +138,6 @@ exports.submitContact = async (req, res) => {
       });
 
       console.log("✅ ADMIN EMAIL SENT");
-
     } catch (adminEmailError) {
       console.error("❌ ADMIN EMAIL ERROR:", adminEmailError);
     }
@@ -319,13 +317,13 @@ exports.submitContact = async (req, res) => {
                       ">
 
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/2602/2602414.png"
-                          width="30"
-                          style="
-                            display:block;
-                            margin:21px auto 0 auto;
-                          "
-                        />
+  src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
+  width="30"
+  style="
+    display:block;
+    margin:21px auto 0 auto;
+  "
+/>
 
                       </div>
 
@@ -487,13 +485,11 @@ exports.submitContact = async (req, res) => {
       });
 
       console.log("✅ USER EMAIL SENT");
-
     } catch (userEmailError) {
       console.error("❌ USER EMAIL ERROR:", userEmailError);
     }
 
     return res.json({ success: true });
-
   } catch (err) {
     console.error("❌ SERVER ERROR:", err);
     return res.status(500).json({ error: "Server error" });
