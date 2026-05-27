@@ -13,6 +13,16 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // ================= LOGO URL =================
 const LOGO_URL = "https://leaplearning.co.in/email-logo.png";
 
+// ================= ICON URLS =================
+const COUNSELOR_ICON =
+  "https://cdn-icons-png.flaticon.com/512/1077/1077063.png";
+
+const UNIVERSITY_ICON =
+  "https://cdn-icons-png.flaticon.com/512/3135/3135755.png";
+
+const SUPPORT_ICON =
+  "https://cdn-icons-png.flaticon.com/512/565/565547.png";
+
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
   try {
@@ -262,7 +272,7 @@ exports.submitContact = async (req, res) => {
                       ">
 
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png"
+                          src="${COUNSELOR_ICON}"
                           width="28"
                           style="
                             display:block;
@@ -317,7 +327,7 @@ exports.submitContact = async (req, res) => {
                       ">
 
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png"
+                          src="${UNIVERSITY_ICON}"
                           width="34"
                           style="
                             display:block;
@@ -371,7 +381,7 @@ exports.submitContact = async (req, res) => {
                       ">
 
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/565/565547.png"
+                          src="${SUPPORT_ICON}"
                           width="28"
                           style="
                             display:block;
