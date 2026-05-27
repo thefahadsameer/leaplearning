@@ -10,6 +10,13 @@ const supabase = createClient(
 // ================= RESEND =================
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// ================= LOGO URL =================
+// IMPORTANT:
+// Put your logo inside frontend/public folder
+// Example:
+// leep-learning/public/logo.png
+const LOGO_URL = "https://leaplearning.co.in/logo.png";
+
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
   try {
@@ -40,11 +47,8 @@ exports.submitContact = async (req, res) => {
     try {
       await resend.emails.send({
         from: "Leap Learning <support@leaplearning.co.in>",
-
         to: "support@leaplearning.co.in",
-
         reply_to: email,
-
         subject: "New Contact Inquiry",
 
         html: `
@@ -71,11 +75,14 @@ exports.submitContact = async (req, res) => {
               ">
 
                 <img
-                  src="https://leaplearning.co.in/Leap-removebg-preview.png"
+                  src="${LOGO_URL}"
                   alt="Leap Learning"
                   style="
                     width:170px;
                     margin-bottom:20px;
+                    display:block;
+                    margin-left:auto;
+                    margin-right:auto;
                   "
                 />
 
@@ -155,9 +162,7 @@ exports.submitContact = async (req, res) => {
     try {
       await resend.emails.send({
         from: "Leap Learning <support@leaplearning.co.in>",
-
         to: email,
-
         subject: "Thank You For Contacting Leap Learning",
 
         html: `
@@ -176,53 +181,58 @@ exports.submitContact = async (req, res) => {
               box-shadow:0 10px 40px rgba(0,0,0,0.08);
             ">
 
-              <!-- TOP HEADER -->
+              <!-- TOP -->
               <div style="
-                padding:40px 30px 20px 30px;
+                padding:45px 35px 25px 35px;
                 text-align:center;
-                background:#ffffff;
               ">
 
                 <!-- LOGO -->
                 <img
-                  src="https://leaplearning.co.in/Leap-removebg-preview.png"
+                  src="${LOGO_URL}"
                   alt="Leap Learning"
                   style="
-                    width:180px;
+                    width:190px;
+                    display:block;
+                    margin:auto;
                     margin-bottom:30px;
                   "
                 />
 
                 <!-- SUCCESS ICON -->
                 <div style="
-                  width:95px;
-                  height:95px;
-                  background:#ecfdf5;
-                  border-radius:50%;
+                  width:100px;
+                  height:100px;
                   margin:auto;
-                  line-height:95px;
-                  font-size:42px;
-                  color:#22c55e;
-                  font-weight:bold;
+                  border-radius:50%;
+                  background:#ecfdf5;
+                  text-align:center;
+                  line-height:100px;
                 ">
-                  ✓
+                  <div style="
+                    font-size:50px;
+                    color:#22c55e;
+                    font-weight:bold;
+                  ">
+                    ✓
+                  </div>
                 </div>
 
                 <!-- TITLE -->
                 <h1 style="
-                  margin-top:30px;
-                  margin-bottom:15px;
+                  margin-top:35px;
+                  margin-bottom:18px;
                   color:#0f172a;
-                  font-size:46px;
-                  font-weight:700;
+                  font-size:52px;
+                  font-weight:800;
                 ">
                   Thank You!
                 </h1>
 
-                <!-- SUBTITLE -->
+                <!-- TEXT -->
                 <p style="
                   color:#475569;
-                  font-size:20px;
+                  font-size:21px;
                   line-height:1.8;
                   margin:0;
                 ">
@@ -232,9 +242,9 @@ exports.submitContact = async (req, res) => {
 
               </div>
 
-              <!-- SERVICES SECTION -->
+              <!-- FEATURES -->
               <div style="
-                padding:25px 35px;
+                padding:20px 35px 10px 35px;
               ">
 
                 <table
@@ -244,32 +254,33 @@ exports.submitContact = async (req, res) => {
                   style="
                     border:1px solid #e2e8f0;
                     border-radius:18px;
-                    padding:20px;
-                    text-align:center;
+                    background:#ffffff;
                   "
                 >
                   <tr>
 
-                    <!-- BOX 1 -->
-                    <td width="33%" style="padding:20px;">
+                    <!-- FEATURE 1 -->
+                    <td align="center" style="padding:30px 20px;">
 
                       <div style="
                         width:70px;
                         height:70px;
-                        margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
+                        margin:auto;
                         line-height:70px;
-                        font-size:30px;
+                        font-size:32px;
+                        color:#0f172a;
+                        font-weight:bold;
                       ">
-                        🎯
+                        ⦿
                       </div>
 
                       <p style="
-                        margin-top:16px;
-                        color:#0f172a;
+                        margin-top:18px;
                         font-size:16px;
-                        font-weight:600;
+                        color:#0f172a;
+                        font-weight:700;
                         line-height:1.5;
                       ">
                         Expert Counselors
@@ -277,26 +288,28 @@ exports.submitContact = async (req, res) => {
 
                     </td>
 
-                    <!-- BOX 2 -->
-                    <td width="33%" style="padding:20px;">
+                    <!-- FEATURE 2 -->
+                    <td align="center" style="padding:30px 20px;">
 
                       <div style="
                         width:70px;
                         height:70px;
-                        margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
+                        margin:auto;
                         line-height:70px;
-                        font-size:30px;
+                        font-size:32px;
+                        color:#0f172a;
+                        font-weight:bold;
                       ">
-                        🎓
+                        ▲
                       </div>
 
                       <p style="
-                        margin-top:16px;
-                        color:#0f172a;
+                        margin-top:18px;
                         font-size:16px;
-                        font-weight:600;
+                        color:#0f172a;
+                        font-weight:700;
                         line-height:1.5;
                       ">
                         Global Universities
@@ -304,26 +317,28 @@ exports.submitContact = async (req, res) => {
 
                     </td>
 
-                    <!-- BOX 3 -->
-                    <td width="33%" style="padding:20px;">
+                    <!-- FEATURE 3 -->
+                    <td align="center" style="padding:30px 20px;">
 
                       <div style="
                         width:70px;
                         height:70px;
-                        margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
+                        margin:auto;
                         line-height:70px;
-                        font-size:30px;
+                        font-size:32px;
+                        color:#0f172a;
+                        font-weight:bold;
                       ">
-                        🛡️
+                        ◆
                       </div>
 
                       <p style="
-                        margin-top:16px;
-                        color:#0f172a;
+                        margin-top:18px;
                         font-size:16px;
-                        font-weight:600;
+                        color:#0f172a;
+                        font-weight:700;
                         line-height:1.5;
                       ">
                         End-to-End Support
@@ -339,7 +354,7 @@ exports.submitContact = async (req, res) => {
               <!-- BUTTON -->
               <div style="
                 text-align:center;
-                padding:10px 30px 35px 30px;
+                padding:35px 30px;
               ">
 
                 <a
@@ -349,10 +364,10 @@ exports.submitContact = async (req, res) => {
                     background:#0f172a;
                     color:#ffffff;
                     text-decoration:none;
-                    padding:18px 50px;
-                    border-radius:12px;
-                    font-size:18px;
-                    font-weight:600;
+                    padding:20px 55px;
+                    border-radius:14px;
+                    font-size:20px;
+                    font-weight:700;
                   "
                 >
                   We will be in touch!
@@ -360,10 +375,10 @@ exports.submitContact = async (req, res) => {
 
               </div>
 
-              <!-- MESSAGE -->
+              <!-- TEAM -->
               <div style="
                 text-align:center;
-                padding:0 30px 35px 30px;
+                padding:0 30px 40px 30px;
               ">
 
                 <p style="
@@ -371,14 +386,17 @@ exports.submitContact = async (req, res) => {
                   font-size:18px;
                   line-height:1.8;
                 ">
-                  Warm Regards,<br/>
-                  <strong style="
-                    color:#0f172a;
-                    font-size:30px;
-                  ">
-                    Leap Learning Team
-                  </strong>
+                  Warm Regards,
                 </p>
+
+                <h2 style="
+                  margin-top:10px;
+                  color:#0f172a;
+                  font-size:44px;
+                  font-weight:800;
+                ">
+                  Leap Learning Team
+                </h2>
 
               </div>
 
@@ -386,7 +404,7 @@ exports.submitContact = async (req, res) => {
               <div style="
                 background:#f8fafc;
                 border-top:1px solid #e2e8f0;
-                padding:22px;
+                padding:24px;
                 text-align:center;
                 font-size:15px;
                 color:#64748b;
