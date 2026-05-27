@@ -1,6 +1,15 @@
 import { useState } from "react";
 import "../styles/Contact.css";
-import { MapPin, Mail, Clock, Phone, ChevronDown } from "lucide-react";
+import {
+  MapPin,
+  Mail,
+  Clock,
+  Phone,
+  ChevronDown,
+} from "lucide-react";
+
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -50,18 +59,22 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://leaplearning.onrender.com/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const res = await fetch(
+        "https://leaplearning.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         },
-        body: JSON.stringify(formData),
-      });
+      );
 
       const data = await res.json();
 
       if (data.success) {
         alert("Inquiry submitted successfully!");
+
         setFormData({
           name: "",
           email: "",
@@ -79,7 +92,6 @@ function Contact() {
 
   return (
     <div className="contact-page">
-
       <section className="contact-hero">
         <h1>Contact Our Support Team</h1>
         <p>Based in London, supporting students globally</p>
@@ -87,9 +99,7 @@ function Contact() {
 
       <section className="contact-section">
         <div className="contact-container contact-grid">
-
           <div className="contact-left">
-
             <div className="contact-card">
               <div className="icon-title">
                 <MapPin size={20} />
@@ -121,36 +131,82 @@ function Contact() {
               </div>
               <p>Mon - Sat | 10 AM - 7 PM</p>
             </div>
-
           </div>
 
           {/* FORM */}
           <div className="contact-form-wrapper">
             <form className="contact-form" onSubmit={handleSubmit}>
-
               <div className="form-group">
                 <label>Name *</label>
-                <input name="name" value={formData.name} onChange={handleChange} required />
+
+                <input
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
               </div>
 
               <div className="form-group">
                 <label>Email *</label>
-                <input name="email" value={formData.email} onChange={handleChange} required />
+
+                <input
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
               </div>
 
+              {/* PHONE INPUT WITH COUNTRY CODE */}
               <div className="form-group">
                 <label>Phone</label>
-                <input name="phone" value={formData.phone} onChange={handleChange} />
+
+                <PhoneInput
+                  country={"gb"}
+                  value={formData.phone}
+                  onChange={(phone) =>
+                    setFormData({
+                      ...formData,
+                      phone,
+                    })
+                  }
+                  inputStyle={{
+                    width: "100%",
+                    height: "56px",
+                    borderRadius: "14px",
+                    border: "1px solid #dbe3ef",
+                    background: "#ffffff",
+                    fontSize: "15px",
+                    paddingLeft: "58px",
+                    color: "#0f172a",
+                  }}
+                  buttonStyle={{
+                    borderTopLeftRadius: "14px",
+                    borderBottomLeftRadius: "14px",
+                    border: "1px solid #dbe3ef",
+                    background: "#ffffff",
+                  }}
+                  containerStyle={{
+                    width: "100%",
+                  }}
+                  dropdownStyle={{
+                    borderRadius: "12px",
+                    border: "1px solid #dbe3ef",
+                  }}
+                />
               </div>
 
               {/* PREMIUM DROPDOWN */}
               <div className="form-group">
                 <label>Preferred Time</label>
 
-                <div className="custom-select" onClick={() => setDropdownOpen(!dropdownOpen)}>
-                  <span>
-                    {formData.timeSlot || "Select Time"}
-                  </span>
+                <div
+                  className="custom-select"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                >
+                  <span>{formData.timeSlot || "Select Time"}</span>
+
                   <ChevronDown size={18} />
                 </div>
 
@@ -171,16 +227,19 @@ function Contact() {
 
               <div className="form-group">
                 <label>Message</label>
-                <textarea name="message" value={formData.message} onChange={handleChange} />
+
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                />
               </div>
 
               <button type="submit" className="contact-btn">
                 Submit Inquiry
               </button>
-
             </form>
           </div>
-
         </div>
       </section>
 
@@ -194,7 +253,6 @@ function Contact() {
           loading="lazy"
         ></iframe>
       </section>
-
     </div>
   );
 }
