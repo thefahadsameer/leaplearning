@@ -17,9 +17,11 @@ const LOGO_URL = "https://leaplearning.co.in/email-logo.png";
 const COUNSELOR_ICON =
   "https://cdn-icons-png.flaticon.com/512/1077/1077063.png";
 
-const UNIVERSITY_ICON = (src = "https://leaplearning.co.in/graduation-cap.png");
+const UNIVERSITY_ICON =
+  "https://leaplearning.co.in/graduation-cap.png";
 
-const SUPPORT_ICON = "https://cdn-icons-png.flaticon.com/512/565/565547.png";
+const SUPPORT_ICON =
+  "https://cdn-icons-png.flaticon.com/512/565/565547.png";
 
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
@@ -146,6 +148,7 @@ exports.submitContact = async (req, res) => {
       });
 
       console.log("✅ ADMIN EMAIL SENT");
+
     } catch (adminEmailError) {
       console.error("❌ ADMIN EMAIL ERROR:", adminEmailError);
     }
@@ -200,8 +203,9 @@ exports.submitContact = async (req, res) => {
                   margin:auto;
                   border-radius:50%;
                   background:#ecfdf5;
-                  text-align:center;
-                  line-height:110px;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
                 ">
                   <span style="
                     font-size:54px;
@@ -260,15 +264,22 @@ exports.submitContact = async (req, res) => {
                     ">
 
                       <div style="
-                      width:72px;
-                      height:72px;margin:auto;border-radius:50%;background:#f8fafc;display:flex;align-items:center;  justify-content:center;margin-bottom:16px;">
+                        width:72px;
+                        height:72px;
+                        margin:auto;
+                        border-radius:50%;
+                        background:#f8fafc;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        margin-bottom:16px;
+                      ">
 
                         <img
                           src="${COUNSELOR_ICON}"
                           width="28"
                           style="
                             display:block;
-                            margin:22px auto 0 auto;
                           "
                         />
 
@@ -314,7 +325,9 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        text-align:center;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
                         margin-bottom:16px;
                       ">
 
@@ -323,7 +336,6 @@ exports.submitContact = async (req, res) => {
                           width="34"
                           style="
                             display:block;
-                            margin:19px auto 0 auto;
                           "
                         />
 
@@ -368,7 +380,9 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        text-align:center;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
                         margin-bottom:16px;
                       ">
 
@@ -377,7 +391,6 @@ exports.submitContact = async (req, res) => {
                           width="28"
                           style="
                             display:block;
-                            margin:22px auto 0 auto;
                           "
                         />
 
@@ -487,11 +500,13 @@ exports.submitContact = async (req, res) => {
       });
 
       console.log("✅ USER EMAIL SENT");
+
     } catch (userEmailError) {
       console.error("❌ USER EMAIL ERROR:", userEmailError);
     }
 
     return res.json({ success: true });
+
   } catch (err) {
     console.error("❌ SERVER ERROR:", err);
     return res.status(500).json({ error: "Server error" });
