@@ -12,10 +12,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ================= LOGO URL =================
 // IMPORTANT:
-// Put your logo inside frontend/public folder
-// Example:
-// leep-learning/public/logo.png
-const LOGO_URL = "https://leaplearning.co.in/logo.png";
+// Upload your logo to:
+// https://postimages.org/
+// Then paste direct image URL here.
+const LOGO_URL =
+  "https://i.postimg.cc/9FLsL5FS/Leap-removebg-preview.png";
 
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
@@ -79,10 +80,9 @@ exports.submitContact = async (req, res) => {
                   alt="Leap Learning"
                   style="
                     width:170px;
-                    margin-bottom:20px;
                     display:block;
-                    margin-left:auto;
-                    margin-right:auto;
+                    margin:auto;
+                    margin-bottom:20px;
                   "
                 />
 
@@ -106,23 +106,15 @@ exports.submitContact = async (req, res) => {
                   padding:25px;
                 ">
 
-                  <p style="margin:0 0 18px 0;">
-                    <strong>Name:</strong> ${name}
-                  </p>
+                  <p><strong>Name:</strong> ${name}</p>
 
-                  <p style="margin:0 0 18px 0;">
-                    <strong>Email:</strong> ${email}
-                  </p>
+                  <p><strong>Email:</strong> ${email}</p>
 
-                  <p style="margin:0 0 18px 0;">
-                    <strong>Phone:</strong> ${phone}
-                  </p>
+                  <p><strong>Phone:</strong> ${phone}</p>
 
-                  <p style="margin:0 0 18px 0;">
-                    <strong>Preferred Time:</strong> ${timeSlot}
-                  </p>
+                  <p><strong>Preferred Time:</strong> ${timeSlot}</p>
 
-                  <p style="margin:0;">
+                  <p>
                     <strong>Message:</strong><br/><br/>
                     ${message}
                   </p>
@@ -176,14 +168,14 @@ exports.submitContact = async (req, res) => {
               max-width:720px;
               margin:auto;
               background:#ffffff;
-              border-radius:20px;
+              border-radius:22px;
               overflow:hidden;
               box-shadow:0 10px 40px rgba(0,0,0,0.08);
             ">
 
               <!-- TOP -->
               <div style="
-                padding:45px 35px 25px 35px;
+                padding:50px 35px 30px 35px;
                 text-align:center;
               ">
 
@@ -192,38 +184,38 @@ exports.submitContact = async (req, res) => {
                   src="${LOGO_URL}"
                   alt="Leap Learning"
                   style="
-                    width:190px;
+                    width:220px;
                     display:block;
                     margin:auto;
-                    margin-bottom:30px;
+                    margin-bottom:35px;
                   "
                 />
 
                 <!-- SUCCESS ICON -->
                 <div style="
-                  width:100px;
-                  height:100px;
+                  width:110px;
+                  height:110px;
                   margin:auto;
                   border-radius:50%;
                   background:#ecfdf5;
                   text-align:center;
-                  line-height:100px;
+                  line-height:110px;
                 ">
-                  <div style="
-                    font-size:50px;
+                  <span style="
+                    font-size:54px;
                     color:#22c55e;
                     font-weight:bold;
                   ">
                     ✓
-                  </div>
+                  </span>
                 </div>
 
                 <!-- TITLE -->
                 <h1 style="
-                  margin-top:35px;
-                  margin-bottom:18px;
+                  margin-top:40px;
+                  margin-bottom:20px;
                   color:#0f172a;
-                  font-size:52px;
+                  font-size:54px;
                   font-weight:800;
                 ">
                   Thank You!
@@ -233,7 +225,7 @@ exports.submitContact = async (req, res) => {
                 <p style="
                   color:#475569;
                   font-size:21px;
-                  line-height:1.8;
+                  line-height:1.9;
                   margin:0;
                 ">
                   We've received your inquiry.<br/>
@@ -244,7 +236,7 @@ exports.submitContact = async (req, res) => {
 
               <!-- FEATURES -->
               <div style="
-                padding:20px 35px 10px 35px;
+                padding:15px 35px 10px 35px;
               ">
 
                 <table
@@ -253,35 +245,49 @@ exports.submitContact = async (req, res) => {
                   cellspacing="0"
                   style="
                     border:1px solid #e2e8f0;
-                    border-radius:18px;
+                    border-radius:20px;
                     background:#ffffff;
                   "
                 >
                   <tr>
 
                     <!-- FEATURE 1 -->
-                    <td align="center" style="padding:30px 20px;">
+                    <td align="center" width="33%" style="
+                      padding:35px 20px;
+                      border-right:1px solid #e2e8f0;
+                    ">
 
                       <div style="
-                        width:70px;
-                        height:70px;
+                        width:72px;
+                        height:72px;
+                        margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        margin:auto;
-                        line-height:70px;
-                        font-size:32px;
-                        color:#0f172a;
-                        font-weight:bold;
+                        line-height:72px;
+                        text-align:center;
+                        margin-bottom:16px;
                       ">
-                        ⦿
+
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
+                          width="30"
+                          style="vertical-align:middle;"
+                        />
+
                       </div>
 
+                      <div style="
+                        width:38px;
+                        height:2px;
+                        background:#0f172a;
+                        margin:0 auto 14px auto;
+                      "></div>
+
                       <p style="
-                        margin-top:18px;
+                        margin:0;
                         font-size:16px;
                         color:#0f172a;
                         font-weight:700;
-                        line-height:1.5;
                       ">
                         Expert Counselors
                       </p>
@@ -289,28 +295,42 @@ exports.submitContact = async (req, res) => {
                     </td>
 
                     <!-- FEATURE 2 -->
-                    <td align="center" style="padding:30px 20px;">
+                    <td align="center" width="33%" style="
+                      padding:35px 20px;
+                      border-right:1px solid #e2e8f0;
+                    ">
 
                       <div style="
-                        width:70px;
-                        height:70px;
+                        width:72px;
+                        height:72px;
+                        margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        margin:auto;
-                        line-height:70px;
-                        font-size:32px;
-                        color:#0f172a;
-                        font-weight:bold;
+                        line-height:72px;
+                        text-align:center;
+                        margin-bottom:16px;
                       ">
-                        ▲
+
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/512/8074/8074809.png"
+                          width="30"
+                          style="vertical-align:middle;"
+                        />
+
                       </div>
 
+                      <div style="
+                        width:38px;
+                        height:2px;
+                        background:#0f172a;
+                        margin:0 auto 14px auto;
+                      "></div>
+
                       <p style="
-                        margin-top:18px;
+                        margin:0;
                         font-size:16px;
                         color:#0f172a;
                         font-weight:700;
-                        line-height:1.5;
                       ">
                         Global Universities
                       </p>
@@ -318,28 +338,41 @@ exports.submitContact = async (req, res) => {
                     </td>
 
                     <!-- FEATURE 3 -->
-                    <td align="center" style="padding:30px 20px;">
+                    <td align="center" width="33%" style="
+                      padding:35px 20px;
+                    ">
 
                       <div style="
-                        width:70px;
-                        height:70px;
+                        width:72px;
+                        height:72px;
+                        margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        margin:auto;
-                        line-height:70px;
-                        font-size:32px;
-                        color:#0f172a;
-                        font-weight:bold;
+                        line-height:72px;
+                        text-align:center;
+                        margin-bottom:16px;
                       ">
-                        ◆
+
+                        <img
+                          src="https://cdn-icons-png.flaticon.com/512/2913/2913133.png"
+                          width="30"
+                          style="vertical-align:middle;"
+                        />
+
                       </div>
 
+                      <div style="
+                        width:38px;
+                        height:2px;
+                        background:#0f172a;
+                        margin:0 auto 14px auto;
+                      "></div>
+
                       <p style="
-                        margin-top:18px;
+                        margin:0;
                         font-size:16px;
                         color:#0f172a;
                         font-weight:700;
-                        line-height:1.5;
                       ">
                         End-to-End Support
                       </p>
@@ -354,7 +387,7 @@ exports.submitContact = async (req, res) => {
               <!-- BUTTON -->
               <div style="
                 text-align:center;
-                padding:35px 30px;
+                padding:40px 30px;
               ">
 
                 <a
@@ -378,13 +411,12 @@ exports.submitContact = async (req, res) => {
               <!-- TEAM -->
               <div style="
                 text-align:center;
-                padding:0 30px 40px 30px;
+                padding:0 30px 45px 30px;
               ">
 
                 <p style="
                   color:#475569;
                   font-size:18px;
-                  line-height:1.8;
                 ">
                   Warm Regards,
                 </p>
@@ -392,7 +424,7 @@ exports.submitContact = async (req, res) => {
                 <h2 style="
                   margin-top:10px;
                   color:#0f172a;
-                  font-size:44px;
+                  font-size:42px;
                   font-weight:800;
                 ">
                   Leap Learning Team
