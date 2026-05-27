@@ -307,8 +307,8 @@ exports.submitContact = async (req, res) => {
                     ">
 
                       <div style="
-                        width:72px;
-                        height:72px;
+                        width:76px;
+                        height:76px;
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
@@ -317,13 +317,13 @@ exports.submitContact = async (req, res) => {
                       ">
 
                         <img
-  src="https://cdn-icons-png.flaticon.com/512/8074/8074809.png"
-  width="34"
-  style="
-    display:block;
-    margin:19px auto 0 auto;
-  "
-/>
+                          src="https://cdn-icons-png.flaticon.com/512/8074/8074809.png"
+                          width="42"
+                          style="
+                            display:block;
+                            margin:15px auto 0 auto;
+                          "
+                        />
 
                       </div>
 
