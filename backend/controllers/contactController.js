@@ -71,10 +71,10 @@ exports.submitContact = async (req, res) => {
               ">
 
                 <img
-                  src="https://leaplearning.co.in/logo.png"
+                  src="https://leaplearning.co.in/Leap-removebg-preview.png"
                   alt="Leap Learning"
                   style="
-                    width:160px;
+                    width:170px;
                     margin-bottom:20px;
                   "
                 />
@@ -183,43 +183,47 @@ exports.submitContact = async (req, res) => {
                 background:#ffffff;
               ">
 
+                <!-- LOGO -->
                 <img
-                  src="https://leaplearning.co.in/logo.png"
+                  src="https://leaplearning.co.in/Leap-removebg-preview.png"
                   alt="Leap Learning"
                   style="
-                    width:170px;
-                    margin-bottom:25px;
+                    width:180px;
+                    margin-bottom:30px;
                   "
                 />
 
+                <!-- SUCCESS ICON -->
                 <div style="
-                  width:90px;
-                  height:90px;
+                  width:95px;
+                  height:95px;
                   background:#ecfdf5;
                   border-radius:50%;
                   margin:auto;
-                  line-height:90px;
-                  font-size:40px;
+                  line-height:95px;
+                  font-size:42px;
                   color:#22c55e;
                   font-weight:bold;
                 ">
                   ✓
                 </div>
 
+                <!-- TITLE -->
                 <h1 style="
-                  margin-top:28px;
-                  margin-bottom:12px;
+                  margin-top:30px;
+                  margin-bottom:15px;
                   color:#0f172a;
-                  font-size:42px;
+                  font-size:46px;
                   font-weight:700;
                 ">
                   Thank You!
                 </h1>
 
+                <!-- SUBTITLE -->
                 <p style="
                   color:#475569;
-                  font-size:18px;
-                  line-height:1.7;
+                  font-size:20px;
+                  line-height:1.8;
                   margin:0;
                 ">
                   We've received your inquiry.<br/>
@@ -228,74 +232,107 @@ exports.submitContact = async (req, res) => {
 
               </div>
 
-              <!-- FEATURE BOX -->
+              <!-- SERVICES SECTION -->
               <div style="
-                padding:20px 35px;
+                padding:25px 35px;
               ">
 
-                <div style="
-                  background:#ffffff;
-                  border:1px solid #e2e8f0;
-                  border-radius:18px;
-                  padding:30px 20px;
-                  display:flex;
-                  justify-content:space-between;
-                  gap:15px;
-                  text-align:center;
-                ">
+                <table
+                  width="100%"
+                  cellpadding="0"
+                  cellspacing="0"
+                  style="
+                    border:1px solid #e2e8f0;
+                    border-radius:18px;
+                    padding:20px;
+                    text-align:center;
+                  "
+                >
+                  <tr>
 
-                  <div style="flex:1;">
-                    <div style="
-                      font-size:30px;
-                      margin-bottom:10px;
-                    ">
-                      👨‍🏫
-                    </div>
+                    <!-- BOX 1 -->
+                    <td width="33%" style="padding:20px;">
 
-                    <div style="
-                      font-size:14px;
-                      color:#0f172a;
-                      font-weight:600;
-                    ">
-                      Expert Counselors
-                    </div>
-                  </div>
+                      <div style="
+                        width:70px;
+                        height:70px;
+                        margin:auto;
+                        border-radius:50%;
+                        background:#f8fafc;
+                        line-height:70px;
+                        font-size:30px;
+                      ">
+                        🎯
+                      </div>
 
-                  <div style="flex:1;">
-                    <div style="
-                      font-size:30px;
-                      margin-bottom:10px;
-                    ">
-                      🎓
-                    </div>
+                      <p style="
+                        margin-top:16px;
+                        color:#0f172a;
+                        font-size:16px;
+                        font-weight:600;
+                        line-height:1.5;
+                      ">
+                        Expert Counselors
+                      </p>
 
-                    <div style="
-                      font-size:14px;
-                      color:#0f172a;
-                      font-weight:600;
-                    ">
-                      Global Universities
-                    </div>
-                  </div>
+                    </td>
 
-                  <div style="flex:1;">
-                    <div style="
-                      font-size:30px;
-                      margin-bottom:10px;
-                    ">
-                      🌍
-                    </div>
+                    <!-- BOX 2 -->
+                    <td width="33%" style="padding:20px;">
 
-                    <div style="
-                      font-size:14px;
-                      color:#0f172a;
-                      font-weight:600;
-                    ">
-                      End-to-End Support
-                    </div>
-                  </div>
+                      <div style="
+                        width:70px;
+                        height:70px;
+                        margin:auto;
+                        border-radius:50%;
+                        background:#f8fafc;
+                        line-height:70px;
+                        font-size:30px;
+                      ">
+                        🎓
+                      </div>
 
-                </div>
+                      <p style="
+                        margin-top:16px;
+                        color:#0f172a;
+                        font-size:16px;
+                        font-weight:600;
+                        line-height:1.5;
+                      ">
+                        Global Universities
+                      </p>
+
+                    </td>
+
+                    <!-- BOX 3 -->
+                    <td width="33%" style="padding:20px;">
+
+                      <div style="
+                        width:70px;
+                        height:70px;
+                        margin:auto;
+                        border-radius:50%;
+                        background:#f8fafc;
+                        line-height:70px;
+                        font-size:30px;
+                      ">
+                        🛡️
+                      </div>
+
+                      <p style="
+                        margin-top:16px;
+                        color:#0f172a;
+                        font-size:16px;
+                        font-weight:600;
+                        line-height:1.5;
+                      ">
+                        End-to-End Support
+                      </p>
+
+                    </td>
+
+                  </tr>
+                </table>
 
               </div>
 
@@ -312,7 +349,7 @@ exports.submitContact = async (req, res) => {
                     background:#0f172a;
                     color:#ffffff;
                     text-decoration:none;
-                    padding:16px 45px;
+                    padding:18px 50px;
                     border-radius:12px;
                     font-size:18px;
                     font-weight:600;
@@ -331,11 +368,14 @@ exports.submitContact = async (req, res) => {
 
                 <p style="
                   color:#475569;
-                  font-size:17px;
+                  font-size:18px;
                   line-height:1.8;
                 ">
                   Warm Regards,<br/>
-                  <strong style="color:#0f172a;">
+                  <strong style="
+                    color:#0f172a;
+                    font-size:30px;
+                  ">
                     Leap Learning Team
                   </strong>
                 </p>
@@ -346,9 +386,9 @@ exports.submitContact = async (req, res) => {
               <div style="
                 background:#f8fafc;
                 border-top:1px solid #e2e8f0;
-                padding:20px;
+                padding:22px;
                 text-align:center;
-                font-size:14px;
+                font-size:15px;
                 color:#64748b;
               ">
 
