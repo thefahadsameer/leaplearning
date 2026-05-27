@@ -11,10 +11,6 @@ const supabase = createClient(
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // ================= LOGO URL =================
-// IMPORTANT:
-// Upload your logo to:
-// https://postimages.org/
-// Then paste direct image URL here.
 const LOGO_URL =
   "https://leaplearning.co.in/email-logo.png";
 
@@ -263,33 +259,45 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        line-height:72px;
                         text-align:center;
                         margin-bottom:16px;
                       ">
 
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
-                          width="30"
-                          style="vertical-align:middle;"
+                          src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png"
+                          width="28"
+                          style="
+                            display:block;
+                            margin:22px auto 0 auto;
+                          "
                         />
 
                       </div>
 
                       <div style="
-                        width:38px;
+                        width:36px;
                         height:2px;
                         background:#0f172a;
-                        margin:0 auto 14px auto;
+                        margin:0 auto 12px auto;
+                        border-radius:20px;
                       "></div>
 
                       <p style="
                         margin:0;
-                        font-size:16px;
+                        font-size:15px;
                         color:#0f172a;
                         font-weight:700;
                       ">
                         Expert Counselors
+                      </p>
+
+                      <p style="
+                        margin-top:10px;
+                        color:#64748b;
+                        font-size:12px;
+                        line-height:1.7;
+                      ">
+                        Personalized academic guidance
                       </p>
 
                     </td>
@@ -306,33 +314,45 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        line-height:72px;
                         text-align:center;
                         margin-bottom:16px;
                       ">
 
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/8074/8074809.png"
+                          src="https://cdn-icons-png.flaticon.com/512/2602/2602414.png"
                           width="30"
-                          style="vertical-align:middle;"
+                          style="
+                            display:block;
+                            margin:21px auto 0 auto;
+                          "
                         />
 
                       </div>
 
                       <div style="
-                        width:38px;
+                        width:36px;
                         height:2px;
                         background:#0f172a;
-                        margin:0 auto 14px auto;
+                        margin:0 auto 12px auto;
+                        border-radius:20px;
                       "></div>
 
                       <p style="
                         margin:0;
-                        font-size:16px;
+                        font-size:15px;
                         color:#0f172a;
                         font-weight:700;
                       ">
                         Global Universities
+                      </p>
+
+                      <p style="
+                        margin-top:10px;
+                        color:#64748b;
+                        font-size:12px;
+                        line-height:1.7;
+                      ">
+                        Access to top universities worldwide
                       </p>
 
                     </td>
@@ -348,33 +368,45 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        line-height:72px;
                         text-align:center;
                         margin-bottom:16px;
                       ">
 
                         <img
-                          src="https://cdn-icons-png.flaticon.com/512/2913/2913133.png"
-                          width="30"
-                          style="vertical-align:middle;"
+                          src="https://cdn-icons-png.flaticon.com/512/565/565547.png"
+                          width="28"
+                          style="
+                            display:block;
+                            margin:22px auto 0 auto;
+                          "
                         />
 
                       </div>
 
                       <div style="
-                        width:38px;
+                        width:36px;
                         height:2px;
                         background:#0f172a;
-                        margin:0 auto 14px auto;
+                        margin:0 auto 12px auto;
+                        border-radius:20px;
                       "></div>
 
                       <p style="
                         margin:0;
-                        font-size:16px;
+                        font-size:15px;
                         color:#0f172a;
                         font-weight:700;
                       ">
                         End-to-End Support
+                      </p>
+
+                      <p style="
+                        margin-top:10px;
+                        color:#64748b;
+                        font-size:12px;
+                        line-height:1.7;
+                      ">
+                        From shortlisting to visa and beyond
                       </p>
 
                     </td>
