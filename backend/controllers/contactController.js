@@ -15,13 +15,13 @@ const LOGO_URL = "https://leaplearning.co.in/email-logo.png";
 
 // ================= ICON URLS =================
 const COUNSELOR_ICON =
-  "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+  "https://cdn-icons-png.flaticon.com/512/1077/1077063.png";
 
 const UNIVERSITY_ICON =
-  "https://cdn-icons-png.flaticon.com/512/3135/3135755.png";
+  src="https://leaplearning.co.in/graduation-cap.png"
 
 const SUPPORT_ICON =
-  "https://cdn-icons-png.flaticon.com/512/2913/2913133.png";
+  "https://cdn-icons-png.flaticon.com/512/565/565547.png";
 
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
@@ -148,7 +148,6 @@ exports.submitContact = async (req, res) => {
       });
 
       console.log("✅ ADMIN EMAIL SENT");
-
     } catch (adminEmailError) {
       console.error("❌ ADMIN EMAIL ERROR:", adminEmailError);
     }
@@ -203,9 +202,8 @@ exports.submitContact = async (req, res) => {
                   margin:auto;
                   border-radius:50%;
                   background:#ecfdf5;
-                  display:flex;
-                  align-items:center;
-                  justify-content:center;
+                  text-align:center;
+                  line-height:110px;
                 ">
                   <span style="
                     font-size:54px;
@@ -269,9 +267,7 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
+                        text-align:center;
                         margin-bottom:16px;
                       ">
 
@@ -280,6 +276,7 @@ exports.submitContact = async (req, res) => {
                           width="28"
                           style="
                             display:block;
+                            margin:22px auto 0 auto;
                           "
                         />
 
@@ -325,9 +322,7 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
+                        text-align:center;
                         margin-bottom:16px;
                       ">
 
@@ -336,6 +331,7 @@ exports.submitContact = async (req, res) => {
                           width="34"
                           style="
                             display:block;
+                            margin:19px auto 0 auto;
                           "
                         />
 
@@ -380,9 +376,7 @@ exports.submitContact = async (req, res) => {
                         margin:auto;
                         border-radius:50%;
                         background:#f8fafc;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
+                        text-align:center;
                         margin-bottom:16px;
                       ">
 
@@ -391,6 +385,7 @@ exports.submitContact = async (req, res) => {
                           width="28"
                           style="
                             display:block;
+                            margin:22px auto 0 auto;
                           "
                         />
 
@@ -500,13 +495,11 @@ exports.submitContact = async (req, res) => {
       });
 
       console.log("✅ USER EMAIL SENT");
-
     } catch (userEmailError) {
       console.error("❌ USER EMAIL ERROR:", userEmailError);
     }
 
     return res.json({ success: true });
-
   } catch (err) {
     console.error("❌ SERVER ERROR:", err);
     return res.status(500).json({ error: "Server error" });
