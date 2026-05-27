@@ -15,13 +15,13 @@ const LOGO_URL = "https://leaplearning.co.in/email-logo.png";
 
 // ================= ICON URLS =================
 const COUNSELOR_ICON =
-  "https://cdn-icons-png.flaticon.com/512/1077/1077063.png";
+  "https://cdn-icons-png.flaticon.com/512/847/847969.png";
 
 const UNIVERSITY_ICON =
-  "https://leaplearning.co.in/graduation-cap.png";
+  "https://cdn-icons-png.flaticon.com/512/3135/3135755.png";
 
 const SUPPORT_ICON =
-  "https://cdn-icons-png.flaticon.com/512/565/565547.png";
+  "https://cdn-icons-png.flaticon.com/512/2913/2913133.png";
 
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
