@@ -317,11 +317,11 @@ exports.submitContact = async (req, res) => {
                       ">
 
                         <img
-  src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png"
-  width="30"
+  src="https://cdn-icons-png.flaticon.com/512/8074/8074809.png"
+  width="34"
   style="
     display:block;
-    margin:21px auto 0 auto;
+    margin:19px auto 0 auto;
   "
 />
 
