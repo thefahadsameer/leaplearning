@@ -16,7 +16,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // https://postimages.org/
 // Then paste direct image URL here.
 const LOGO_URL =
-  "https://i.postimg.cc/9FLsL5FS/Leap-removebg-preview.png";
+  "https://leaplearning.co.in/email-logo.png";
 
 // ================= CONTACT CONTROLLER =================
 exports.submitContact = async (req, res) => {
