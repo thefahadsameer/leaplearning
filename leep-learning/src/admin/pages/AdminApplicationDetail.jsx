@@ -4,141 +4,319 @@ import { useEffect, useState } from "react";
 function AdminApplicationDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [application, setApplication] = useState(null);
+  const [auditTrail, setAuditTrail] = useState([]);
 
   const adminSession =
     JSON.parse(localStorage.getItem("adminSession")) || {};
+
   const role = adminSession.role || "viewer";
   const adminEmail = adminSession.email || "Admin";
 
-  const canModifyStatus = role === "reviewer" || role === "super_admin";
-  const canExportAudit = role === "super_admin";
+  const canModifyStatus =
+    role === "reviewer" || role === "super_admin";
+
+  const canExportAudit =
+    role === "super_admin";
+
+  /* ================= LOAD APPLICATION ================= */
+
+  const fetchApplication = async () => {
+    try {
+      const response = await fetch(
+        `https://leaplearning.onrender.com/api/applications/${id}`
+      );
+
+      const data = await response.json();
+
+      setApplication(data);
+    } catch (error) {
+      console.error(
+        "Failed to fetch application:",
+        error
+      );
+    }
+  };
+
+  /* ================= LOAD AUDIT LOGS ================= */
+
+  const fetchAuditLogs = async () => {
+    try {
+      const response = await fetch(
+        `https://leaplearning.onrender.com/api/applications/${id}/audit`
+      );
+
+      const data = await response.json();
+
+      setAuditTrail(data || []);
+    } catch (error) {
+      console.error(
+        "Failed to fetch audit logs:",
+        error
+      );
+    }
+  };
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("applications")) || [];
-    const found = stored.find((app) => app.id === id);
-    setApplication(found || null);
+    fetchApplication();
+    fetchAuditLogs();
   }, [id]);
 
   if (!application) {
-    return <p style={{ padding: "24px" }}>Application not found.</p>;
+    return (
+      <p style={{ padding: "24px" }}>
+        Loading application...
+      </p>
+    );
   }
 
   const {
-    fullName,
+    full_name,
     email,
     phone,
     address,
+    qualification,
+    field,
+    year,
+    institution,
     program,
-    date,
     status,
-    auditTrail = [],
+    created_at,
   } = application;
 
-  function updateStatus(newStatus) {
-    if (!canModifyStatus || newStatus === status) return;
+  /* ================= UPDATE STATUS ================= */
 
-    const stored = JSON.parse(localStorage.getItem("applications")) || [];
+  const updateStatus = async (
+    newStatus
+  ) => {
+    if (
+      !canModifyStatus ||
+      newStatus === status
+    )
+      return;
 
-    const updated = stored.map((app) => {
-      if (app.id !== id) return app;
-
-      return {
-        ...app,
-        status: newStatus,
-        auditTrail: [
-          ...(app.auditTrail || []),
-          {
-            action: "STATUS_CHANGE",
-            from: app.status,
-            to: newStatus,
-            by: adminEmail,
-            at: new Date().toLocaleString(),
+    try {
+      const response = await fetch(
+        `https://leaplearning.onrender.com/api/applications/${id}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type":
+              "application/json",
           },
-        ],
-      };
-    });
+          body: JSON.stringify({
+            status: newStatus,
+            performedBy: adminEmail,
+          }),
+        }
+      );
 
-    localStorage.setItem("applications", JSON.stringify(updated));
-    setApplication(updated.find((app) => app.id === id));
-  }
+      if (!response.ok) {
+        throw new Error(
+          "Failed to update status"
+        );
+      }
 
-  function exportAudit() {
+      await fetchApplication();
+      await fetchAuditLogs();
+    } catch (error) {
+      console.error(
+        "Status update error:",
+        error
+      );
+
+      alert(
+        "Failed to update application status."
+      );
+    }
+  };
+
+  /* ================= EXPORT AUDIT ================= */
+
+  const exportAudit = () => {
     if (!canExportAudit) return;
 
-    const blob = new Blob([JSON.stringify(auditTrail, null, 2)], {
-      type: "application/json",
-    });
+    const blob = new Blob(
+      [
+        JSON.stringify(
+          auditTrail,
+          null,
+          2
+        ),
+      ],
+      {
+        type: "application/json",
+      }
+    );
 
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
+    const url =
+      URL.createObjectURL(blob);
+
+    const a =
+      document.createElement("a");
+
     a.href = url;
     a.download = `audit_${id}.json`;
+
     a.click();
+
     URL.revokeObjectURL(url);
-  }
+  };
 
   return (
     <div style={container}>
-      <button onClick={() => navigate("/admin/applications")} style={backBtn}>
+      <button
+        onClick={() =>
+          navigate(
+            "/admin/applications"
+          )
+        }
+        style={backBtn}
+      >
         ← Back to Applications
       </button>
 
-      <h1 style={title}>Application Detail</h1>
+      <h1 style={title}>
+        Application Detail
+      </h1>
 
       {/* Applicant Info */}
+
       <section style={card}>
-        <h3 style={sectionTitle}>Applicant Information</h3>
-        <InfoRow label="Full Name" value={fullName} />
-        <InfoRow label="Email" value={email} />
-        <InfoRow label="Phone" value={phone} />
-        <InfoRow label="Address" value={address} />
-        <InfoRow label="Program" value={program} />
-        <InfoRow label="Submitted At" value={date} />
+        <h3 style={sectionTitle}>
+          Applicant Information
+        </h3>
+
+        <InfoRow
+          label="Full Name"
+          value={full_name}
+        />
+
+        <InfoRow
+          label="Email"
+          value={email}
+        />
+
+        <InfoRow
+          label="Phone"
+          value={phone}
+        />
+
+        <InfoRow
+          label="Address"
+          value={address}
+        />
+
+        <InfoRow
+          label="Qualification"
+          value={qualification}
+        />
+
+        <InfoRow
+          label="Field"
+          value={field}
+        />
+
+        <InfoRow
+          label="Year"
+          value={year}
+        />
+
+        <InfoRow
+          label="Institution"
+          value={institution}
+        />
+
+        <InfoRow
+          label="Program"
+          value={program}
+        />
+
+        <InfoRow
+          label="Submitted At"
+          value={new Date(
+            created_at
+          ).toLocaleString()}
+        />
       </section>
 
       {/* Status */}
+
       <section style={card}>
- b        <h3 style={sectionTitle}>Application Status</h3>
+        <h3 style={sectionTitle}>
+          Application Status
+        </h3>
 
         <div style={buttonRow}>
           <button
             style={approveBtn}
-            disabled={!canModifyStatus}
-            onClick={() => updateStatus("Approved")}
+            disabled={
+              !canModifyStatus
+            }
+            onClick={() =>
+              updateStatus(
+                "Approved"
+              )
+            }
           >
             Approve
           </button>
 
           <button
             style={rejectBtn}
-            disabled={!canModifyStatus}
-            onClick={() => updateStatus("Rejected")}
+            disabled={
+              !canModifyStatus
+            }
+            onClick={() =>
+              updateStatus(
+                "Rejected"
+              )
+            }
           >
             Reject
           </button>
 
           <button
             style={reviewBtn}
-            disabled={!canModifyStatus}
-            onClick={() => updateStatus("In Review")}
+            disabled={
+              !canModifyStatus
+            }
+            onClick={() =>
+              updateStatus(
+                "In Review"
+              )
+            }
           >
             Mark In Review
           </button>
         </div>
 
-        <p style={{ marginTop: "10px" }}>
-          <strong>Current Status:</strong> {status}
+        <p
+          style={{
+            marginTop: "10px",
+          }}
+        >
+          <strong>
+            Current Status:
+          </strong>{" "}
+          {status}
         </p>
       </section>
 
-      {/* Audit Trail Timeline */}
+      {/* Audit Trail */}
+
       <section style={card}>
         <div style={auditHeader}>
-          <h3 style={sectionTitle}>Audit Trail</h3>
+          <h3 style={sectionTitle}>
+            Audit Trail
+          </h3>
+
           <button
             style={exportBtn}
-            disabled={!canExportAudit}
+            disabled={
+              !canExportAudit
+            }
             onClick={exportAudit}
           >
             Export Audit Log
@@ -149,23 +327,64 @@ function AdminApplicationDetail() {
           <p>No audit history.</p>
         ) : (
           <div style={timeline}>
-            {auditTrail.map((entry, index) => (
-              <div key={index} style={timelineItem}>
-                <div style={timelineDot}></div>
+            {auditTrail.map(
+              (entry, index) => (
+                <div
+                  key={index}
+                  style={timelineItem}
+                >
+                  <div
+                    style={
+                      timelineDot
+                    }
+                  ></div>
 
-                <div style={timelineContent}>
-                  <div style={timelineTitle}>
-                    Status changed from{" "}
-                    <strong>{entry.from}</strong> →{" "}
-                    <strong>{entry.to}</strong>
-                  </div>
+                  <div
+                    style={
+                      timelineContent
+                    }
+                  >
+                    <div
+                      style={
+                        timelineTitle
+                      }
+                    >
+                      Status changed
+                      from{" "}
+                      <strong>
+                        {
+                          entry.previous_status
+                        }
+                      </strong>{" "}
+                      →
+                      <strong>
+                        {" "}
+                        {
+                          entry.new_status
+                        }
+                      </strong>
+                    </div>
 
-                  <div style={timelineMeta}>
-                    By <strong>{entry.by}</strong> · {entry.at}
+                    <div
+                      style={
+                        timelineMeta
+                      }
+                    >
+                      By{" "}
+                      <strong>
+                        {
+                          entry.performed_by
+                        }
+                      </strong>{" "}
+                      ·{" "}
+                      {new Date(
+                        entry.created_at
+                      ).toLocaleString()}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         )}
       </section>
@@ -175,11 +394,16 @@ function AdminApplicationDetail() {
 
 /* ---------- Components ---------- */
 
-function InfoRow({ label, value }) {
+function InfoRow({
+  label,
+  value,
+}) {
   return (
     <div style={infoRow}>
-      <div style={infoLabel}>{label}</div>
-      <div>{value}</div>
+      <div style={infoLabel}>
+        {label}
+      </div>
+      <div>{value || "-"}</div>
     </div>
   );
 }
@@ -210,7 +434,8 @@ const card = {
 const infoRow = {
   display: "flex",
   padding: "10px 0",
-  borderBottom: "1px solid #eee",
+  borderBottom:
+    "1px solid #eee",
 };
 
 const infoLabel = {
@@ -226,13 +451,15 @@ const buttonRow = {
 
 const auditHeader = {
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent:
+    "space-between",
   alignItems: "center",
 };
 
 const timeline = {
   marginTop: "20px",
-  borderLeft: "2px solid #e5e7eb",
+  borderLeft:
+    "2px solid #e5e7eb",
   paddingLeft: "20px",
 };
 

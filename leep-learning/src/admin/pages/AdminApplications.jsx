@@ -10,80 +10,117 @@ function AdminApplications() {
   const [filterStatus, setFilterStatus] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const [sortBy, setSortBy] = useState("date_desc"); // 👈 NEW
+  const [sortBy, setSortBy] = useState("date_desc");
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("applications")) || [];
-    setApplications(stored);
-  }, []);
+  /* ================= LOAD APPLICATIONS ================= */
 
-  const saveApplications = (updated) => {
-    setApplications(updated);
-    localStorage.setItem("applications", JSON.stringify(updated));
+  const fetchApplications = async () => {
+    try {
+      const response = await fetch(
+        "https://leaplearning.onrender.com/api/applications"
+      );
+
+      const data = await response.json();
+
+      setApplications(data || []);
+    } catch (error) {
+      console.error(
+        "Failed to fetch applications:",
+        error
+      );
+    }
   };
+
+  useEffect(() => {
+    fetchApplications();
+  }, []);
 
   const toggleSelect = (id) => {
     setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+      prev.includes(id)
+        ? prev.filter((x) => x !== id)
+        : [...prev, id]
     );
   };
 
-  const clearSelection = () => setSelectedIds([]);
+  const clearSelection = () =>
+    setSelectedIds([]);
 
-  const bulkUpdateStatus = (status) => {
-    const updated = applications.map((app) =>
-      selectedIds.includes(app.id)
-        ? {
-            ...app,
-            status,
-            auditTrail: [
-              ...(app.auditTrail || []),
-              {
-                action: "STATUS_CHANGE",
-                from: app.status,
-                to: status,
-                by: "Admin",
-                at: new Date().toLocaleString(),
+  /* ================= BULK STATUS UPDATE ================= */
+
+  const bulkUpdateStatus = async (
+    newStatus
+  ) => {
+    try {
+      await Promise.all(
+        selectedIds.map((id) =>
+          fetch(
+            `https://leaplearning.onrender.com/api/applications/${id}/status`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type":
+                  "application/json",
               },
-            ],
-          }
-        : app
-    );
+              body: JSON.stringify({
+                status: newStatus,
+                performedBy: "Admin",
+              }),
+            }
+          )
+        )
+      );
 
-    saveApplications(updated);
-    clearSelection();
+      clearSelection();
+
+      fetchApplications();
+    } catch (error) {
+      console.error(
+        "Bulk update failed:",
+        error
+      );
+    }
   };
+
+  /* ================= DELETE PLACEHOLDER ================= */
 
   const bulkDelete = () => {
-    if (!window.confirm("Delete selected applications?")) return;
-
-    const updated = applications.filter(
-      (app) => !selectedIds.includes(app.id)
+    alert(
+      "Delete API not implemented yet."
     );
-
-    saveApplications(updated);
-    clearSelection();
   };
 
-  /* ---------- FILTER + SEARCH ---------- */
+  /* ================= FILTER + SEARCH ================= */
 
-  const filteredApplications = applications.filter((app) => {
-    const matchesStatus =
-      filterStatus === "All" || app.status === filterStatus;
+  const filteredApplications =
+    applications.filter((app) => {
+      const matchesStatus =
+        filterStatus === "All" ||
+        app.status === filterStatus;
 
-    const query = searchQuery.toLowerCase();
-    const matchesSearch =
-      app.fullName.toLowerCase().includes(query) ||
-      app.email.toLowerCase().includes(query) ||
-      app.program.toLowerCase().includes(query);
+      const query =
+        searchQuery.toLowerCase();
 
-    return matchesStatus && matchesSearch;
-  });
+      const matchesSearch =
+        (app.full_name || "")
+          .toLowerCase()
+          .includes(query) ||
+        (app.email || "")
+          .toLowerCase()
+          .includes(query) ||
+        (app.program || "")
+          .toLowerCase()
+          .includes(query);
 
-  /* ---------- SORTING ---------- */
+      return (
+        matchesStatus && matchesSearch
+      );
+    });
+
+  /* ================= SORTING ================= */
 
   const statusOrder = {
     New: 1,
@@ -92,54 +129,102 @@ function AdminApplications() {
     Rejected: 4,
   };
 
-  const sortedApplications = [...filteredApplications].sort((a, b) => {
+  const sortedApplications = [
+    ...filteredApplications,
+  ].sort((a, b) => {
     switch (sortBy) {
       case "date_asc":
-        return new Date(a.date) - new Date(b.date);
+        return (
+          new Date(a.created_at) -
+          new Date(b.created_at)
+        );
+
       case "date_desc":
-        return new Date(b.date) - new Date(a.date);
+        return (
+          new Date(b.created_at) -
+          new Date(a.created_at)
+        );
+
       case "name_asc":
-        return a.fullName.localeCompare(b.fullName);
+        return (
+          a.full_name || ""
+        ).localeCompare(
+          b.full_name || ""
+        );
+
       case "name_desc":
-        return b.fullName.localeCompare(a.fullName);
+        return (
+          b.full_name || ""
+        ).localeCompare(
+          a.full_name || ""
+        );
+
       case "status":
-        return (statusOrder[a.status] || 99) - (statusOrder[b.status] || 99);
+        return (
+          (statusOrder[a.status] ||
+            99) -
+          (statusOrder[b.status] ||
+            99)
+        );
+
       default:
         return 0;
     }
   });
 
-  /* ---------- PAGINATION ---------- */
+  /* ================= PAGINATION ================= */
 
-  const totalPages = Math.ceil(sortedApplications.length / pageSize);
-  const startIndex = (currentPage - 1) * pageSize;
-
-  const paginatedApplications = sortedApplications.slice(
-    startIndex,
-    startIndex + pageSize
+  const totalPages = Math.ceil(
+    sortedApplications.length /
+      pageSize
   );
+
+  const startIndex =
+    (currentPage - 1) * pageSize;
+
+  const paginatedApplications =
+    sortedApplications.slice(
+      startIndex,
+      startIndex + pageSize
+    );
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterStatus, searchQuery, pageSize, sortBy]);
+  }, [
+    filterStatus,
+    searchQuery,
+    pageSize,
+    sortBy,
+  ]);
 
   return (
     <div>
-      <h1 style={{ marginBottom: "20px" }}>Applications</h1>
+      <h1
+        style={{ marginBottom: "20px" }}
+      >
+        Applications
+      </h1>
 
-      {/* Toolbar */}
       <div style={toolbar}>
         <input
           type="text"
           placeholder="Search by name, email, or program..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) =>
+            setSearchQuery(
+              e.target.value
+            )
+          }
           style={searchInput}
         />
 
         <select
           value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
+          onChange={(e) =>
+            setFilterStatus(
+              e.target.value
+            )
+          }
           style={select}
         >
           <option>All</option>
@@ -149,123 +234,223 @@ function AdminApplications() {
           <option>Rejected</option>
         </select>
 
-        {/* Sort Selector */}
         <select
           value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
+          onChange={(e) =>
+            setSortBy(
+              e.target.value
+            )
+          }
           style={select}
         >
-          <option value="date_desc">Date: Newest first</option>
-          <option value="date_asc">Date: Oldest first</option>
-          <option value="name_asc">Name: A → Z</option>
-          <option value="name_desc">Name: Z → A</option>
-          <option value="status">Status</option>
+          <option value="date_desc">
+            Date: Newest first
+          </option>
+          <option value="date_asc">
+            Date: Oldest first
+          </option>
+          <option value="name_asc">
+            Name: A → Z
+          </option>
+          <option value="name_desc">
+            Name: Z → A
+          </option>
+          <option value="status">
+            Status
+          </option>
         </select>
 
-        {/* Page Size */}
         <select
           value={pageSize}
-          onChange={(e) => setPageSize(Number(e.target.value))}
+          onChange={(e) =>
+            setPageSize(
+              Number(
+                e.target.value
+              )
+            )
+          }
           style={select}
         >
-          <option value={10}>10 / page</option>
-          <option value={20}>20 / page</option>
-          <option value={50}>50 / page</option>
+          <option value={10}>
+            10 / page
+          </option>
+          <option value={20}>
+            20 / page
+          </option>
+          <option value={50}>
+            50 / page
+          </option>
         </select>
 
         {selectedIds.length > 0 && (
           <>
             <button
-              onClick={() => bulkUpdateStatus("Approved")}
+              onClick={() =>
+                bulkUpdateStatus(
+                  "Approved"
+                )
+              }
               style={approveBtn}
             >
               Approve
             </button>
+
             <button
-              onClick={() => bulkUpdateStatus("Rejected")}
+              onClick={() =>
+                bulkUpdateStatus(
+                  "Rejected"
+                )
+              }
               style={rejectBtn}
             >
               Reject
             </button>
-            <button onClick={bulkDelete} style={deleteBtn}>
+
+            <button
+              onClick={bulkDelete}
+              style={deleteBtn}
+            >
               Delete
             </button>
-            <button onClick={clearSelection} style={clearBtn}>
+
+            <button
+              onClick={clearSelection}
+              style={clearBtn}
+            >
               Clear
             </button>
           </>
         )}
       </div>
 
-      {/* Table */}
       <table style={table}>
         <thead>
-          <tr style={{ background: "#f3f4f6" }}>
+          <tr
+            style={{
+              background:
+                "#f3f4f6",
+            }}
+          >
             <th style={th}></th>
             <th style={th}>Name</th>
             <th style={th}>Email</th>
-            <th style={th}>Program</th>
-            <th style={th}>Status</th>
+            <th style={th}>
+              Program
+            </th>
+            <th style={th}>
+              Status
+            </th>
             <th style={th}>Date</th>
           </tr>
         </thead>
 
         <tbody>
-          {paginatedApplications.length === 0 ? (
+          {paginatedApplications.length ===
+          0 ? (
             <tr>
-              <td colSpan="6" style={emptyState}>
+              <td
+                colSpan="6"
+                style={emptyState}
+              >
                 No applications found
               </td>
             </tr>
           ) : (
-            paginatedApplications.map((app) => (
-              <tr
-                key={app.id}
-                onDoubleClick={() =>
-                  navigate(`/admin/applications/${app.id}`)
-                }
-                style={{ cursor: "pointer" }}
-              >
-                <td style={td}>
-                  <input
-                    type="checkbox"
-                    checked={selectedIds.includes(app.id)}
-                    onChange={() => toggleSelect(app.id)}
-                  />
-                </td>
-                <td style={td}>{app.fullName}</td>
-                <td style={td}>{app.email}</td>
-                <td style={td}>{app.program}</td>
-                <td style={td}>
-                  <span style={statusPill(app.status)}>
-                    {app.status || "New"}
-                  </span>
-                </td>
-                <td style={td}>{app.date}</td>
-              </tr>
-            ))
+            paginatedApplications.map(
+              (app) => (
+                <tr
+                  key={app.id}
+                  onDoubleClick={() =>
+                    navigate(
+                      `/admin/applications/${app.id}`
+                    )
+                  }
+                  style={{
+                    cursor:
+                      "pointer",
+                  }}
+                >
+                  <td style={td}>
+                    <input
+                      type="checkbox"
+                      checked={selectedIds.includes(
+                        app.id
+                      )}
+                      onChange={() =>
+                        toggleSelect(
+                          app.id
+                        )
+                      }
+                    />
+                  </td>
+
+                  <td style={td}>
+                    {app.full_name}
+                  </td>
+
+                  <td style={td}>
+                    {app.email}
+                  </td>
+
+                  <td style={td}>
+                    {app.program}
+                  </td>
+
+                  <td style={td}>
+                    <span
+                      style={statusPill(
+                        app.status
+                      )}
+                    >
+                      {app.status ||
+                        "New"}
+                    </span>
+                  </td>
+
+                  <td style={td}>
+                    {new Date(
+                      app.created_at
+                    ).toLocaleString()}
+                  </td>
+                </tr>
+              )
+            )
           )}
         </tbody>
       </table>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div style={pagination}>
           <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
+            disabled={
+              currentPage === 1
+            }
+            onClick={() =>
+              setCurrentPage(
+                (p) => p - 1
+              )
+            }
             style={pageBtn}
           >
             Prev
           </button>
 
-          {Array.from({ length: totalPages }).map((_, i) => (
+          {Array.from({
+            length: totalPages,
+          }).map((_, i) => (
             <button
               key={i}
-              onClick={() => setCurrentPage(i + 1)}
+              onClick={() =>
+                setCurrentPage(
+                  i + 1
+                )
+              }
               style={{
                 ...pageBtn,
-                ...(currentPage === i + 1 ? activePageBtn : {}),
+                ...(currentPage ===
+                i + 1
+                  ? activePageBtn
+                  : {}),
               }}
             >
               {i + 1}
@@ -273,8 +458,15 @@ function AdminApplications() {
           ))}
 
           <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
+            disabled={
+              currentPage ===
+              totalPages
+            }
+            onClick={() =>
+              setCurrentPage(
+                (p) => p + 1
+              )
+            }
             style={pageBtn}
           >
             Next
@@ -395,7 +587,8 @@ const statusPill = (status) => {
     padding: "4px 10px",
     borderRadius: "999px",
     fontSize: "13px",
-    background: map[status] || "#e5e7eb",
+    background:
+      map[status] || "#e5e7eb",
   };
 };
 
