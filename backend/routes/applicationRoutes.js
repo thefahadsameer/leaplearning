@@ -15,6 +15,15 @@ router.post(
 );
 
 /* ============================
+   GET RECYCLE BIN APPLICATIONS
+   MUST COME BEFORE /:id
+============================ */
+router.get(
+  "/recycle-bin",
+  applicationController.getDeletedApplications
+);
+
+/* ============================
    GET ALL APPLICATIONS
 ============================ */
 router.get(

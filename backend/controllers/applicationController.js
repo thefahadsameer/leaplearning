@@ -213,6 +213,38 @@ const softDeleteApplication = async (req, res) => {
     if (error) throw error;
 
     /* ============================
+   GET RECYCLE BIN APPLICATIONS
+============================ */
+const getDeletedApplications = async (
+  req,
+  res
+) => {
+  try {
+    const { data, error } =
+      await supabase
+        .from("applications")
+        .select("*")
+        .eq("is_deleted", true)
+        .order("deleted_at", {
+          ascending: false,
+        });
+
+    if (error) throw error;
+
+    return res.json(data || []);
+  } catch (error) {
+    console.error(
+      "RECYCLE BIN FETCH ERROR:",
+      error
+    );
+
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+    /* ============================
        AUDIT LOGS
     ============================ */
 
@@ -247,4 +279,5 @@ module.exports = {
   getApplicationAuditLogs,
   updateApplicationStatus,
   softDeleteApplication,
+  getDeletedApplications,
 };
