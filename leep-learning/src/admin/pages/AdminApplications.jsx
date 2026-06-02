@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function AdminApplications() {
+  console.log("NEW ADMIN APPLICATIONS FILE LOADED");
   const navigate = useNavigate();
 
   const [applications, setApplications] = useState([]);
@@ -85,12 +86,63 @@ function AdminApplications() {
     }
   };
 
-  /* ================= DELETE PLACEHOLDER ================= */
+  /* ================= BULK DELETE ================= */
 
-  const bulkDelete = () => {
-    alert(
-      "Delete API not implemented yet."
+  const bulkDelete = async () => {
+    if (selectedIds.length === 0) {
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Move ${selectedIds.length} selected application(s) to Recycle Bin?`
     );
+
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://leaplearning.onrender.com/api/applications/bulk-delete",
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            ids: selectedIds,
+          }),
+        }
+      );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            "Delete failed"
+        );
+      }
+
+      clearSelection();
+
+      await fetchApplications();
+
+      alert(
+        "Application(s) moved to Recycle Bin successfully."
+      );
+    } catch (error) {
+      console.error(
+        "Bulk delete failed:",
+        error
+      );
+
+      alert(
+        "Failed to delete selected applications."
+      );
+    }
   };
 
   /* ================= FILTER + SEARCH ================= */
