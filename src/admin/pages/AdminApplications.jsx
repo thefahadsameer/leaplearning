@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function AdminApplications() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ function AdminApplications() {
 
   const toggleSelect = (id) => {
     setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     );
   };
 
@@ -63,33 +64,58 @@ function AdminApplications() {
               },
             ],
           }
-        : app
+        : app,
     );
 
     saveApplications(updated);
     clearSelection();
   };
 
-  const bulkDelete = () => {
-    if (!window.confirm("Delete selected applications?")) return;
+  const bulkDelete = async () => {
+    const result = await Swal.fire({
+      title: "Delete Applications?",
+      text: "Selected applications will be permanently deleted.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#6b7280",
+      confirmButtonText: "Delete",
+    });
 
-    const updated = applications.filter(
-      (app) => !selectedIds.includes(app.id)
-    );
+    if (!result.isConfirmed) return;
+
+    const updated = applications.filter((app) => !selectedIds.includes(app.id));
 
     saveApplications(updated);
     clearSelection();
+
+    await Swal.fire({
+      icon: "success",
+      title: "Deleted",
+      text: "Selected applications deleted successfully.",
+      confirmButtonColor: "#2563eb",
+    });
   };
 
   /* ================= NEW: ASSIGN FUNCTION ================= */
   const assignLeads = async () => {
     if (!selectedEmployee) {
-      alert("Select employee first");
+      await Swal.fire({
+        icon: "warning",
+        title: "Employee Required",
+        text: "Please select an employee first.",
+        confirmButtonColor: "#2563eb",
+      });
       return;
     }
 
     if (selectedIds.length === 0) {
-      alert("Select at least one lead");
+      await Swal.fire({
+        icon: "warning",
+        title: "No Leads Selected",
+        text: "Please select at least one lead.",
+        confirmButtonColor: "#2563eb",
+      });
       return;
     }
 
@@ -105,25 +131,34 @@ function AdminApplications() {
             ids: selectedIds,
             employee_id: Number(selectedEmployee),
           }),
-        }
+        },
       );
 
       const data = await res.json();
 
-      alert(data.message || "Assigned successfully");
+      await Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: data.message || "Assigned successfully",
+        confirmButtonColor: "#2563eb",
+      });
 
       clearSelection();
     } catch (error) {
       console.error("Assign error:", error);
-      alert("Assignment failed");
+      await Swal.fire({
+        icon: "error",
+        title: "Assignment Failed",
+        text: "Something went wrong while assigning leads.",
+        confirmButtonColor: "#dc2626",
+      });
     }
   };
 
   /* ---------- FILTER + SEARCH ---------- */
 
   const filteredApplications = applications.filter((app) => {
-    const matchesStatus =
-      filterStatus === "All" || app.status === filterStatus;
+    const matchesStatus = filterStatus === "All" || app.status === filterStatus;
 
     const query = searchQuery.toLowerCase();
     const matchesSearch =
@@ -167,7 +202,7 @@ function AdminApplications() {
 
   const paginatedApplications = sortedApplications.slice(
     startIndex,
-    startIndex + pageSize
+    startIndex + pageSize,
   );
 
   useEffect(() => {
@@ -289,9 +324,7 @@ function AdminApplications() {
             paginatedApplications.map((app) => (
               <tr
                 key={app.id}
-                onDoubleClick={() =>
-                  navigate(`/admin/applications/${app.id}`)
-                }
+                onDoubleClick={() => navigate(`/admin/applications/${app.id}`)}
                 style={{ cursor: "pointer" }}
               >
                 <td style={td}>
