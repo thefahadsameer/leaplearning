@@ -1,6 +1,14 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { jsPDF } from "jspdf";
+
+function InfoRow({ label, value }) {
+  return (
+    <div style={infoRow}>
+      <div style={infoLabel}>{label}</div>
+      <div>{value || "-"}</div>
+    </div>
+  );
+}
 
 function AdminApplicationDetail() {
   const { id } = useParams();
@@ -29,8 +37,11 @@ function AdminApplicationDetail() {
         `https://leaplearning.onrender.com/api/applications/${id}`
       );
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to fetch application");
+      }
 
+      const data = await response.json();
       setApplication(data);
     } catch (error) {
       console.error(
@@ -48,8 +59,11 @@ function AdminApplicationDetail() {
         `https://leaplearning.onrender.com/api/applications/${id}/audit`
       );
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error("Failed to fetch audit logs");
+      }
 
+      const data = await response.json();
       setAuditTrail(data || []);
     } catch (error) {
       console.error(
@@ -63,6 +77,76 @@ function AdminApplicationDetail() {
     fetchApplication();
     fetchAuditLogs();
   }, [id]);
+
+  /* ================= UPDATE STATUS ================= */
+
+  const updateStatus = async (newStatus) => {
+    if (!canModifyStatus) return;
+
+    if (newStatus === application?.status) return;
+
+    try {
+      const response = await fetch(
+        `https://leaplearning.onrender.com/api/applications/${id}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: newStatus,
+            performedBy: adminEmail,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Failed to update application status"
+        );
+      }
+
+      await fetchApplication();
+      await fetchAuditLogs();
+    } catch (error) {
+      console.error(
+        "Status update error:",
+        error
+      );
+
+      alert(
+        "Failed to update application status."
+      );
+    }
+  };
+
+  /* ================= EXPORT AUDIT ================= */
+
+  const exportAudit = () => {
+    if (!canExportAudit) return;
+
+    const blob = new Blob(
+      [JSON.stringify(auditTrail, null, 2)],
+      {
+        type: "application/json",
+      }
+    );
+
+    const url =
+      window.URL.createObjectURL(blob);
+
+    const a =
+      document.createElement("a");
+
+    a.href = url;
+    a.download = `audit_${id}.json`;
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    window.URL.revokeObjectURL(url);
+  };
 
   if (!application) {
     return (
@@ -86,153 +170,187 @@ function AdminApplicationDetail() {
     created_at,
   } = application;
 
-  /* ================= UPDATE STATUS ================= */
-
-  const updateStatus = async (
-    newStatus
-  ) => {
-    if (
-      !canModifyStatus ||
-      newStatus === status
-    )
-      return;
-
-    try {
-      const response = await fetch(
-        `https://leaplearning.onrender.com/api/applications/${id}/status`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            status: newStatus,
-            performedBy: adminEmail,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          "Failed to update status"
-        );
-      }
-
-      await fetchApplication();
-      await fetchAuditLogs();
-    } catch (error) {
-      console.error(
-        "Status update error:",
-        error
-      );
-
-      alert(
-        "Failed to update application status."
-      );
-    }
-  };
-
-  /* ================= EXPORT AUDIT ================= */
-
-const exportAudit = () => {
-  if (!canExportAudit) return;
-
-  const pdf = new jsPDF();
-
-  let y = 20;
-
-  pdf.setFontSize(18);
-  pdf.text(
-    `Audit Log - Application #${id}`,
-    14,
-    y
-  );
-
-  y += 15;
-
-  pdf.setFontSize(11);
-
-  if (auditTrail.length === 0) {
-    pdf.text(
-      "No audit history available.",
-      14,
-      y
-    );
-  } else {
-    auditTrail.forEach(
-      (entry, index) => {
-        if (y > 250) {
-          pdf.addPage();
-          y = 20;
-        }
-
-        pdf.text(
-          `${index + 1}. ${entry.action}`,
-          14,
-          y
-        );
-
-        y += 8;
-
-        pdf.text(
-          `Previous Status: ${
-            entry.previous_status || "-"
-          }`,
-          20,
-          y
-        );
-
-        y += 6;
-
-        pdf.text(
-          `New Status: ${
-            entry.new_status || "-"
-          }`,
-          20,
-          y
-        );
-
-        y += 6;
-
-        pdf.text(
-          `Performed By: ${
-            entry.performed_by || "-"
-          }`,
-          20,
-          y
-        );
-
-        y += 6;
-
-        pdf.text(
-          `Date: ${new Date(
-            entry.created_at
-          ).toLocaleString()}`,
-          20,
-          y
-        );
-
-        y += 10;
-      }
-    );
-  }
-
-  pdf.save(`audit_${id}.pdf`);
-};
-
-/* ---------- Components ---------- */
-
-function InfoRow({
-  label,
-  value,
-}) {
   return (
-    <div style={infoRow}>
-      <div style={infoLabel}>
-        {label}
+    <div style={container}>
+      <button
+        style={backBtn}
+        onClick={() => navigate(-1)}
+      >
+        ← Back
+      </button>
+
+      <h2 style={title}>
+        Application Details
+      </h2>
+
+      <div style={card}>
+        <InfoRow
+          label="Full Name"
+          value={full_name}
+        />
+        <InfoRow
+          label="Email"
+          value={email}
+        />
+        <InfoRow
+          label="Phone"
+          value={phone}
+        />
+        <InfoRow
+          label="Address"
+          value={address}
+        />
+        <InfoRow
+          label="Qualification"
+          value={qualification}
+        />
+        <InfoRow
+          label="Field"
+          value={field}
+        />
+        <InfoRow
+          label="Year"
+          value={year}
+        />
+        <InfoRow
+          label="Institution"
+          value={institution}
+        />
+        <InfoRow
+          label="Program"
+          value={program}
+        />
+        <InfoRow
+          label="Status"
+          value={status}
+        />
+        <InfoRow
+          label="Applied On"
+          value={
+            created_at
+              ? new Date(
+                  created_at
+                ).toLocaleString()
+              : "-"
+          }
+        />
+
+        {canModifyStatus && (
+          <div style={buttonRow}>
+            <button
+              style={approveBtn}
+              onClick={() =>
+                updateStatus(
+                  "approved"
+                )
+              }
+            >
+              Approve
+            </button>
+
+            <button
+              style={reviewBtn}
+              onClick={() =>
+                updateStatus(
+                  "under_review"
+                )
+              }
+            >
+              Review
+            </button>
+
+            <button
+              style={rejectBtn}
+              onClick={() =>
+                updateStatus(
+                  "rejected"
+                )
+              }
+            >
+              Reject
+            </button>
+          </div>
+        )}
       </div>
-      <div>{value || "-"}</div>
+
+      <div style={card}>
+        <div style={auditHeader}>
+          <h3 style={sectionTitle}>
+            Audit Trail
+          </h3>
+
+          {canExportAudit && (
+            <button
+              style={exportBtn}
+              onClick={exportAudit}
+            >
+              Export JSON
+            </button>
+          )}
+        </div>
+
+        {auditTrail.length === 0 ? (
+          <p>
+            No audit records found.
+          </p>
+        ) : (
+          <div style={timeline}>
+            {auditTrail.map(
+              (entry, index) => (
+                <div
+                  key={index}
+                  style={
+                    timelineItem
+                  }
+                >
+                  <div
+                    style={
+                      timelineDot
+                    }
+                  />
+
+                  <div
+                    style={
+                      timelineContent
+                    }
+                  >
+                    <div
+                      style={
+                        timelineTitle
+                      }
+                    >
+                      {entry.action ||
+                        "Status Updated"}
+                    </div>
+
+                    <div
+                      style={
+                        timelineMeta
+                      }
+                    >
+                      By{" "}
+                      {entry.performed_by ||
+                        "System"}
+                    </div>
+
+                    <div
+                      style={
+                        timelineMeta
+                      }
+                    >
+                      {entry.created_at
+                        ? new Date(
+                            entry.created_at
+                          ).toLocaleString()
+                        : "-"}
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -241,6 +359,7 @@ function InfoRow({
 
 const container = {
   maxWidth: "1000px",
+  margin: "0 auto",
   padding: "24px",
 };
 
@@ -253,7 +372,7 @@ const sectionTitle = {
 };
 
 const card = {
-  background: "#ffffff",
+  background: "#fff",
   border: "1px solid #e5e7eb",
   borderRadius: "8px",
   padding: "20px",
@@ -263,8 +382,7 @@ const card = {
 const infoRow = {
   display: "flex",
   padding: "10px 0",
-  borderBottom:
-    "1px solid #eee",
+  borderBottom: "1px solid #eee",
 };
 
 const infoLabel = {
@@ -275,20 +393,18 @@ const infoLabel = {
 const buttonRow = {
   display: "flex",
   gap: "10px",
-  marginTop: "10px",
+  marginTop: "16px",
 };
 
 const auditHeader = {
   display: "flex",
-  justifyContent:
-    "space-between",
+  justifyContent: "space-between",
   alignItems: "center",
 };
 
 const timeline = {
   marginTop: "20px",
-  borderLeft:
-    "2px solid #e5e7eb",
+  borderLeft: "2px solid #e5e7eb",
   paddingLeft: "20px",
 };
 
@@ -299,7 +415,7 @@ const timelineItem = {
 
 const timelineDot = {
   position: "absolute",
-  left: "-9px",
+  left: "-29px",
   top: "4px",
   width: "14px",
   height: "14px",
@@ -313,6 +429,7 @@ const timelineContent = {
 
 const timelineTitle = {
   fontSize: "15px",
+  fontWeight: "600",
 };
 
 const timelineMeta = {
@@ -335,6 +452,7 @@ const approveBtn = {
   border: "none",
   padding: "8px 14px",
   borderRadius: "6px",
+  cursor: "pointer",
 };
 
 const rejectBtn = {
@@ -343,6 +461,7 @@ const rejectBtn = {
   border: "none",
   padding: "8px 14px",
   borderRadius: "6px",
+  cursor: "pointer",
 };
 
 const reviewBtn = {
@@ -351,6 +470,7 @@ const reviewBtn = {
   border: "none",
   padding: "8px 14px",
   borderRadius: "6px",
+  cursor: "pointer",
 };
 
 const exportBtn = {
@@ -359,6 +479,7 @@ const exportBtn = {
   border: "none",
   padding: "8px 12px",
   borderRadius: "6px",
+  cursor: "pointer",
 };
 
-export default AdminApplicationDetail};
+export default AdminApplicationDetail;
