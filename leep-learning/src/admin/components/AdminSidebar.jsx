@@ -1,7 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function AdminSidebar() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const menuItemStyle = (path) => ({
+    cursor: "pointer",
+    padding: "10px 12px",
+    borderRadius: "6px",
+    marginBottom: "8px",
+    background:
+      location.pathname === path
+        ? "#2563eb"
+        : "transparent",
+    color: "#fff",
+  });
 
   return (
     <div
@@ -13,19 +26,57 @@ function AdminSidebar() {
         padding: "20px",
       }}
     >
-      <h2 style={{ marginBottom: "30px" }}>Admin</h2>
+      <h2 style={{ marginBottom: "30px" }}>
+        Admin
+      </h2>
 
-      <p style={{ cursor: "pointer" }} onClick={() => navigate("/admin/dashboard")}>
+      <div
+        style={menuItemStyle(
+          "/admin/dashboard"
+        )}
+        onClick={() =>
+          navigate("/admin/dashboard")
+        }
+      >
         Dashboard
-      </p>
+      </div>
 
-      <p style={{ cursor: "pointer" }} onClick={() => navigate("/admin/applications")}>
+      <div
+        style={menuItemStyle(
+          "/admin/applications"
+        )}
+        onClick={() =>
+          navigate(
+            "/admin/applications"
+          )
+        }
+      >
         Applications
-      </p>
+      </div>
 
-      <p style={{ cursor: "pointer" }} onClick={() => navigate("/admin/settings")}>
+      <div
+        style={menuItemStyle(
+          "/admin/recycle-bin"
+        )}
+        onClick={() =>
+          navigate(
+            "/admin/recycle-bin"
+          )
+        }
+      >
+        Recycle Bin
+      </div>
+
+      <div
+        style={menuItemStyle(
+          "/admin/settings"
+        )}
+        onClick={() =>
+          navigate("/admin/settings")
+        }
+      >
         Settings
-      </p>
+      </div>
     </div>
   );
 }

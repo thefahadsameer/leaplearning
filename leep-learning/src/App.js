@@ -7,6 +7,10 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import FloatingCTA from "./components/Common/FloatingCTA/FloatingCTA";
 
+/* ================= ADMIN RECYCLE BIN ================= */
+
+import AdminRecycleBin from "./admin/pages/AdminRecycleBin";
+
 /* ================= PUBLIC PAGES ================= */
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -62,7 +66,6 @@ function PublicLayout({ children }) {
 function App() {
   return (
     <Routes>
-
       {/* ================= PUBLIC ROUTES ================= */}
 
       <Route
@@ -137,6 +140,7 @@ function App() {
         <Route path="settings" element={<AdminSettings />} />
         <Route path="notifications" element={<AdminNotificationsPage />} />
         <Route path="students" element={<AdminStudents />} />
+        <Route path="recycle-bin" element={<AdminRecycleBin />} />
       </Route>
 
       {/* ================= EMPLOYEE ROUTES ================= */}
@@ -182,7 +186,6 @@ function App() {
           </PublicLayout>
         }
       />
-
     </Routes>
   );
 }
