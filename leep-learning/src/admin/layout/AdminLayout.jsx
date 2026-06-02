@@ -11,6 +11,7 @@ import {
   FaFileAlt,
   FaUserGraduate,
   FaBell,
+  FaTrash,
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
@@ -137,7 +138,7 @@ function AdminLayout() {
           </button>
         </div>
 
-        {/* LINKS */}
+        {/* DASHBOARD */}
         <NavLink
           to="/admin/dashboard"
           style={linkStyle}
@@ -149,6 +150,7 @@ function AdminLayout() {
             "Dashboard"}
         </NavLink>
 
+        {/* APPLICATIONS */}
         <NavLink
           to="/admin/applications"
           style={linkStyle}
@@ -160,6 +162,7 @@ function AdminLayout() {
             "Applications"}
         </NavLink>
 
+        {/* STUDENTS */}
         <NavLink
           to="/admin/students"
           style={linkStyle}
@@ -171,6 +174,7 @@ function AdminLayout() {
             "Students"}
         </NavLink>
 
+        {/* NOTIFICATIONS */}
         <NavLink
           to="/admin/notifications"
           style={linkStyle}
@@ -182,6 +186,19 @@ function AdminLayout() {
             "Notifications"}
         </NavLink>
 
+        {/* RECYCLE BIN */}
+        <NavLink
+          to="/admin/recycle-bin"
+          style={linkStyle}
+        >
+          <FaTrash
+            size={iconSize}
+          />
+          {!collapsed &&
+            "Recycle Bin"}
+        </NavLink>
+
+        {/* SETTINGS */}
         <NavLink
           to="/admin/settings"
           style={linkStyle}
@@ -215,9 +232,7 @@ function AdminLayout() {
             display: "flex",
             alignItems: "center",
             justifyContent:
-              collapsed
-                ? "center"
-                : "center",
+              "center",
             gap: "10px",
             fontWeight: "600",
           }}
@@ -228,7 +243,7 @@ function AdminLayout() {
         </button>
       </aside>
 
-      {/* MAIN */}
+      {/* MAIN CONTENT */}
       <main
         style={{
           flex: 1,
