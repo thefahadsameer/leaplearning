@@ -38,17 +38,15 @@ const createApplication = async (req, res) => {
 
     if (error) throw error;
 
-    await supabase
-      .from("application_audit_logs")
-      .insert([
-        {
-          application_id: data.id,
-          action: "Application Submitted",
-          previous_status: null,
-          new_status: "New",
-          performed_by: "Applicant",
-        },
-      ]);
+    await supabase.from("application_audit_logs").insert([
+      {
+        application_id: data.id,
+        action: "Application Submitted",
+        previous_status: null,
+        new_status: "New",
+        performed_by: "Applicant",
+      },
+    ]);
 
     return res.status(201).json({
       success: true,
@@ -113,10 +111,7 @@ const getApplicationById = async (req, res) => {
 /* ============================
    GET AUDIT LOGS
 ============================ */
-const getApplicationAuditLogs = async (
-  req,
-  res
-) => {
+const getApplicationAuditLogs = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -132,10 +127,7 @@ const getApplicationAuditLogs = async (
 
     return res.json(data || []);
   } catch (error) {
-    console.error(
-      "AUDIT LOG FETCH ERROR:",
-      error
-    );
+    console.error("AUDIT LOG FETCH ERROR:", error);
 
     return res.status(500).json({
       message: error.message,
@@ -146,20 +138,16 @@ const getApplicationAuditLogs = async (
 /* ============================
    UPDATE STATUS
 ============================ */
-const updateApplicationStatus = async (
-  req,
-  res
-) => {
+const updateApplicationStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status, performedBy } = req.body;
 
-    const { data: existing } =
-      await supabase
-        .from("applications")
-        .select("*")
-        .eq("id", id)
-        .single();
+    const { data: existing } = await supabase
+      .from("applications")
+      .select("*")
+      .eq("id", id)
+      .single();
 
     if (!existing) {
       return res.status(404).json({
@@ -167,36 +155,29 @@ const updateApplicationStatus = async (
       });
     }
 
-    const previousStatus =
-      existing.status;
+    const previousStatus = existing.status;
 
-    const { data, error } =
-      await supabase
-        .from("applications")
-        .update({
-          status,
-          updated_at:
-            new Date().toISOString(),
-        })
-        .eq("id", id)
-        .select()
-        .single();
+    const { data, error } = await supabase
+      .from("applications")
+      .update({
+        status,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", id)
+      .select()
+      .single();
 
     if (error) throw error;
 
-    await supabase
-      .from("application_audit_logs")
-      .insert([
-        {
-          application_id: id,
-          action: "STATUS_CHANGE",
-          previous_status:
-            previousStatus,
-          new_status: status,
-          performed_by:
-            performedBy || "Admin",
-        },
-      ]);
+    await supabase.from("application_audit_logs").insert([
+      {
+        application_id: id,
+        action: "STATUS_CHANGE",
+        previous_status: previousStatus,
+        new_status: status,
+        performed_by: performedBy || "Admin",
+      },
+    ]);
 
     res.json(data);
   } catch (error) {
@@ -207,25 +188,16 @@ const updateApplicationStatus = async (
 };
 
 /* ============================
-   SOFT DELETE APPLICATION
+   BULK SOFT DELETE APPLICATIONS
 ============================ */
-const softDeleteApplication = async (
-  req,
-  res
-) => {
+const softDeleteApplication = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { ids } = req.body;
 
-    const { data: existing } =
-      await supabase
-        .from("applications")
-        .select("*")
-        .eq("id", id)
-        .single();
-
-    if (!existing) {
-      return res.status(404).json({
-        message: "Application not found",
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Application IDs are required",
       });
     }
 
@@ -233,38 +205,33 @@ const softDeleteApplication = async (
       .from("applications")
       .update({
         is_deleted: true,
-        deleted_at:
-          new Date().toISOString(),
-        updated_at:
-          new Date().toISOString(),
+        deleted_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       })
-      .eq("id", id);
+      .in("id", ids);
 
     if (error) throw error;
 
-    await supabase
-      .from("application_audit_logs")
-      .insert([
-        {
-          application_id: id,
-          action: "SOFT_DELETE",
-          previous_status:
-            existing.status,
-          new_status: "Deleted",
-          performed_by: "Admin",
-        },
-      ]);
+    /* ============================
+       AUDIT LOGS
+    ============================ */
+
+    const auditRows = ids.map((applicationId) => ({
+      application_id: applicationId,
+      action: "SOFT_DELETE",
+      previous_status: null,
+      new_status: "Deleted",
+      performed_by: "Admin",
+    }));
+
+    await supabase.from("application_audit_logs").insert(auditRows);
 
     return res.json({
       success: true,
-      message:
-        "Application moved to recycle bin",
+      message: "Applications moved to recycle bin",
     });
   } catch (error) {
-    console.error(
-      "SOFT DELETE ERROR:",
-      error
-    );
+    console.error("SOFT DELETE ERROR:", error);
 
     return res.status(500).json({
       success: false,

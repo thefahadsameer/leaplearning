@@ -6,35 +6,53 @@ const applicationController = require(
   "../controllers/applicationController"
 );
 
+/* ============================
+   CREATE APPLICATION
+============================ */
 router.post(
   "/",
   applicationController.createApplication
 );
 
+/* ============================
+   GET ALL APPLICATIONS
+============================ */
 router.get(
   "/",
   applicationController.getApplications
 );
 
-/* MUST COME BEFORE /:id */
+/* ============================
+   GET AUDIT LOGS
+   MUST COME BEFORE /:id
+============================ */
 router.get(
   "/:id/audit",
   applicationController.getApplicationAuditLogs
 );
 
+/* ============================
+   BULK SOFT DELETE
+============================ */
+router.delete(
+  "/bulk-delete",
+  applicationController.softDeleteApplication
+);
+
+/* ============================
+   GET SINGLE APPLICATION
+============================ */
 router.get(
   "/:id",
   applicationController.getApplicationById
 );
 
+/* ============================
+   UPDATE APPLICATION STATUS
+============================ */
 router.put(
   "/:id/status",
   applicationController.updateApplicationStatus
-);
-
-router.delete(
-  "/:id",
-  applicationController.softDeleteApplication
 );
 
 module.exports = router;
