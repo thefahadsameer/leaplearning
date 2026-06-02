@@ -201,9 +201,23 @@ function AdminStudents() {
   const handleUploadInvoice = async (student, file) => {
     if (!file) return;
 
-    const amount = prompt("Enter paid amount for this invoice:");
+    const result = await Swal.fire({
+      title: "Invoice Payment",
+      text: "Enter paid amount",
+      input: "number",
+      inputPlaceholder: "Enter amount",
+      showCancelButton: true,
+      confirmButtonText: "Upload",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#2563eb",
+      cancelButtonColor: "#6b7280",
+    });
 
-    if (!amount) return;
+    if (!result.isConfirmed) {
+      return;
+    }
+
+    const amount = result.value;
 
     try {
       const form = new FormData();
