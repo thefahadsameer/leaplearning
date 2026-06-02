@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { jsPDF } from "jspdf";
 
 function AdminApplicationDetail() {
   const { id } = useParams();
@@ -134,263 +135,91 @@ function AdminApplicationDetail() {
 
   /* ================= EXPORT AUDIT ================= */
 
-  const exportAudit = () => {
-    if (!canExportAudit) return;
+const exportAudit = () => {
+  if (!canExportAudit) return;
 
-    const blob = new Blob(
-      [
-        JSON.stringify(
-          auditTrail,
-          null,
-          2
-        ),
-      ],
-      {
-        type: "application/json",
+  const pdf = new jsPDF();
+
+  let y = 20;
+
+  pdf.setFontSize(18);
+  pdf.text(
+    `Audit Log - Application #${id}`,
+    14,
+    y
+  );
+
+  y += 15;
+
+  pdf.setFontSize(11);
+
+  if (auditTrail.length === 0) {
+    pdf.text(
+      "No audit history available.",
+      14,
+      y
+    );
+  } else {
+    auditTrail.forEach(
+      (entry, index) => {
+        if (y > 250) {
+          pdf.addPage();
+          y = 20;
+        }
+
+        pdf.text(
+          `${index + 1}. ${entry.action}`,
+          14,
+          y
+        );
+
+        y += 8;
+
+        pdf.text(
+          `Previous Status: ${
+            entry.previous_status || "-"
+          }`,
+          20,
+          y
+        );
+
+        y += 6;
+
+        pdf.text(
+          `New Status: ${
+            entry.new_status || "-"
+          }`,
+          20,
+          y
+        );
+
+        y += 6;
+
+        pdf.text(
+          `Performed By: ${
+            entry.performed_by || "-"
+          }`,
+          20,
+          y
+        );
+
+        y += 6;
+
+        pdf.text(
+          `Date: ${new Date(
+            entry.created_at
+          ).toLocaleString()}`,
+          20,
+          y
+        );
+
+        y += 10;
       }
     );
+  }
 
-    const url =
-      URL.createObjectURL(blob);
-
-    const a =
-      document.createElement("a");
-
-    a.href = url;
-    a.download = `audit_${id}.json`;
-
-    a.click();
-
-    URL.revokeObjectURL(url);
-  };
-
-  return (
-    <div style={container}>
-      <button
-        onClick={() =>
-          navigate(
-            "/admin/applications"
-          )
-        }
-        style={backBtn}
-      >
-        ← Back to Applications
-      </button>
-
-      <h1 style={title}>
-        Application Detail
-      </h1>
-
-      {/* Applicant Info */}
-
-      <section style={card}>
-        <h3 style={sectionTitle}>
-          Applicant Information
-        </h3>
-
-        <InfoRow
-          label="Full Name"
-          value={full_name}
-        />
-
-        <InfoRow
-          label="Email"
-          value={email}
-        />
-
-        <InfoRow
-          label="Phone"
-          value={phone}
-        />
-
-        <InfoRow
-          label="Address"
-          value={address}
-        />
-
-        <InfoRow
-          label="Qualification"
-          value={qualification}
-        />
-
-        <InfoRow
-          label="Field"
-          value={field}
-        />
-
-        <InfoRow
-          label="Year"
-          value={year}
-        />
-
-        <InfoRow
-          label="Institution"
-          value={institution}
-        />
-
-        <InfoRow
-          label="Program"
-          value={program}
-        />
-
-        <InfoRow
-          label="Submitted At"
-          value={new Date(
-            created_at
-          ).toLocaleString()}
-        />
-      </section>
-
-      {/* Status */}
-
-      <section style={card}>
-        <h3 style={sectionTitle}>
-          Application Status
-        </h3>
-
-        <div style={buttonRow}>
-          <button
-            style={approveBtn}
-            disabled={
-              !canModifyStatus
-            }
-            onClick={() =>
-              updateStatus(
-                "Approved"
-              )
-            }
-          >
-            Approve
-          </button>
-
-          <button
-            style={rejectBtn}
-            disabled={
-              !canModifyStatus
-            }
-            onClick={() =>
-              updateStatus(
-                "Rejected"
-              )
-            }
-          >
-            Reject
-          </button>
-
-          <button
-            style={reviewBtn}
-            disabled={
-              !canModifyStatus
-            }
-            onClick={() =>
-              updateStatus(
-                "In Review"
-              )
-            }
-          >
-            Mark In Review
-          </button>
-        </div>
-
-        <p
-          style={{
-            marginTop: "10px",
-          }}
-        >
-          <strong>
-            Current Status:
-          </strong>{" "}
-          {status}
-        </p>
-      </section>
-
-      {/* Audit Trail */}
-
-      <section style={card}>
-        <div style={auditHeader}>
-          <h3 style={sectionTitle}>
-            Audit Trail
-          </h3>
-
-          <button
-            style={exportBtn}
-            disabled={
-              !canExportAudit
-            }
-            onClick={exportAudit}
-          >
-            Export Audit Log
-          </button>
-        </div>
-
-        {auditTrail.length === 0 ? (
-          <p>No audit history.</p>
-        ) : (
-          <div style={timeline}>
-            {auditTrail.map(
-              (entry, index) => (
-                <div
-                  key={index}
-                  style={timelineItem}
-                >
-                  <div
-                    style={
-                      timelineDot
-                    }
-                  ></div>
-
-                  <div
-                    style={
-                      timelineContent
-                    }
-                  >
-                    <div
-                      style={
-                        timelineTitle
-                      }
-                    >
-                      Status changed
-                      from{" "}
-                      <strong>
-                        {
-                          entry.previous_status
-                        }
-                      </strong>{" "}
-                      →
-                      <strong>
-                        {" "}
-                        {
-                          entry.new_status
-                        }
-                      </strong>
-                    </div>
-
-                    <div
-                      style={
-                        timelineMeta
-                      }
-                    >
-                      By{" "}
-                      <strong>
-                        {
-                          entry.performed_by
-                        }
-                      </strong>{" "}
-                      ·{" "}
-                      {new Date(
-                        entry.created_at
-                      ).toLocaleString()}
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
-          </div>
-        )}
-      </section>
-    </div>
-  );
-}
+  pdf.save(`audit_${id}.pdf`);
+};
 
 /* ---------- Components ---------- */
 
@@ -532,4 +361,4 @@ const exportBtn = {
   borderRadius: "6px",
 };
 
-export default AdminApplicationDetail;
+export default AdminApplicationDetail};
