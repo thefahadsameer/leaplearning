@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { jsPDF } from "jspdf";
 
 function InfoRow({ label, value }) {
   return (
@@ -24,7 +25,8 @@ function AdminApplicationDetail() {
   const adminEmail = adminSession.email || "Admin";
 
   const canModifyStatus =
-    role === "reviewer" || role === "super_admin";
+    role === "reviewer" ||
+    role === "super_admin";
 
   const canExportAudit =
     role === "super_admin";
@@ -38,11 +40,21 @@ function AdminApplicationDetail() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch application");
+        throw new Error(
+          "Failed to fetch application"
+        );
       }
 
-      const data = await response.json();
-      setApplication(data);
+      const data =
+        await response.json();
+
+      if (data.application) {
+        setApplication(
+          data.application
+        );
+      } else {
+        setApplication(data);
+      }
     } catch (error) {
       console.error(
         "Failed to fetch application:",
@@ -60,16 +72,21 @@ function AdminApplicationDetail() {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to fetch audit logs");
+        setAuditTrail([]);
+        return;
       }
 
-      const data = await response.json();
+      const data =
+        await response.json();
+
       setAuditTrail(data || []);
     } catch (error) {
       console.error(
         "Failed to fetch audit logs:",
         error
       );
+
+      setAuditTrail([]);
     }
   };
 
@@ -80,10 +97,20 @@ function AdminApplicationDetail() {
 
   /* ================= UPDATE STATUS ================= */
 
-  const updateStatus = async (newStatus) => {
-    if (!canModifyStatus) return;
+  const updateStatus = async (
+    newStatus
+  ) => {
+    if (
+      !canModifyStatus ||
+      !application
+    )
+      return;
 
-    if (newStatus === application?.status) return;
+    if (
+      newStatus ===
+      application.status
+    )
+      return;
 
     try {
       const response = await fetch(
@@ -91,18 +118,20 @@ function AdminApplicationDetail() {
         {
           method: "PUT",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type":
+              "application/json",
           },
           body: JSON.stringify({
             status: newStatus,
-            performedBy: adminEmail,
+            performedBy:
+              adminEmail,
           }),
         }
       );
 
       if (!response.ok) {
         throw new Error(
-          "Failed to update application status"
+          "Failed to update status"
         );
       }
 
@@ -120,32 +149,113 @@ function AdminApplicationDetail() {
     }
   };
 
-  /* ================= EXPORT AUDIT ================= */
+  /* ================= EXPORT AUDIT PDF ================= */
 
   const exportAudit = () => {
     if (!canExportAudit) return;
 
-    const blob = new Blob(
-      [JSON.stringify(auditTrail, null, 2)],
-      {
-        type: "application/json",
-      }
+    const pdf = new jsPDF();
+
+    let y = 20;
+
+    pdf.setFontSize(18);
+
+    pdf.text(
+      `Audit Log - Application #${id}`,
+      14,
+      y
     );
 
-    const url =
-      window.URL.createObjectURL(blob);
+    y += 15;
 
-    const a =
-      document.createElement("a");
+    pdf.setFontSize(11);
 
-    a.href = url;
-    a.download = `audit_${id}.json`;
+    if (auditTrail.length === 0) {
+      pdf.text(
+        "No audit records found.",
+        14,
+        y
+      );
+    } else {
+      auditTrail.forEach(
+        (entry, index) => {
+          if (y > 260) {
+            pdf.addPage();
+            y = 20;
+          }
 
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+          pdf.setFont(
+            undefined,
+            "bold"
+          );
 
-    window.URL.revokeObjectURL(url);
+          pdf.text(
+            `${index + 1}. ${
+              entry.action ||
+              "STATUS_CHANGE"
+            }`,
+            14,
+            y
+          );
+
+          y += 8;
+
+          pdf.setFont(
+            undefined,
+            "normal"
+          );
+
+          pdf.text(
+            `Previous Status: ${
+              entry.previous_status ||
+              "-"
+            }`,
+            20,
+            y
+          );
+
+          y += 6;
+
+          pdf.text(
+            `New Status: ${
+              entry.new_status ||
+              "-"
+            }`,
+            20,
+            y
+          );
+
+          y += 6;
+
+          pdf.text(
+            `Performed By: ${
+              entry.performed_by ||
+              "-"
+            }`,
+            20,
+            y
+          );
+
+          y += 6;
+
+          pdf.text(
+            `Date: ${
+              entry.created_at
+                ? new Date(
+                    entry.created_at
+                  ).toLocaleString()
+                : "-"
+            }`,
+            20,
+            y
+          );
+
+          y += 12;
+        }
+      );
+    }
+
+    pdf.save(`audit_${id}.pdf`);
   };
 
   if (!application) {
@@ -174,9 +284,13 @@ function AdminApplicationDetail() {
     <div style={container}>
       <button
         style={backBtn}
-        onClick={() => navigate(-1)}
+        onClick={() =>
+          navigate(
+            "/admin/applications"
+          )
+        }
       >
-        ← Back
+        ← Back to Applications
       </button>
 
       <h2 style={title}>
@@ -188,42 +302,52 @@ function AdminApplicationDetail() {
           label="Full Name"
           value={full_name}
         />
+
         <InfoRow
           label="Email"
           value={email}
         />
+
         <InfoRow
           label="Phone"
           value={phone}
         />
+
         <InfoRow
           label="Address"
           value={address}
         />
+
         <InfoRow
           label="Qualification"
           value={qualification}
         />
+
         <InfoRow
           label="Field"
           value={field}
         />
+
         <InfoRow
           label="Year"
           value={year}
         />
+
         <InfoRow
           label="Institution"
           value={institution}
         />
+
         <InfoRow
           label="Program"
           value={program}
         />
+
         <InfoRow
           label="Status"
           value={status}
         />
+
         <InfoRow
           label="Applied On"
           value={
@@ -241,7 +365,7 @@ function AdminApplicationDetail() {
               style={approveBtn}
               onClick={() =>
                 updateStatus(
-                  "approved"
+                  "Approved"
                 )
               }
             >
@@ -252,7 +376,7 @@ function AdminApplicationDetail() {
               style={reviewBtn}
               onClick={() =>
                 updateStatus(
-                  "under_review"
+                  "In Review"
                 )
               }
             >
@@ -263,7 +387,7 @@ function AdminApplicationDetail() {
               style={rejectBtn}
               onClick={() =>
                 updateStatus(
-                  "rejected"
+                  "Rejected"
                 )
               }
             >
@@ -284,7 +408,7 @@ function AdminApplicationDetail() {
               style={exportBtn}
               onClick={exportAudit}
             >
-              Export JSON
+              Export PDF
             </button>
           )}
         </div>
@@ -398,13 +522,15 @@ const buttonRow = {
 
 const auditHeader = {
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent:
+    "space-between",
   alignItems: "center",
 };
 
 const timeline = {
   marginTop: "20px",
-  borderLeft: "2px solid #e5e7eb",
+  borderLeft:
+    "2px solid #e5e7eb",
   paddingLeft: "20px",
 };
 
