@@ -16,6 +16,12 @@ router.get(
   applicationController.getApplications
 );
 
+/* MUST COME BEFORE /:id */
+router.get(
+  "/:id/audit",
+  applicationController.getApplicationAuditLogs
+);
+
 router.get(
   "/:id",
   applicationController.getApplicationById
@@ -24,6 +30,11 @@ router.get(
 router.put(
   "/:id/status",
   applicationController.updateApplicationStatus
+);
+
+router.delete(
+  "/:id",
+  applicationController.softDeleteApplication
 );
 
 module.exports = router;

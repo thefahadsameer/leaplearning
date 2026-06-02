@@ -72,6 +72,7 @@ const getApplications = async (req, res) => {
     const { data, error } = await supabase
       .from("applications")
       .select("*")
+      .eq("is_deleted", false)
       .order("created_at", {
         ascending: false,
       });
@@ -101,7 +102,25 @@ const getApplicationById = async (req, res) => {
 
     if (error) throw error;
 
-    const { data: logs } = await supabase
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+/* ============================
+   GET AUDIT LOGS
+============================ */
+const getApplicationAuditLogs = async (
+  req,
+  res
+) => {
+  try {
+    const { id } = req.params;
+
+    const { data, error } = await supabase
       .from("application_audit_logs")
       .select("*")
       .eq("application_id", id)
@@ -109,12 +128,16 @@ const getApplicationById = async (req, res) => {
         ascending: true,
       });
 
-    res.json({
-      application: data,
-      auditLogs: logs || [],
-    });
+    if (error) throw error;
+
+    return res.json(data || []);
   } catch (error) {
-    res.status(500).json({
+    console.error(
+      "AUDIT LOG FETCH ERROR:",
+      error
+    );
+
+    return res.status(500).json({
       message: error.message,
     });
   }
@@ -183,9 +206,78 @@ const updateApplicationStatus = async (
   }
 };
 
+/* ============================
+   SOFT DELETE APPLICATION
+============================ */
+const softDeleteApplication = async (
+  req,
+  res
+) => {
+  try {
+    const { id } = req.params;
+
+    const { data: existing } =
+      await supabase
+        .from("applications")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (!existing) {
+      return res.status(404).json({
+        message: "Application not found",
+      });
+    }
+
+    const { error } = await supabase
+      .from("applications")
+      .update({
+        is_deleted: true,
+        deleted_at:
+          new Date().toISOString(),
+        updated_at:
+          new Date().toISOString(),
+      })
+      .eq("id", id);
+
+    if (error) throw error;
+
+    await supabase
+      .from("application_audit_logs")
+      .insert([
+        {
+          application_id: id,
+          action: "SOFT_DELETE",
+          previous_status:
+            existing.status,
+          new_status: "Deleted",
+          performed_by: "Admin",
+        },
+      ]);
+
+    return res.json({
+      success: true,
+      message:
+        "Application moved to recycle bin",
+    });
+  } catch (error) {
+    console.error(
+      "SOFT DELETE ERROR:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createApplication,
   getApplications,
   getApplicationById,
+  getApplicationAuditLogs,
   updateApplicationStatus,
+  softDeleteApplication,
 };
