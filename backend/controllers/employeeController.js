@@ -76,3 +76,140 @@ exports.loginEmployee = async (req, res) => {
     });
   }
 };
+
+/* ==========================
+   GET EMPLOYEES
+========================== */
+
+exports.getEmployees = async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from("employees")
+      .select("*")
+      .order("id", { ascending: true });
+
+    if (error) throw error;
+
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to fetch employees",
+    });
+  }
+};
+
+/* ==========================
+   CREATE EMPLOYEE
+========================== */
+
+exports.createEmployee = async (req, res) => {
+  try {
+    const {
+      full_name,
+      phone,
+      role,
+      secure_code,
+    } = req.body;
+
+    const hashedCode = await bcrypt.hash(
+      secure_code,
+      10
+    );
+
+    const { data, error } = await supabase
+      .from("employees")
+      .insert([
+        {
+          full_name,
+          phone,
+          role,
+          secure_code: hashedCode,
+          active: true,
+        },
+      ])
+      .select();
+
+    if (error) throw error;
+
+    res.status(201).json(data);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to create employee",
+    });
+  }
+};
+
+/* ==========================
+   UPDATE EMPLOYEE
+========================== */
+
+exports.updateEmployee = async (
+  req,
+  res
+) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      full_name,
+      phone,
+      role,
+      active,
+    } = req.body;
+
+    const { data, error } = await supabase
+      .from("employees")
+      .update({
+        full_name,
+        phone,
+        role,
+        active,
+      })
+      .eq("id", id)
+      .select();
+
+    if (error) throw error;
+
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to update employee",
+    });
+  }
+};
+
+/* ==========================
+   DELETE EMPLOYEE
+========================== */
+
+exports.deleteEmployee = async (
+  req,
+  res
+) => {
+  try {
+    const { id } = req.params;
+
+    const { error } = await supabase
+      .from("employees")
+      .delete()
+      .eq("id", id);
+
+    if (error) throw error;
+
+    res.json({
+      message: "Employee deleted",
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to delete employee",
+    });
+  }
+};

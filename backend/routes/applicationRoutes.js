@@ -45,6 +45,12 @@ router.delete(
 );
 
 /* ============================
+   POST SINGLE 
+============================ */
+
+router.post("/assign", applicationController.assignApplications);
+
+/* ============================
    GET SINGLE APPLICATION
 ============================ */
 router.get("/:id", applicationController.getApplicationById);

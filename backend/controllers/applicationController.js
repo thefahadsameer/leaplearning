@@ -333,6 +333,80 @@ const permanentDeleteApplication = async (req, res) => {
   }
 };
 
+/* ============================
+   ASSIGN APPLICATIONS
+============================ */
+const assignApplications = async (req, res) => {
+  try {
+    const { applicationIds, employeeId, assignedBy } = req.body;
+
+    if (
+      !applicationIds ||
+      !Array.isArray(applicationIds) ||
+      applicationIds.length === 0
+    ) {
+      return res.status(400).json({
+        message: "Application IDs required",
+      });
+    }
+
+    if (!employeeId) {
+      return res.status(400).json({
+        message: "Employee ID required",
+      });
+    }
+
+    for (const applicationId of applicationIds) {
+      const { data: existing } = await supabase
+        .from("application_assignments")
+        .select("*")
+        .eq("application_id", applicationId)
+        .maybeSingle();
+
+      if (existing) {
+        await supabase
+          .from("application_assignments")
+          .update({
+            employee_id: employeeId,
+            assigned_by: assignedBy || null,
+            assigned_at: new Date().toISOString(),
+          })
+          .eq("application_id", applicationId);
+      } else {
+        await supabase.from("application_assignments").insert([
+          {
+            application_id: applicationId,
+            employee_id: employeeId,
+            assigned_by: assignedBy || null,
+          },
+        ]);
+      }
+
+      await supabase.from("application_audit_logs").insert([
+        {
+          application_id: applicationId,
+          action: "APPLICATION_ASSIGNED",
+          previous_status: null,
+          new_status: null,
+          performed_by: "Admin",
+        },
+      ]);
+    }
+
+    return res.json({
+      success: true,
+      message: "Applications assigned successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   createApplication,
   getApplications,
@@ -341,7 +415,7 @@ module.exports = {
   getApplicationAuditLogs,
   updateApplicationStatus,
   softDeleteApplication,
-
   restoreApplication,
   permanentDeleteApplication,
+  assignApplications,
 };
