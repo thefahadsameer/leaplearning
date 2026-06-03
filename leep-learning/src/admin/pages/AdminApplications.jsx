@@ -9,6 +9,8 @@ function AdminApplications() {
   const [applications, setApplications] = useState([]);
   const [selectedIds, setSelectedIds] = useState([]);
 
+  const [employees, setEmployees] = useState([]);
+
   const [filterStatus, setFilterStatus] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -33,8 +35,23 @@ function AdminApplications() {
     }
   };
 
+  const fetchEmployees = async () => {
+    try {
+      const response = await fetch(
+        "https://leaplearning.onrender.com/api/employees",
+      );
+
+      const data = await response.json();
+
+      setEmployees(data || []);
+    } catch (error) {
+      console.error("Failed to fetch employees:", error);
+    }
+  };
+
   useEffect(() => {
     fetchApplications();
+    fetchEmployees();
   }, []);
 
   const toggleSelect = (id) => {
@@ -44,6 +61,64 @@ function AdminApplications() {
   };
 
   const clearSelection = () => setSelectedIds([]);
+
+  const assignApplications = async () => {
+    if (selectedIds.length === 0) {
+      Swal.fire(
+        "No Selection",
+        "Please select at least one application.",
+        "warning",
+      );
+      return;
+    }
+
+    const employeeOptions = {};
+
+    employees.forEach((employee) => {
+      employeeOptions[employee.id] = `${employee.full_name} (${employee.role})`;
+    });
+
+    const result = await Swal.fire({
+      title: "Assign Applications",
+      input: "select",
+      inputOptions: employeeOptions,
+      inputPlaceholder: "Select Employee",
+      showCancelButton: true,
+    });
+
+    if (!result.value) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://leaplearning.onrender.com/api/applications/assign",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            applicationIds: selectedIds,
+            employeeId: result.value,
+            assignedBy: 1,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      clearSelection();
+
+      Swal.fire("Assigned", "Application assigned successfully", "success");
+    } catch (error) {
+      Swal.fire("Failed", error.message, "error");
+    }
+  };
 
   /* ================= BULK STATUS UPDATE ================= */
 
@@ -249,6 +324,18 @@ function AdminApplications() {
 
         {selectedIds.length > 0 && (
           <>
+            <button
+              onClick={assignApplications}
+              style={{
+                background: "#2563eb",
+                color: "#fff",
+                padding: "6px 12px",
+                border: "none",
+                borderRadius: "6px",
+              }}
+            >
+              Assign
+            </button>
             <button
               onClick={() => bulkUpdateStatus("Approved")}
               style={approveBtn}
