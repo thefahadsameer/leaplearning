@@ -124,9 +124,6 @@ function App() {
           </PublicLayout>
         }
       />
-      {/* ================= ADMIN EMPLOYEES ================= */}
-
-      <Route path="employees" element={<AdminEmployees />} />
 
       {/* ================= ADMIN ROUTES ================= */}
 
@@ -141,11 +138,19 @@ function App() {
         }
       >
         <Route path="dashboard" element={<AdminDashboard />} />
+
         <Route path="applications" element={<AdminApplications />} />
+
+        <Route path="employees" element={<AdminEmployees />} />
+
         <Route path="applications/:id" element={<AdminApplicationDetail />} />
+
         <Route path="settings" element={<AdminSettings />} />
+
         <Route path="notifications" element={<AdminNotificationsPage />} />
+
         <Route path="students" element={<AdminStudents />} />
+
         <Route path="recycle-bin" element={<AdminRecycleBin />} />
       </Route>
 
