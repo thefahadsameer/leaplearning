@@ -8,7 +8,7 @@ exports.loginEmployee = async (req, res) => {
 
     if (!phone || !secureCode) {
       return res.status(400).json({
-        message: "Phone and secure code required"
+        message: "Phone and secure code required",
       });
     }
 
@@ -22,26 +22,23 @@ exports.loginEmployee = async (req, res) => {
 
     if (error || !employee) {
       return res.status(401).json({
-        message: "Employee not found"
+        message: "Employee not found",
       });
     }
 
     if (employee.active !== true) {
       return res.status(401).json({
-        message: "Employee account inactive"
+        message: "Employee account inactive",
       });
     }
 
     /* ================= CHECK PASSWORD ================= */
 
-    const isMatch = await bcrypt.compare(
-      secureCode,
-      employee.secure_code
-    );
+    const isMatch = await bcrypt.compare(secureCode, employee.secure_code);
 
     if (!isMatch) {
       return res.status(401).json({
-        message: "Invalid credentials"
+        message: "Invalid credentials",
       });
     }
 
@@ -51,10 +48,10 @@ exports.loginEmployee = async (req, res) => {
       {
         id: employee.id,
         role: employee.role,
-        phone: employee.phone
+        phone: employee.phone,
       },
       process.env.JWT_SECRET,
-      { expiresIn: "8h" }
+      { expiresIn: "8h" },
     );
 
     /* ================= RESPONSE ================= */
@@ -64,15 +61,14 @@ exports.loginEmployee = async (req, res) => {
       employee: {
         id: employee.id,
         full_name: employee.full_name,
-        role: employee.role
-      }
+        role: employee.role,
+      },
     });
-
   } catch (error) {
     console.error("LOGIN ERROR:", error);
 
     return res.status(500).json({
-      message: "Server error"
+      message: "Server error",
     });
   }
 };
@@ -106,17 +102,9 @@ exports.getEmployees = async (req, res) => {
 
 exports.createEmployee = async (req, res) => {
   try {
-    const {
-      full_name,
-      phone,
-      role,
-      secure_code,
-    } = req.body;
+    const { full_name, phone, role, secure_code } = req.body;
 
-    const hashedCode = await bcrypt.hash(
-      secure_code,
-      10
-    );
+    const hashedCode = await bcrypt.hash(secure_code, 10);
 
     const { data, error } = await supabase
       .from("employees")
@@ -147,19 +135,11 @@ exports.createEmployee = async (req, res) => {
    UPDATE EMPLOYEE
 ========================== */
 
-exports.updateEmployee = async (
-  req,
-  res
-) => {
+exports.updateEmployee = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const {
-      full_name,
-      phone,
-      role,
-      active,
-    } = req.body;
+    const { full_name, phone, role, active } = req.body;
 
     const { data, error } = await supabase
       .from("employees")
@@ -185,20 +165,54 @@ exports.updateEmployee = async (
 };
 
 /* ==========================
+   GET ASSIGNED APPLICATIONS
+========================== */
+
+exports.getAssignedApplications = async (req, res) => {
+  try {
+    const { employeeId } = req.params;
+
+    const { data, error } = await supabase
+      .from("application_assignments")
+      .select(
+        `
+          application_id,
+          applications (
+            id,
+            full_name,
+            email,
+            phone,
+            program,
+            status,
+            created_at
+          )
+        `,
+      )
+      .eq("employee_id", employeeId);
+
+    if (error) throw error;
+
+    const applications = (data || []).map((row) => row.applications);
+
+    return res.json(applications);
+  } catch (error) {
+    console.error("ASSIGNED APPLICATIONS ERROR:", error);
+
+    return res.status(500).json({
+      message: "Failed to load assigned applications",
+    });
+  }
+};
+
+/* ==========================
    DELETE EMPLOYEE
 ========================== */
 
-exports.deleteEmployee = async (
-  req,
-  res
-) => {
+exports.deleteEmployee = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { error } = await supabase
-      .from("employees")
-      .delete()
-      .eq("id", id);
+    const { error } = await supabase.from("employees").delete().eq("id", id);
 
     if (error) throw error;
 
