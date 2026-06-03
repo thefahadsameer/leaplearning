@@ -28,18 +28,30 @@ function EmployeeLogin() {
       setError("");
 
       const response = await fetch(
-        "https://leaplearning.onrender.com/api/employee/login",
+        "https://leaplearning.onrender.com/api/employees/login",
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             phone: cleanedPhone,
-            secureCode
-          })
-        }
+            secureCode,
+          }),
+        },
       );
+
+      const text = await response.text();
+
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error(
+          "Server returned invalid response. Check backend deployment.",
+        );
+      }
 
       const data = await response.json();
 
@@ -52,7 +64,7 @@ function EmployeeLogin() {
       const session = {
         token: data.token,
         employee: data.employee,
-        loginTime: new Date().toISOString()
+        loginTime: new Date().toISOString(),
       };
 
       localStorage.setItem("employeeSession", JSON.stringify(session));
@@ -60,7 +72,6 @@ function EmployeeLogin() {
       /* ===== REDIRECT ===== */
 
       navigate("/employee/dashboard");
-
     } catch (err) {
       console.error("Login error:", err);
       setError(err.message || "Unable to login");
@@ -72,7 +83,6 @@ function EmployeeLogin() {
   return (
     <div className="employee-login-wrapper">
       <div className="employee-login-card">
-
         <h2>Employee Login</h2>
         <p>Sales team access</p>
 
@@ -106,7 +116,6 @@ function EmployeeLogin() {
         >
           {loading ? "Logging in..." : "Login"}
         </button>
-
       </div>
     </div>
   );
