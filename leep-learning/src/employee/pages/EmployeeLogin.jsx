@@ -38,20 +38,8 @@ function EmployeeLogin() {
             phone: cleanedPhone,
             secureCode,
           }),
-        },
+        }
       );
-
-      const text = await response.text();
-
-      let data;
-
-      try {
-        data = JSON.parse(text);
-      } catch {
-        throw new Error(
-          "Server returned invalid response. Check backend deployment.",
-        );
-      }
 
       const data = await response.json();
 
@@ -67,14 +55,20 @@ function EmployeeLogin() {
         loginTime: new Date().toISOString(),
       };
 
-      localStorage.setItem("employeeSession", JSON.stringify(session));
+      localStorage.setItem(
+        "employeeSession",
+        JSON.stringify(session)
+      );
 
       /* ===== REDIRECT ===== */
 
       navigate("/employee/dashboard");
     } catch (err) {
       console.error("Login error:", err);
-      setError(err.message || "Unable to login");
+
+      setError(
+        err.message || "Unable to login"
+      );
     } finally {
       setLoading(false);
     }
@@ -86,25 +80,35 @@ function EmployeeLogin() {
         <h2>Employee Login</h2>
         <p>Sales team access</p>
 
-        {error && <div className="employee-error">{error}</div>}
+        {error && (
+          <div className="employee-error">
+            {error}
+          </div>
+        )}
 
         <div className="employee-form-group">
           <label>Phone</label>
+
           <input
             type="text"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) =>
+              setPhone(e.target.value)
+            }
             placeholder="Enter phone number"
           />
         </div>
 
         <div className="employee-form-group">
           <label>4-Digit Secure Code</label>
+
           <input
             type="password"
             maxLength={4}
             value={secureCode}
-            onChange={(e) => setSecureCode(e.target.value)}
+            onChange={(e) =>
+              setSecureCode(e.target.value)
+            }
             placeholder="••••"
           />
         </div>
@@ -114,7 +118,9 @@ function EmployeeLogin() {
           onClick={handleLogin}
           disabled={loading}
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading
+            ? "Logging in..."
+            : "Login"}
         </button>
       </div>
     </div>
