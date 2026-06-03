@@ -9,10 +9,7 @@ function AdminSidebar() {
     padding: "10px 12px",
     borderRadius: "6px",
     marginBottom: "8px",
-    background:
-      location.pathname === path
-        ? "#2563eb"
-        : "transparent",
+    background: location.pathname === path ? "#2563eb" : "transparent",
     color: "#fff",
   });
 
@@ -26,54 +23,38 @@ function AdminSidebar() {
         padding: "20px",
       }}
     >
-      <h2 style={{ marginBottom: "30px" }}>
-        Admin
-      </h2>
+      <h2 style={{ marginBottom: "30px" }}>Admin</h2>
 
       <div
-        style={menuItemStyle(
-          "/admin/dashboard"
-        )}
-        onClick={() =>
-          navigate("/admin/dashboard")
-        }
+        style={menuItemStyle("/admin/dashboard")}
+        onClick={() => navigate("/admin/dashboard")}
       >
         Dashboard
       </div>
 
       <div
-        style={menuItemStyle(
-          "/admin/applications"
-        )}
-        onClick={() =>
-          navigate(
-            "/admin/applications"
-          )
-        }
+        style={menuItemStyle("/admin/applications")}
+        onClick={() => navigate("/admin/applications")}
       >
+        <div
+          style={menuItemStyle("/admin/employees")}
+          onClick={() => navigate("/admin/employees")}
+        >
+          Employees
+        </div>
         Applications
       </div>
 
       <div
-        style={menuItemStyle(
-          "/admin/recycle-bin"
-        )}
-        onClick={() =>
-          navigate(
-            "/admin/recycle-bin"
-          )
-        }
+        style={menuItemStyle("/admin/recycle-bin")}
+        onClick={() => navigate("/admin/recycle-bin")}
       >
         Recycle Bin
       </div>
 
       <div
-        style={menuItemStyle(
-          "/admin/settings"
-        )}
-        onClick={() =>
-          navigate("/admin/settings")
-        }
+        style={menuItemStyle("/admin/settings")}
+        onClick={() => navigate("/admin/settings")}
       >
         Settings
       </div>

@@ -19,6 +19,9 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Apply from "./pages/Apply";
 
+/* ================= ADMIN EMPLOYEE ================= */
+import AdminEmployees from "./admin/pages/AdminEmployees";
+
 /* ================= ADMIN PAGES ================= */
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminDashboard from "./admin/pages/AdminDashboard";
@@ -121,6 +124,9 @@ function App() {
           </PublicLayout>
         }
       />
+      {/* ================= ADMIN EMPLOYEES ================= */}
+
+      <Route path="employees" element={<AdminEmployees />} />
 
       {/* ================= ADMIN ROUTES ================= */}
 
