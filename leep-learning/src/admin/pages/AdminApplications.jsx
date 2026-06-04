@@ -372,6 +372,7 @@ function AdminApplications() {
             <th style={th}>Name</th>
             <th style={th}>Email</th>
             <th style={th}>Program</th>
+            <th style={th}>Assigned To</th>
             <th style={th}>Status</th>
             <th style={th}>Date</th>
           </tr>
@@ -406,6 +407,18 @@ function AdminApplications() {
                 <td style={td}>{app.email}</td>
 
                 <td style={td}>{app.program}</td>
+
+                <td style={td}>
+                  {app.application_assignments?.[0]?.employees?.full_name || (
+                    <span
+                      style={{
+                        color: "#9ca3af",
+                      }}
+                    >
+                      Unassigned
+                    </span>
+                  )}
+                </td>
 
                 <td style={td}>
                   <span style={statusPill(app.status)}>

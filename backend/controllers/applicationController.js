@@ -69,7 +69,18 @@ const getApplications = async (req, res) => {
   try {
     const { data, error } = await supabase
       .from("applications")
-      .select("*")
+      .select(
+        `
+        *,
+        application_assignments (
+          employee_id,
+          employees (
+            id,
+            full_name
+          )
+        )
+      `,
+      )
       .eq("is_deleted", false)
       .order("created_at", {
         ascending: false,
@@ -79,6 +90,8 @@ const getApplications = async (req, res) => {
 
     return res.json(data || []);
   } catch (error) {
+    console.error("GET APPLICATIONS ERROR:", error);
+
     return res.status(500).json({
       message: error.message,
     });
