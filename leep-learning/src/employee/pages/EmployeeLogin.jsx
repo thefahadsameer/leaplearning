@@ -10,6 +10,14 @@ function EmployeeLogin() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
+
   const handleLogin = async () => {
     const cleanedPhone = phone.trim();
 
@@ -38,7 +46,7 @@ function EmployeeLogin() {
             phone: cleanedPhone,
             secureCode,
           }),
-        }
+        },
       );
 
       const data = await response.json();
@@ -46,8 +54,6 @@ function EmployeeLogin() {
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
-
-      /* ===== STORE SESSION ===== */
 
       const session = {
         token: data.token,
@@ -57,18 +63,14 @@ function EmployeeLogin() {
 
       localStorage.setItem(
         "employeeSession",
-        JSON.stringify(session)
+        JSON.stringify(session),
       );
-
-      /* ===== REDIRECT ===== */
 
       navigate("/employee/dashboard");
     } catch (err) {
       console.error("Login error:", err);
 
-      setError(
-        err.message || "Unable to login"
-      );
+      setError(err.message || "Unable to login");
     } finally {
       setLoading(false);
     }
@@ -76,6 +78,24 @@ function EmployeeLogin() {
 
   return (
     <div className="employee-login-wrapper">
+      <button
+        onClick={handleBack}
+        style={{
+          position: "fixed",
+          top: "20px",
+          left: "20px",
+          padding: "10px 16px",
+          border: "none",
+          borderRadius: "8px",
+          background: "#111827",
+          color: "#ffffff",
+          cursor: "pointer",
+          zIndex: 999,
+        }}
+      >
+        ← Back
+      </button>
+
       <div className="employee-login-card">
         <h2>Employee Login</h2>
         <p>Sales team access</p>
