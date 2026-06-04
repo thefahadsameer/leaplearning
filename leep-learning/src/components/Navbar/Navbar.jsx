@@ -23,7 +23,6 @@ function Navbar() {
       {/* NAVBAR */}
       <header className="navbar">
         <div className="navbar-container">
-
           {/* LOGO */}
           <Link to="/" className="brand" onClick={closeMenu}>
             <img src={Logo} alt="Leap Learning" />
@@ -32,8 +31,29 @@ function Navbar() {
           {/* DESKTOP NAV */}
           <nav className="desktop-nav">
             <Link to="/">Home</Link>
+
             <Link to="/about">About</Link>
-            <Link to="/brochure">Programs</Link>
+
+            <div className="programs-dropdown">
+              <span className="dropdown-trigger">Programs ▾</span>
+
+              <div className="dropdown-menu">
+                <Link to="/programs/phd">PhD Programs</Link>
+
+                <Link to="/programs/dba">DBA Programs</Link>
+
+                <Link to="/programs/honorary-doctorate">
+                  Honorary Doctorate
+                </Link>
+
+                <Link to="/programs/post-doctorate">Post Doctorate</Link>
+
+                <Link to="/programs/dlitt">Doctor of Literature (D.Litt)</Link>
+
+                <Link to="/programs/professorship">Professorship</Link>
+              </div>
+            </div>
+
             <Link to="/contact">Contact</Link>
           </nav>
 
@@ -57,10 +77,18 @@ function Navbar() {
 
         {/* MOBILE MENU */}
         <div className={`mobile-menu ${open ? "show" : ""}`}>
-          <Link to="/" onClick={closeMenu}>Home</Link>
-          <Link to="/about" onClick={closeMenu}>About</Link>
-          <Link to="/brochure" onClick={closeMenu}>Programs</Link>
-          <Link to="/contact" onClick={closeMenu}>Contact</Link>
+          <Link to="/" onClick={closeMenu}>
+            Home
+          </Link>
+          <Link to="/about" onClick={closeMenu}>
+            About
+          </Link>
+          <Link to="/brochure" onClick={closeMenu}>
+            Programs
+          </Link>
+          <Link to="/contact" onClick={closeMenu}>
+            Contact
+          </Link>
 
           <Link to="/apply" onClick={closeMenu} className="mobile-cta">
             Apply Now
