@@ -1,22 +1,31 @@
 import "../../styles/programs/PhDProgram.css";
 import { Link } from "react-router-dom";
+import PhDHero from "../../assets/Media/PhD Program Hero.jpg";
 
 function PhDProgram() {
   return (
     <div className="program-page">
-      <section className="program-hero">
+      <section
+        className="program-hero"
+        style={{
+          backgroundImage: `
+      linear-gradient(
+        rgba(5, 20, 50, 0.65),
+        rgba(5, 20, 50, 0.65)
+      ),
+      url(${PhDHero})
+    `,
+        }}
+      >
         <div className="program-overlay">
-          <span className="program-badge">
-            Doctorate Program
-          </span>
+          <span className="program-badge">Doctorate Program</span>
 
           <h1>Doctor of Philosophy (PhD)</h1>
 
           <p>
-            Advance your academic and professional
-            career through rigorous research,
-            innovation, and internationally
-            recognized doctoral qualifications.
+            Advance your academic and professional career through rigorous
+            research, innovation, and internationally recognized doctoral
+            qualifications.
           </p>
 
           <div className="hero-actions">
@@ -37,18 +46,14 @@ function PhDProgram() {
             <h2>Program Overview</h2>
 
             <p>
-              The Doctor of Philosophy (PhD)
-              program is designed for researchers,
-              professionals, educators and industry
-              leaders who seek to contribute
-              original knowledge to their field.
+              The Doctor of Philosophy (PhD) program is designed for
+              researchers, professionals, educators and industry leaders who
+              seek to contribute original knowledge to their field.
             </p>
 
             <p>
-              Participants engage in advanced
-              research, academic writing, and
-              dissertation development under expert
-              guidance.
+              Participants engage in advanced research, academic writing, and
+              dissertation development under expert guidance.
             </p>
           </div>
 
@@ -73,24 +78,20 @@ function PhDProgram() {
           <div className="feature-card">
             <h3>Academic Excellence</h3>
             <p>
-              Conduct meaningful research and
-              contribute to your academic field.
+              Conduct meaningful research and contribute to your academic field.
             </p>
           </div>
 
           <div className="feature-card">
             <h3>Career Growth</h3>
-            <p>
-              Unlock opportunities in academia,
-              leadership and consulting.
-            </p>
+            <p>Unlock opportunities in academia, leadership and consulting.</p>
           </div>
 
           <div className="feature-card">
             <h3>Research Support</h3>
             <p>
-              Receive structured supervision and
-              guidance throughout the journey.
+              Receive structured supervision and guidance throughout the
+              journey.
             </p>
           </div>
         </div>
@@ -100,9 +101,8 @@ function PhDProgram() {
         <h2>Ready to Begin Your Doctoral Journey?</h2>
 
         <p>
-          Connect with our academic advisors and
-          discover the right research pathway for
-          your goals.
+          Connect with our academic advisors and discover the right research
+          pathway for your goals.
         </p>
 
         <Link to="/apply" className="apply-btn">
