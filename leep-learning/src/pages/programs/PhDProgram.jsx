@@ -12,7 +12,6 @@ function PhDProgram() {
         }}
       >
         <div className="program-overlay">
-
           <h1>Doctor of Philosophy (PhD)</h1>
 
           <p>
@@ -39,15 +38,47 @@ function PhDProgram() {
             <h2>Program Overview</h2>
 
             <p>
-              The Doctor of Philosophy (PhD) program is designed for
-              researchers, professionals, educators and industry leaders who
-              seek to contribute original knowledge to their field.
+              The Doctor of Philosophy (PhD) program is designed for ambitious
+              researchers, professionals, educators, and industry leaders who
+              seek to contribute original knowledge and innovation to their
+              chosen field of study.
             </p>
 
             <p>
-              Participants engage in advanced research, academic writing, and
-              dissertation development under expert guidance.
+              Through a structured research framework, candidates develop
+              advanced analytical, critical thinking, and problem-solving skills
+              while working on meaningful research projects that address
+              real-world challenges and academic gaps.
             </p>
+
+            <p>
+              The program provides access to experienced academic supervisors,
+              research methodologies, scholarly resources, and dissertation
+              guidance to support candidates throughout their doctoral journey.
+            </p>
+
+            <p>
+              Participants are encouraged to publish research papers, present at
+              academic conferences, and contribute to global knowledge
+              communities while building strong professional credibility.
+            </p>
+
+            <p>
+              Whether pursuing academic advancement, leadership positions,
+              consulting opportunities, or specialized research careers, the PhD
+              qualification demonstrates expertise, dedication, and the ability
+              to generate impactful knowledge.
+            </p>
+
+            <h3 style={{ marginTop: "30px" }}>Learning Outcomes</h3>
+
+            <ul className="program-outcomes">
+              <li>Develop advanced research and analytical capabilities.</li>
+              <li>Design and execute independent doctoral research.</li>
+              <li>Produce high-quality academic publications.</li>
+              <li>Strengthen leadership and subject-matter expertise.</li>
+              <li>Contribute original knowledge to a chosen discipline.</li>
+            </ul>
           </div>
 
           <div className="info-card">

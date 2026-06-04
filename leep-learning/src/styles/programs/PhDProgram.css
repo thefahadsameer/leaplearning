@@ -84,7 +84,7 @@
   color: #ffffff;
 
   text-decoration: none;
-  font-size: 27px;
+  font-size: 40px;
   font-weight: 600;
 
   border-radius: 999px;
@@ -169,4 +169,15 @@
 
 .program-cta h2 {
   margin-bottom: 20px;
+}
+
+.program-outcomes {
+  margin-top: 20px;
+  padding-left: 22px;
+}
+
+.program-outcomes li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+  color: #475569;
 }
