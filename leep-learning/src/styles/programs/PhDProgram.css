@@ -9,30 +9,48 @@
 .program-hero {
   height: 700px;
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 
+  position: relative;
   display: flex;
   align-items: center;
 }
 
+.program-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(5, 20, 50, 0.55);
+
+  z-index: 1;
+}
+
 .program-overlay {
+  position: relative;
+  z-index: 2;
+
   max-width: 1280px;
   margin: auto;
   padding: 0 30px;
-  color: white;
+
+  color: #ffffff;
 }
 
 .program-overlay h1 {
-  font-size: 60px;
-  margin-bottom: 20px;
+  font-size: 64px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: #ffffff;
 }
 
 .program-overlay p {
-  max-width: 700px;
+  max-width: 750px;
+  font-size: 22px;
   line-height: 1.8;
-  font-size: 18px;
+  color: rgba(255,255,255,0.95);
 }
 
 .program-badge {
