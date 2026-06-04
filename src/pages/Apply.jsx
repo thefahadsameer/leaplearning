@@ -88,9 +88,22 @@ function Apply() {
         JSON.stringify(updatedApplications)
       );
 
-      alert("Application submitted successfully!");
-      setIsSubmitting(false);
-      setCurrentStep(1);
+      await Swal.fire({
+  icon: "success",
+  title: "Application Submitted Successfully",
+  html: `
+    <div style="font-size:15px">
+      Thank you for applying with <b>Leap Learning</b>.<br><br>
+      Our academic advisor will review your application and contact you within 24–48 hours.
+    </div>
+  `,
+  confirmButtonText: "Continue",
+  confirmButtonColor: "#f59e0b",
+  allowOutsideClick: false,
+});
+
+setIsSubmitting(false);
+setCurrentStep(1);
     }, 1000);
   };
 
