@@ -12,7 +12,6 @@ function PhDProgram() {
         }}
       >
         <div className="program-overlay">
-          <span className="program-badge">Doctorate Program</span>
 
           <h1>Doctor of Philosophy (PhD)</h1>
 
