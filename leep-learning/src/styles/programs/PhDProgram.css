@@ -1,3 +1,7 @@
+.program-hero {
+  border: 10px solid red !important;
+}
+
 .program-page {
   background: #ffffff;
 }

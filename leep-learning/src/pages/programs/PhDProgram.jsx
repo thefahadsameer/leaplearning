@@ -1,8 +1,6 @@
 import "../../styles/programs/PhDProgram.css";
 import { Link } from "react-router-dom";
-import PhDHero from "../../assets/Media/PhD Program Hero.jpg";
-
-console.log("PHD HERO IMAGE:", PhDHero);
+import PhDHero from "../../assets/Media/phd-hero.jpg";
 
 function PhDProgram() {
   return (
@@ -10,13 +8,7 @@ function PhDProgram() {
       <section
         className="program-hero"
         style={{
-          backgroundImage: `
-      linear-gradient(
-        rgba(5, 20, 50, 0.65),
-        rgba(5, 20, 50, 0.65)
-      ),
-      url(${PhDHero})
-    `,
+          backgroundImage: `url(${PhDHero})`,
         }}
       >
         <div className="program-overlay">
