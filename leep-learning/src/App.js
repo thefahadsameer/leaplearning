@@ -2,6 +2,14 @@
 
 import { Routes, Route } from "react-router-dom";
 
+/* ================= PROGRAM PAGES ================= */
+import PhDProgram from "./pages/programs/PhDProgram";
+import DBAProgram from "./pages/programs/DBAProgram";
+import HonoraryDoctorate from "./pages/programs/HonoraryDoctorate";
+import PostDoctorate from "./pages/programs/PostDoctorate";
+import DLittProgram from "./pages/programs/DLittProgram";
+import Professorship from "./pages/programs/Professorship";
+
 /* ================= PUBLIC LAYOUT ================= */
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
@@ -186,6 +194,62 @@ function App() {
         <Route path="profile" element={<Profile />} />
         <Route path="payments" element={<Payments />} />
       </Route>
+
+      {/* ================= PROGRAM ROUTES ================= */}
+
+      <Route
+        path="/programs/phd"
+        element={
+          <PublicLayout>
+            <PhDProgram />
+          </PublicLayout>
+        }
+      />
+
+      <Route
+        path="/programs/dba"
+        element={
+          <PublicLayout>
+            <DBAProgram />
+          </PublicLayout>
+        }
+      />
+
+      <Route
+        path="/programs/honorary-doctorate"
+        element={
+          <PublicLayout>
+            <HonoraryDoctorate />
+          </PublicLayout>
+        }
+      />
+
+      <Route
+        path="/programs/post-doctorate"
+        element={
+          <PublicLayout>
+            <PostDoctorate />
+          </PublicLayout>
+        }
+      />
+
+      <Route
+        path="/programs/dlitt"
+        element={
+          <PublicLayout>
+            <DLittProgram />
+          </PublicLayout>
+        }
+      />
+
+      <Route
+        path="/programs/professorship"
+        element={
+          <PublicLayout>
+            <Professorship />
+          </PublicLayout>
+        }
+      />
 
       {/* ================= FALLBACK ================= */}
 
