@@ -1,10 +1,21 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API_BASE_URL from "../config/api";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -22,15 +33,14 @@ export default function Login() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email.trim(),       // ✅ FIX
-            password: password.trim(), // ✅ FIX
+            email: email.trim(),
+            password: password.trim(),
           }),
         }
       );
 
       console.log("STEP 2: Response received");
 
-      // ✅ HANDLE HTML / INVALID RESPONSE SAFELY
       const text = await response.text();
       console.log("RAW RESPONSE:", text);
 
@@ -50,21 +60,23 @@ export default function Login() {
         throw new Error(data.message || "Login failed");
       }
 
-      // ✅ SAVE TOKEN (CRITICAL)
       localStorage.setItem("token", data.token);
 
-      // ✅ OPTIONAL BUT IMPORTANT (for future use)
       if (data.student) {
-        localStorage.setItem("student", JSON.stringify(data.student));
+        localStorage.setItem(
+          "student",
+          JSON.stringify(data.student)
+        );
       }
 
-      console.log("TOKEN SAVED:", localStorage.getItem("token"));
+      console.log(
+        "TOKEN SAVED:",
+        localStorage.getItem("token")
+      );
 
-      console.log("STEP 3: SUCCESS");
-
-      // ✅ FORCE HARD REDIRECT
-      window.location.replace("/student/dashboard");
-
+      window.location.replace(
+        "/student/dashboard"
+      );
     } catch (err) {
       console.error("LOGIN ERROR:", err);
       setError(err.message || "Failed to fetch");
@@ -78,8 +90,26 @@ export default function Login() {
         justifyContent: "center",
         alignItems: "center",
         height: "70vh",
+        position: "relative",
       }}
     >
+      <button
+        onClick={handleBack}
+        style={{
+          position: "absolute",
+          top: "20px",
+          left: "20px",
+          padding: "10px 16px",
+          border: "none",
+          borderRadius: "8px",
+          background: "#f3f4f6",
+          cursor: "pointer",
+          fontWeight: "600",
+        }}
+      >
+        ← Back
+      </button>
+
       <div
         style={{
           width: "350px",
@@ -97,7 +127,9 @@ export default function Login() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
             required
             style={{
               width: "100%",
@@ -105,6 +137,7 @@ export default function Login() {
               margin: "10px 0",
               borderRadius: "5px",
               border: "1px solid #ccc",
+              boxSizing: "border-box",
             }}
           />
 
@@ -112,7 +145,9 @@ export default function Login() {
             type="password"
             placeholder="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
             required
             style={{
               width: "100%",
@@ -120,11 +155,17 @@ export default function Login() {
               margin: "10px 0",
               borderRadius: "5px",
               border: "1px solid #ccc",
+              boxSizing: "border-box",
             }}
           />
 
           {error && (
-            <p style={{ color: "red", marginBottom: "10px" }}>
+            <p
+              style={{
+                color: "red",
+                marginBottom: "10px",
+              }}
+            >
               {error}
             </p>
           )}
