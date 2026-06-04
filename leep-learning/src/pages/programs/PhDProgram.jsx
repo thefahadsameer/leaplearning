@@ -129,7 +129,7 @@ function PhDProgram() {
           pathway for your goals.
         </p>
 
-        <Link to="/apply" className="apply-btn">
+        <Link to="/apply" className="phd-apply-btn">
           Apply Now
         </Link>
       </section>
