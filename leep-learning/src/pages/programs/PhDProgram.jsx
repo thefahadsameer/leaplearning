@@ -2,6 +2,8 @@ import "../../styles/programs/PhDProgram.css";
 import { Link } from "react-router-dom";
 import PhDHero from "../../assets/Media/PhD Program Hero.jpg";
 
+console.log("PHD HERO IMAGE:", PhDHero);
+
 function PhDProgram() {
   return (
     <div className="program-page">
