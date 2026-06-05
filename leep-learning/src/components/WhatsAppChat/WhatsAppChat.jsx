@@ -8,7 +8,7 @@ function WhatsAppChat() {
   const phoneNumber = "447428278975";
 
   const message =
-    "Hello Leap Learning, I am interested in learning more about your programs.";
+    "Hello! Leap Learning, I am interested in more about your programs.";
 
   const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
     message
@@ -53,7 +53,7 @@ function WhatsAppChat() {
           </p>
 
           <p>
-            Our admissions team will contact you ASAP.
+            Our team will contact you ASAP.
           </p>
 
           <a
