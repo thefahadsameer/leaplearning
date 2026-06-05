@@ -163,6 +163,12 @@
 
 /* BUTTON */
 .apply-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
   background: linear-gradient(135deg, #ff7a00, #ff9d2f);
   color: white;
   border: none;

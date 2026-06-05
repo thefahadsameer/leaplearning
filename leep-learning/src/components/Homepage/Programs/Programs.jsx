@@ -1,6 +1,7 @@
 // src/components/Homepage/Programs/Programs.jsx
 
 import "./Programs.css";
+import { Link } from "react-router-dom";
 
 // ✅ ICONS
 import { FaCalendarAlt } from "react-icons/fa";
@@ -65,12 +66,10 @@ function Programs() {
 
   return (
     <section className="programs-section">
-
       {/* ✅ ANIMATED BACKGROUND */}
       <AnimatedBackground />
 
       <div className="programs-container">
-
         <div className="programs-header">
           <span className="programs-badge">Our Programs</span>
 
@@ -87,7 +86,6 @@ function Programs() {
         <div className="programs-grid">
           {items.map((item, index) => (
             <div className="program-card" key={index}>
-
               <div className="program-image">
                 <img src={item.image} alt={item.title} />
 
@@ -97,7 +95,6 @@ function Programs() {
               </div>
 
               <div className="program-content">
-
                 {/* ✅ ICONS INSTEAD OF EMOJI */}
                 <div className="program-meta">
                   <span>
@@ -115,16 +112,15 @@ function Programs() {
                 </div>
 
                 <div className="program-actions">
-                  <button className="apply-btn">Apply Now</button>
+                  <Link to="/apply" className="apply-btn">
+                    Apply Now
+                  </Link>
                   <button className="secondary-btn">Know More</button>
                 </div>
-
               </div>
-
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
