@@ -21,7 +21,7 @@ function PhDProgram() {
           </p>
 
           <div className="hero-actions">
-            <Link to="/apply" className="apply-btn">
+            <Link to="/apply" className="phd-apply-btn">
               Apply Now
             </Link>
 
@@ -31,8 +31,8 @@ function PhDProgram() {
           </div>
         </div>
       </section>
-
-      <section id="overview" className="program-content">
+<section id="overview" className="phd-program-content">
+      
         <div className="content-grid">
           <div>
             <h2>Program Overview</h2>
@@ -81,7 +81,7 @@ function PhDProgram() {
             </ul>
           </div>
 
-          <div className="info-card">
+          <div className="phd-info-card">
             <h3>Program Highlights</h3>
 
             <ul>
@@ -95,11 +95,11 @@ function PhDProgram() {
         </div>
       </section>
 
-      <section className="program-features">
+      <section className="phd-program-features">
         <h2>Why Choose This Program?</h2>
 
-        <div className="feature-grid">
-          <div className="feature-card">
+        <div className="phd-feature-grid">
+          <div className="phd-feature-card">
             <h3>Academic Excellence</h3>
             <p>
               Conduct meaningful research and contribute to your academic field.
@@ -121,7 +121,7 @@ function PhDProgram() {
         </div>
       </section>
 
-      <section className="program-cta">
+      <section className="phd-program-cta">
         <h2>Ready to Begin Your Doctoral Journey?</h2>
 
         <p>
