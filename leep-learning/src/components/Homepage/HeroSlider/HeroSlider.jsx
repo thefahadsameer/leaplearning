@@ -3,7 +3,7 @@ import "./HeroSlider.css";
 
 import slide1 from "../../../assets/Media/graduation_horizontal.jpg";
 import slide2 from "../../../assets/Media/Consultance.jpg";
-import slide3 from "../../../assets/Media/Team.png";
+import slide3 from "../../../assets/Media/Team.jpg";
 
 function HeroSlider() {
   const slides = [
