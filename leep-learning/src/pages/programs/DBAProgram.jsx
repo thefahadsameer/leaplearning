@@ -21,7 +21,7 @@ function DBAProgram() {
           </p>
 
           <div className="hero-actions">
-            <Link to="/apply" className="phd-apply-btn">
+            <Link to="/apply" className="dba-apply-btn">
               Apply Now
             </Link>
 
@@ -32,7 +32,7 @@ function DBAProgram() {
         </div>
       </section>
 
-      <section id="overview" className="program-content">
+      <section id="overview" className="dba-program-content">
         <div className="content-grid">
           <div>
             <h2>Program Overview</h2>
@@ -71,7 +71,7 @@ function DBAProgram() {
 
             <h3 style={{ marginTop: "30px" }}>Learning Outcomes</h3>
 
-            <ul className="program-outcomes">
+            <ul className="dba-program-outcomes">
               <li>Apply advanced business research methodologies.</li>
               <li>Strengthen executive leadership capabilities.</li>
               <li>Develop evidence-based strategic solutions.</li>
@@ -80,7 +80,7 @@ function DBAProgram() {
             </ul>
           </div>
 
-          <div className="info-card">
+          <div className="dba-info-card">
             <h3>Program Highlights</h3>
 
             <ul>
@@ -94,25 +94,25 @@ function DBAProgram() {
         </div>
       </section>
 
-      <section className="program-features">
+      <section className="dba-program-features">
         <h2>Why Choose This Program?</h2>
 
-        <div className="feature-grid">
-          <div className="feature-card">
+        <div className="dba-feature-grid">
+          <div className="dba-feature-card">
             <h3>Executive Leadership</h3>
             <p>
               Develop strategic leadership skills for modern organizations.
             </p>
           </div>
 
-          <div className="feature-card">
+          <div className="dba-feature-card">
             <h3>Business Research</h3>
             <p>
               Solve real-world business challenges through applied research.
             </p>
           </div>
 
-          <div className="feature-card">
+          <div className="dba-feature-card">
             <h3>Global Recognition</h3>
             <p>
               Earn a respected doctoral qualification for career advancement.
@@ -121,7 +121,7 @@ function DBAProgram() {
         </div>
       </section>
 
-      <section className="program-cta">
+      <section className="dba-program-cta">
         <h2>Ready to Advance Your Business Leadership?</h2>
 
         <p>
@@ -129,7 +129,7 @@ function DBAProgram() {
           your professional journey.
         </p>
 
-        <Link to="/apply" className="phd-apply-btn">
+        <Link to="/apply" className="dba-apply-btn">
           Apply Now
         </Link>
       </section>

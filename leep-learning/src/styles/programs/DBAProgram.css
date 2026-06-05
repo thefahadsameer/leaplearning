@@ -72,7 +72,7 @@
   gap: 20px;
 }
 
-.phd-apply-btn {
+.dba-apply-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -106,7 +106,7 @@
   transition: all 0.3s ease;
 }
 
-.phd-apply-btn:hover {
+.dba-apply-btn:hover {
   transform: translateY(-2px);
 }
 
@@ -132,7 +132,7 @@
   transition: all 0.3s ease;
 }
 
-.phd-program-content {
+.dba-program-content {
   max-width: 1280px;
   margin: auto;
   padding: 100px 30px;
@@ -145,7 +145,7 @@
   align-items: start;
 }
 
-.phd-info-card {
+.dba-info-card {
   background: #f8fafc;
   padding: 35px;
   border-radius: 20px;
@@ -155,21 +155,21 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
-.phd-info-card ul {
+.dba-info-card ul {
   padding-left: 20px;
 }
 
-.phd-info-card li {
+.dba-info-card li {
   margin-bottom: 12px;
 }
 
-.phd-program-features {
+.dba-program-features {
   background: #f8fafc;
   padding: 100px 30px;
   text-align: center;
 }
 
-.phd-feature-grid {
+.dba-feature-grid {
   max-width: 1280px;
   margin: 40px auto 0;
   display: grid;
@@ -177,27 +177,27 @@
   gap: 30px;
 }
 
-.phd-feature-card {
+.dba-feature-card {
   background: white;
   padding: 35px;
   border-radius: 20px;
 }
 
-.phd-program-cta {
+.dba-program-cta {
   padding: 100px 30px;
   text-align: center;
 }
 
-.phd-program-cta h2 {
+.dba-program-cta h2 {
   margin-bottom: 20px;
 }
 
-.phd-program-outcomes {
+.dba-program-outcomes {
   margin-top: 20px;
   padding-left: 22px;
 }
 
-.phd-program-outcomes li {
+.dba-program-outcomes li {
   margin-bottom: 12px;
   line-height: 1.7;
   color: #475569;
