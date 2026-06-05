@@ -270,3 +270,21 @@
     height: 45px;   /* mobile optimized */
   }
 }
+
+.mobile-programs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-programs-title {
+  color: #0f2a5c;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+.mobile-programs a {
+  padding-left: 14px;
+  font-size: 14px;
+  color: #475569;
+}

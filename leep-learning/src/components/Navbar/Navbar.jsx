@@ -80,12 +80,40 @@ function Navbar() {
           <Link to="/" onClick={closeMenu}>
             Home
           </Link>
+
           <Link to="/about" onClick={closeMenu}>
             About
           </Link>
-          <Link to="/brochure" onClick={closeMenu}>
-            Programs
-          </Link>
+
+          {/* PROGRAMS */}
+          <div className="mobile-programs">
+            <span className="mobile-programs-title">Programs</span>
+
+            <Link to="/programs/phd" onClick={closeMenu}>
+              PhD Programs
+            </Link>
+
+            <Link to="/programs/dba" onClick={closeMenu}>
+              DBA Programs
+            </Link>
+
+            <Link to="/programs/honorary-doctorate" onClick={closeMenu}>
+              Honorary Doctorate
+            </Link>
+
+            <Link to="/programs/post-doctorate" onClick={closeMenu}>
+              Post Doctorate
+            </Link>
+
+            <Link to="/programs/dlitt" onClick={closeMenu}>
+              Doctor of Literature (D.Litt)
+            </Link>
+
+            <Link to="/programs/professorship" onClick={closeMenu}>
+              Professorship
+            </Link>
+          </div>
+
           <Link to="/contact" onClick={closeMenu}>
             Contact
           </Link>
