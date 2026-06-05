@@ -202,3 +202,124 @@
   line-height: 1.7;
   color: #475569;
 }
+
+/* ================================
+   RESPONSIVE DESIGN
+================================ */
+
+/* Tablet */
+@media (max-width: 992px) {
+
+  .program-hero {
+    height: 600px;
+  }
+
+  .program-overlay h1 {
+    font-size: 48px;
+  }
+
+  .program-overlay p {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .dba-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dba-program-content,
+  .dba-program-features,
+  .dba-program-cta {
+    padding: 80px 24px;
+  }
+
+  .dba-info-card {
+    max-width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .program-hero {
+    height: auto;
+    min-height: 550px;
+    padding: 120px 0 80px;
+  }
+
+  .program-overlay {
+    padding: 0 20px;
+  }
+
+  .program-overlay h1 {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+
+  .program-overlay p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+  }
+
+  .dba-apply-btn,
+  .outline-btn {
+    width: 100%;
+  }
+
+  .dba-program-content,
+  .dba-program-features,
+  .dba-program-cta {
+    padding: 60px 20px;
+  }
+
+  .dba-feature-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .dba-feature-card {
+    padding: 24px;
+  }
+
+  .dba-info-card {
+    padding: 24px;
+  }
+
+  .dba-program-cta h2 {
+    font-size: 30px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+  .program-overlay h1 {
+    font-size: 30px;
+  }
+
+  .program-overlay p {
+    font-size: 15px;
+  }
+
+  .dba-program-content h2,
+  .dba-program-features h2,
+  .dba-program-cta h2 {
+    font-size: 32px;
+  }
+
+  .dba-feature-card,
+  .dba-info-card {
+    padding: 20px;
+  }
+}
