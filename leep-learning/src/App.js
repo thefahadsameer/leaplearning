@@ -21,6 +21,7 @@ import AdminRecycleBin from "./admin/pages/AdminRecycleBin";
 
 /* ================= PUBLIC PAGES ================= */
 import Home from "./pages/Home";
+import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 import About from "./pages/About";
 import Brochure from "./pages/Brochure";
 import Contact from "./pages/Contact";
@@ -70,6 +71,7 @@ function PublicLayout({ children }) {
       {children}
       <Footer />
       <FloatingCTA />
+      <WhatsAppChat />
     </>
   );
 }

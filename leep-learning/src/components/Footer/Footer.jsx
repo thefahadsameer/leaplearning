@@ -28,7 +28,7 @@ function Footer() {
 
           <div className="footer-badges">
             <span>Global Access</span>
-            <span>Expert Support</span>
+            <span> Expert Support</span>
           </div>
         </div>
 
