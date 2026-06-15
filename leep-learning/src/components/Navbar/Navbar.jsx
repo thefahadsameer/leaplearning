@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import Logo from "../../assets/Media/Leap-removebg-preview.png";
+import { MdKeyboardArrowDown } from "react-icons/md";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -35,7 +36,10 @@ function Navbar() {
             <Link to="/about">About</Link>
 
             <div className="programs-dropdown">
-              <span className="dropdown-trigger">Programs ▾</span>
+              <span className="dropdown-trigger">
+                Programs
+                <MdKeyboardArrowDown className="dropdown-icon" />
+              </span>
 
               <div className="dropdown-menu">
                 <Link to="/programs/phd">PhD Programs</Link>
