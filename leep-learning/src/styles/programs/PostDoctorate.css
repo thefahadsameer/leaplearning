@@ -1,0 +1,384 @@
+/* =================================
+   POST DOCTORATE PAGE
+================================= */
+
+.program-page {
+  background: #ffffff;
+}
+
+.program-hero {
+  height: 700px;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.program-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(5, 20, 50, 0.55);
+
+  z-index: 1;
+}
+
+.program-overlay {
+  position: relative;
+  z-index: 2;
+
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 30px;
+
+  color: #ffffff;
+}
+
+.program-overlay h1 {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  color: #ffffff;
+}
+
+.program-overlay p {
+  max-width: 750px;
+  font-size: 22px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.program-badge {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+
+  color: #ffffff;
+  font-weight: 600;
+
+  margin-bottom: 24px;
+}
+
+.hero-actions {
+  margin-top: 40px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* =================================
+   BUTTONS
+================================= */
+
+.postdoc-apply-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 170px;
+  height: 56px;
+
+  padding: 0 28px;
+
+  background: linear-gradient(
+    135deg,
+    #ff7a00,
+    #ff9d2f
+  );
+
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  border-radius: 999px;
+
+  box-shadow: 0 8px 24px rgba(
+    255,
+    122,
+    0,
+    0.30
+  );
+
+  transition: all 0.3s ease;
+}
+
+.postdoc-apply-btn:hover {
+  transform: translateY(-2px);
+}
+
+.outline-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 190px;
+  height: 58px;
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  color: #ffffff;
+  text-decoration: none;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  border-radius: 999px;
+
+  backdrop-filter: blur(8px);
+
+  transition: all 0.3s ease;
+}
+
+/* =================================
+   CONTENT SECTION
+================================= */
+
+.postdoc-program-content {
+  max-width: 1280px;
+  margin: auto;
+  padding: 100px 30px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  gap: 50px;
+  align-items: start;
+}
+
+.postdoc-info-card {
+  background: #f8fafc;
+
+  padding: 35px;
+  border-radius: 20px;
+
+  height: fit-content;
+
+  box-shadow: 0 8px 24px rgba(
+    0,
+    0,
+    0,
+    0.04
+  );
+}
+
+.postdoc-info-card ul {
+  padding-left: 20px;
+}
+
+.postdoc-info-card li {
+  margin-bottom: 12px;
+}
+
+/* =================================
+   RESEARCH OUTCOMES
+================================= */
+
+.postdoc-program-outcomes {
+  margin-top: 20px;
+  padding-left: 22px;
+}
+
+.postdoc-program-outcomes li {
+  margin-bottom: 12px;
+  line-height: 1.7;
+  color: #475569;
+}
+
+/* =================================
+   FEATURES SECTION
+================================= */
+
+.postdoc-program-features {
+  background: #f8fafc;
+
+  padding: 100px 30px;
+
+  text-align: center;
+}
+
+.postdoc-feature-grid {
+  max-width: 1280px;
+
+  margin: 40px auto 0;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 30px;
+}
+
+.postdoc-feature-card {
+  background: #ffffff;
+
+  padding: 35px;
+  border-radius: 20px;
+
+  transition: all 0.3s ease;
+}
+
+.postdoc-feature-card:hover {
+  transform: translateY(-5px);
+}
+
+/* =================================
+   CTA SECTION
+================================= */
+
+.postdoc-program-cta {
+  padding: 100px 30px;
+
+  text-align: center;
+}
+
+.postdoc-program-cta h2 {
+  margin-bottom: 20px;
+}
+
+.postdoc-program-cta p {
+  max-width: 700px;
+  margin: 0 auto 30px;
+
+  line-height: 1.8;
+  color: #475569;
+}
+
+/* =================================
+   TABLET
+================================= */
+
+@media (max-width: 992px) {
+
+  .program-hero {
+    height: 600px;
+  }
+
+  .program-overlay h1 {
+    font-size: 48px;
+  }
+
+  .program-overlay p {
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .postdoc-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .postdoc-program-content,
+  .postdoc-program-features,
+  .postdoc-program-cta {
+    padding: 80px 24px;
+  }
+
+  .postdoc-info-card {
+    max-width: 100%;
+  }
+}
+
+/* =================================
+   MOBILE
+================================= */
+
+@media (max-width: 768px) {
+
+  .program-hero {
+    height: auto;
+    min-height: 550px;
+    padding: 120px 0 80px;
+  }
+
+  .program-overlay {
+    padding: 0 20px;
+  }
+
+  .program-overlay h1 {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+
+  .program-overlay p {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 15px;
+  }
+
+  .postdoc-apply-btn,
+  .outline-btn {
+    width: 100%;
+  }
+
+  .postdoc-program-content,
+  .postdoc-program-features,
+  .postdoc-program-cta {
+    padding: 60px 20px;
+  }
+
+  .postdoc-feature-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .postdoc-feature-card {
+    padding: 24px;
+  }
+
+  .postdoc-info-card {
+    padding: 24px;
+  }
+
+  .postdoc-program-cta h2 {
+    font-size: 30px;
+  }
+}
+
+/* =================================
+   SMALL MOBILE
+================================= */
+
+@media (max-width: 480px) {
+
+  .program-overlay h1 {
+    font-size: 30px;
+  }
+
+  .program-overlay p {
+    font-size: 15px;
+  }
+
+  .postdoc-program-content h2,
+  .postdoc-program-features h2,
+  .postdoc-program-cta h2 {
+    font-size: 32px;
+  }
+
+  .postdoc-feature-card,
+  .postdoc-info-card {
+    padding: 20px;
+  }
+}
