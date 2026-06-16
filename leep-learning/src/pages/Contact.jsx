@@ -15,7 +15,6 @@ function Contact() {
   });
 
   const [showSuccess, setShowSuccess] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
 
   const timeOptions = [
     "10 AM - 10:30 AM",
@@ -48,10 +47,6 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (submitting) return;
-
-    setSubmitting(true);
-
     try {
       const res = await fetch(
         "https://leaplearning.onrender.com/api/contact",
@@ -79,11 +74,8 @@ function Contact() {
       } else {
         alert("Submission failed");
       }
-    } catch (error) {
-      console.error(error);
+    } catch {
       alert("Server error");
-    } finally {
-      setSubmitting(false);
     }
   };
 
@@ -134,7 +126,6 @@ function Contact() {
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Name *</label>
-
                 <input
                   name="name"
                   value={formData.name}
@@ -145,7 +136,6 @@ function Contact() {
 
               <div className="form-group">
                 <label>Email *</label>
-
                 <input
                   name="email"
                   value={formData.email}
@@ -221,19 +211,8 @@ function Contact() {
                 />
               </div>
 
-              <button
-                type="submit"
-                className="contact-btn"
-                disabled={submitting}
-              >
-                {submitting ? (
-                  <>
-                    <span className="btn-spinner"></span>
-                    Submitting...
-                  </>
-                ) : (
-                  "Submit Inquiry"
-                )}
+              <button type="submit" className="contact-btn">
+                Submit Inquiry
               </button>
             </form>
           </div>
