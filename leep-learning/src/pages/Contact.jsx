@@ -15,6 +15,7 @@ function Contact() {
   });
 
   const [showSuccess, setShowSuccess] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const timeOptions = [
     "10 AM - 10:30 AM",
@@ -47,21 +48,21 @@ function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setSubmitting(true);
+
     try {
-      const res = await fetch(
-        "https://leaplearning.onrender.com/api/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
-      );
+      const res = await fetch("https://leaplearning.onrender.com/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await res.json();
 
       if (data.success) {
+        setSubmitting(false);
         setShowSuccess(true);
 
         setFormData({
@@ -72,9 +73,11 @@ function Contact() {
           message: "",
         });
       } else {
+        setSubmitting(false);
         alert("Submission failed");
       }
     } catch {
+      setSubmitting(false);
       alert("Server error");
     }
   };
@@ -211,8 +214,12 @@ function Contact() {
                 />
               </div>
 
-              <button type="submit" className="contact-btn">
-                Submit Inquiry
+              <button
+                type="submit"
+                className="contact-btn"
+                disabled={submitting}
+              >
+                {submitting ? "Submitting..." : "Submit Inquiry"}
               </button>
             </form>
           </div>
