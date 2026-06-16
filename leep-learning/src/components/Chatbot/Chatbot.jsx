@@ -8,7 +8,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
       sender: "bot",
-      text: "Hi! Welcome to Leap Learning. How can I help you today?"
+      text: "Welcome to Leap Learning. Ask me about PhD, DBA, DLitt, Professorship, Honorary Doctorate, admissions, fees, or application support."
     }
   ]);
 
@@ -23,12 +23,9 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/chat`,
-        {
-          message
-        }
-      );
+      const { data } = await axios.post("/api/chat", {
+        message
+      });
 
       setMessages((prev) => [
         ...prev,
@@ -50,24 +47,43 @@ export default function Chatbot() {
     setMessage("");
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
+  };
+
   return (
     <>
       <button
         className="chat-toggle"
         onClick={() => setOpen(!open)}
+        aria-label="Open Chat"
       >
-        AI
+        🎓 Ask Leap
       </button>
 
       {open && (
         <div className="chat-window">
           <div className="chat-header">
-            Leap Learning Assistant
+            <div className="chat-header-title">
+              🎓 Leap Learning Assistant
+            </div>
+
+            <button
+              className="chat-close"
+              onClick={() => setOpen(false)}
+            >
+              ×
+            </button>
           </div>
 
           <div className="chat-body">
             {messages.map((msg, index) => (
-              <div key={index} className={msg.sender}>
+              <div
+                key={index}
+                className={`message ${msg.sender}`}
+              >
                 {msg.text}
               </div>
             ))}
@@ -75,9 +91,11 @@ export default function Chatbot() {
 
           <div className="chat-footer">
             <input
+              type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Ask something..."
+              onKeyDown={handleKeyPress}
+              placeholder="Ask about admissions..."
             />
 
             <button onClick={sendMessage}>
