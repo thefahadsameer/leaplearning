@@ -1,12 +1,6 @@
 import { useState } from "react";
 import "../styles/Contact.css";
-import {
-  MapPin,
-  Mail,
-  Clock,
-  Phone,
-  ChevronDown,
-} from "lucide-react";
+import { MapPin, Mail, Clock, Phone, ChevronDown } from "lucide-react";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -59,16 +53,13 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const res = await fetch(
-        "https://leaplearning.onrender.com/api/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+      const res = await fetch("https://leaplearning.onrender.com/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(formData),
+      });
 
       const data = await res.json();
 
@@ -201,28 +192,24 @@ function Contact() {
               <div className="form-group">
                 <label>Preferred Time</label>
 
-                <div
-                  className="custom-select"
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                <select
+                  name="timeSlot"
+                  value={formData.timeSlot}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      timeSlot: e.target.value,
+                    })
+                  }
                 >
-                  <span>{formData.timeSlot || "Select Time"}</span>
+                  <option value="">Select Time</option>
 
-                  <ChevronDown size={18} />
-                </div>
-
-                {dropdownOpen && (
-                  <div className="dropdown-menu">
-                    {timeOptions.map((option, index) => (
-                      <div
-                        key={index}
-                        className="dropdown-item"
-                        onClick={() => handleSelect(option)}
-                      >
-                        {option}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  {timeOptions.map((option, index) => (
+                    <option key={index} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="form-group">
