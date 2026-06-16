@@ -26,6 +26,7 @@ function Programs() {
       mode: "Online",
       rating: "4.7",
       image: dbaImg,
+      route: "/programs/dba",
     },
     {
       title: "Honorary Doctorate",
@@ -33,6 +34,7 @@ function Programs() {
       mode: "Online",
       rating: "4.8",
       image: honoraryImg,
+      route: "/programs/honorary-doctorate",
     },
     {
       title: "PhD Programs",
@@ -40,6 +42,7 @@ function Programs() {
       mode: "Online",
       rating: "4.6",
       image: phdImg,
+      route: "/programs/phd",
     },
     {
       title: "Doctor of Literature (D.Litt)",
@@ -47,6 +50,7 @@ function Programs() {
       mode: "Online",
       rating: "4.5",
       image: dlitImg,
+      route: "/programs/dlitt",
     },
     {
       title: "Post Doctorate",
@@ -54,6 +58,7 @@ function Programs() {
       mode: "Online",
       rating: "4.6",
       image: postDocImg,
+      route: "/programs/post-doctorate",
     },
     {
       title: "Professorship",
@@ -61,6 +66,7 @@ function Programs() {
       mode: "Online",
       rating: "4.9",
       image: professorshipImg,
+      route: "/programs/professorship",
     },
   ];
 
@@ -115,7 +121,9 @@ function Programs() {
                   <Link to="/apply" className="apply-btn">
                     Apply Now
                   </Link>
-                  <button className="secondary-btn">Know More</button>
+                  <Link to={item.route} className="secondary-btn">
+                    Know More
+                  </Link>
                 </div>
               </div>
             </div>
