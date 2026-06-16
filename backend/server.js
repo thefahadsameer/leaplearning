@@ -12,9 +12,10 @@ app.use(
       "https://www.leaplearning.co.in",
       "https://leaplearning.co.in",
       "http://localhost:3000",
+      "https://leaplearning.onrender.com",
     ],
     credentials: true,
-  })
+  }),
 );
 
 /* ================= ROUTES IMPORT ================= */
@@ -36,19 +37,13 @@ app.use("/api/chat", chatRoutes);
 /* ===================================================
    WEBHOOK MUST USE RAW BODY BEFORE express.json()
 =================================================== */
-app.use(
-  "/api/payments/webhook",
-  express.raw({ type: "application/json" })
-);
+app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
 
 /* ================= NORMAL JSON ================= */
 app.use(express.json());
 
 /* ================= STATIC FILES ================= */
-app.use(
-  "/invoices",
-  express.static(path.join(__dirname, "invoices"))
-);
+app.use("/invoices", express.static(path.join(__dirname, "invoices")));
 
 /* ===================================================
    CONTACT ROUTE (CONTROLLER HANDLES EVERYTHING)

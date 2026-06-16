@@ -32,9 +32,12 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, userMessage]);
 
     try {
-      const { data } = await axios.post("/api/chat", {
-        message: text
-      });
+      const { data } = await axios.post(
+        "https://leaplearning.onrender.com/api/chat",
+        {
+          message: text
+        }
+      );
 
       const botReply = {
         sender: "bot",
