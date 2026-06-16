@@ -6,6 +6,8 @@ import "./Navbar.css";
 import Logo from "../../assets/Media/Leap-removebg-preview.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
+const [programsOpen, setProgramsOpen] = useState(false);
+
 function Navbar() {
   const [open, setOpen] = useState(false);
 
@@ -89,33 +91,47 @@ function Navbar() {
             About
           </Link>
 
-          {/* PROGRAMS */}
           <div className="mobile-programs">
-            <span className="mobile-programs-title">Programs</span>
+            <button
+              className="mobile-programs-toggle"
+              onClick={() => setProgramsOpen(!programsOpen)}
+            >
+              <span>Programs</span>
 
-            <Link to="/programs/phd" onClick={closeMenu}>
-              PhD Programs
-            </Link>
+              <MdKeyboardArrowDown
+                className={`mobile-program-icon ${
+                  programsOpen ? "rotate" : ""
+                }`}
+              />
+            </button>
 
-            <Link to="/programs/dba" onClick={closeMenu}>
-              DBA Programs
-            </Link>
+            {programsOpen && (
+              <div className="mobile-program-links">
+                <Link to="/programs/phd" onClick={closeMenu}>
+                  PhD Programs
+                </Link>
 
-            <Link to="/programs/honorary-doctorate" onClick={closeMenu}>
-              Honorary Doctorate
-            </Link>
+                <Link to="/programs/dba" onClick={closeMenu}>
+                  DBA Programs
+                </Link>
 
-            <Link to="/programs/post-doctorate" onClick={closeMenu}>
-              Post Doctorate
-            </Link>
+                <Link to="/programs/honorary-doctorate" onClick={closeMenu}>
+                  Honorary Doctorate
+                </Link>
 
-            <Link to="/programs/dlitt" onClick={closeMenu}>
-              Doctor of Literature (D.Litt)
-            </Link>
+                <Link to="/programs/post-doctorate" onClick={closeMenu}>
+                  Post Doctorate
+                </Link>
 
-            <Link to="/programs/professorship" onClick={closeMenu}>
-              Professorship
-            </Link>
+                <Link to="/programs/dlitt" onClick={closeMenu}>
+                  Doctor of Literature (D.Litt)
+                </Link>
+
+                <Link to="/programs/professorship" onClick={closeMenu}>
+                  Professorship
+                </Link>
+              </div>
+            )}
           </div>
 
           <Link to="/contact" onClick={closeMenu}>
