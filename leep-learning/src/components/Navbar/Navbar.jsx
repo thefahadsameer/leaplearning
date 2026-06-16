@@ -6,12 +6,14 @@ import "./Navbar.css";
 import Logo from "../../assets/Media/Leap-removebg-preview.png";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
-const [programsOpen, setProgramsOpen] = useState(false);
-
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const [programsOpen, setProgramsOpen] = useState(false);
 
-  const closeMenu = () => setOpen(false);
+  const closeMenu = () => {
+    setOpen(false);
+    setProgramsOpen(false);
+  };
 
   return (
     <>
@@ -52,11 +54,17 @@ function Navbar() {
                   Honorary Doctorate
                 </Link>
 
-                <Link to="/programs/post-doctorate">Post Doctorate</Link>
+                <Link to="/programs/post-doctorate">
+                  Post Doctorate
+                </Link>
 
-                <Link to="/programs/dlitt">Doctor of Literature (D.Litt)</Link>
+                <Link to="/programs/dlitt">
+                  Doctor of Literature (D.Litt)
+                </Link>
 
-                <Link to="/programs/professorship">Professorship</Link>
+                <Link to="/programs/professorship">
+                  Professorship
+                </Link>
               </div>
             </div>
 
@@ -91,6 +99,7 @@ function Navbar() {
             About
           </Link>
 
+          {/* MOBILE PROGRAMS DROPDOWN */}
           <div className="mobile-programs">
             <button
               className="mobile-programs-toggle"
@@ -115,11 +124,17 @@ function Navbar() {
                   DBA Programs
                 </Link>
 
-                <Link to="/programs/honorary-doctorate" onClick={closeMenu}>
+                <Link
+                  to="/programs/honorary-doctorate"
+                  onClick={closeMenu}
+                >
                   Honorary Doctorate
                 </Link>
 
-                <Link to="/programs/post-doctorate" onClick={closeMenu}>
+                <Link
+                  to="/programs/post-doctorate"
+                  onClick={closeMenu}
+                >
                   Post Doctorate
                 </Link>
 
@@ -127,7 +142,10 @@ function Navbar() {
                   Doctor of Literature (D.Litt)
                 </Link>
 
-                <Link to="/programs/professorship" onClick={closeMenu}>
+                <Link
+                  to="/programs/professorship"
+                  onClick={closeMenu}
+                >
                   Professorship
                 </Link>
               </div>
@@ -138,7 +156,11 @@ function Navbar() {
             Contact
           </Link>
 
-          <Link to="/apply" onClick={closeMenu} className="mobile-cta">
+          <Link
+            to="/apply"
+            onClick={closeMenu}
+            className="mobile-cta"
+          >
             Apply Now
           </Link>
         </div>
