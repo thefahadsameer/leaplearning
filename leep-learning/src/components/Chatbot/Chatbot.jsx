@@ -5,6 +5,7 @@ import "./Chatbot.css";
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [unreadCount, setUnreadCount] = useState(0);
 
   const [messages, setMessages] = useState([
     {
@@ -35,22 +36,29 @@ export default function Chatbot() {
         message: text
       });
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text: data.reply
-        }
-      ]);
+      const botReply = {
+        sender: "bot",
+        text: data.reply
+      };
+
+      setMessages((prev) => [...prev, botReply]);
+
+      if (!open) {
+        setUnreadCount((prev) => prev + 1);
+      }
     } catch (error) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "bot",
-          text:
-            "Sorry, we're unable to respond right now."
-        }
-      ]);
+      console.error("CHAT ERROR:", error);
+
+      const errorReply = {
+        sender: "bot",
+        text: "Sorry, we're unable to respond right now."
+      };
+
+      setMessages((prev) => [...prev, errorReply]);
+
+      if (!open) {
+        setUnreadCount((prev) => prev + 1);
+      }
     }
 
     setMessage("");
@@ -65,10 +73,31 @@ export default function Chatbot() {
           </div>
 
           <button
-            className="chat-launcher"
-            onClick={() => setOpen(true)}
+            className={`chat-launcher ${
+              unreadCount > 0 ? "has-unread" : ""
+            }`}
+            onClick={() => {
+              setOpen(true);
+              setUnreadCount(0);
+            }}
           >
-            Chat
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M21 12C21 16.4 16.97 20 12 20C11.2 20 10.42 19.92 9.68 19.76L4 21L5.15 16.2C3.81 14.99 3 13.56 3 12C3 7.6 7.03 4 12 4C16.97 4 21 7.6 21 12Z"
+                fill="white"
+              />
+            </svg>
+
+            {unreadCount > 0 && (
+              <span className="chat-badge">
+                {unreadCount}
+              </span>
+            )}
           </button>
         </>
       )}
