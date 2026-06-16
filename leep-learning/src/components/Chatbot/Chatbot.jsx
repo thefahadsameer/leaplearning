@@ -5,26 +5,34 @@ import "./Chatbot.css";
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+
   const [messages, setMessages] = useState([
     {
       sender: "bot",
-      text: "Welcome to Leap Learning. Ask me about PhD, DBA, DLitt, Professorship, Honorary Doctorate, admissions, fees, or application support."
+      text: "Welcome to Leap Learning. How can we help you today?"
     }
   ]);
 
-  const sendMessage = async () => {
-    if (!message.trim()) return;
+  const quickActions = [
+    "Admissions",
+    "Programs",
+    "Fees",
+    "Application Status"
+  ];
+
+  const sendMessage = async (text = message) => {
+    if (!text.trim()) return;
 
     const userMessage = {
       sender: "user",
-      text: message
+      text
     };
 
     setMessages((prev) => [...prev, userMessage]);
 
     try {
       const { data } = await axios.post("/api/chat", {
-        message
+        message: text
       });
 
       setMessages((prev) => [
@@ -39,7 +47,8 @@ export default function Chatbot() {
         ...prev,
         {
           sender: "bot",
-          text: "Sorry, I'm having trouble responding right now."
+          text:
+            "Sorry, we're unable to respond right now."
         }
       ]);
     }
@@ -47,31 +56,30 @@ export default function Chatbot() {
     setMessage("");
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
-  };
-
   return (
     <>
-      <button
-        className="chat-toggle"
-        onClick={() => setOpen(!open)}
-        aria-label="Open Chat"
-      >
-        🎓 Ask Leap
-      </button>
+      {!open && (
+        <>
+          <div className="chat-greeting">
+            Hi! How can we help?
+          </div>
+
+          <button
+            className="chat-launcher"
+            onClick={() => setOpen(true)}
+          >
+            Chat
+          </button>
+        </>
+      )}
 
       {open && (
-        <div className="chat-window">
+        <div className="chat-widget">
           <div className="chat-header">
-            <div className="chat-header-title">
-              🎓 Leap Learning Assistant
-            </div>
+            <span>Leap Learning Support</span>
 
             <button
-              className="chat-close"
+              className="close-btn"
               onClick={() => setOpen(false)}
             >
               ×
@@ -79,6 +87,17 @@ export default function Chatbot() {
           </div>
 
           <div className="chat-body">
+            <div className="quick-actions">
+              {quickActions.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => sendMessage(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
             {messages.map((msg, index) => (
               <div
                 key={index}
@@ -91,14 +110,19 @@ export default function Chatbot() {
 
           <div className="chat-footer">
             <input
-              type="text"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={handleKeyPress}
-              placeholder="Ask about admissions..."
+              onChange={(e) =>
+                setMessage(e.target.value)
+              }
+              onKeyDown={(e) =>
+                e.key === "Enter" && sendMessage()
+              }
+              placeholder="Type your message..."
             />
 
-            <button onClick={sendMessage}>
+            <button
+              onClick={() => sendMessage()}
+            >
               Send
             </button>
           </div>
