@@ -24,8 +24,14 @@ const adminRoutes = require("./routes/adminRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const employeeRoutes = require("./routes/employeeRoutes");
 
+/* ================= CHATBOT ROUTES ================= */
+const chatRoutes = require("./routes/chatRoutes");
+
 /* ================= NEW APPLICATION ROUTES ================= */
 const applicationRoutes = require("./routes/applicationRoutes");
+
+/* ================= CHATBOT ROUTES ================= */
+app.use("/api/chat", chatRoutes);
 
 /* ===================================================
    WEBHOOK MUST USE RAW BODY BEFORE express.json()

@@ -2,6 +2,9 @@
 
 import { Routes, Route } from "react-router-dom";
 
+/* ================= CHATBOT ================= */
+import Chatbot from "./components/Chatbot/Chatbot";
+
 /* ================= PROGRAM PAGES ================= */
 import PhDProgram from "./pages/programs/PhDProgram";
 import DBAProgram from "./pages/programs/DBAProgram";
@@ -72,6 +75,7 @@ function PublicLayout({ children }) {
       <Footer />
       <FloatingCTA />
       <WhatsAppChat />
+      <Chatbot />
     </>
   );
 }
