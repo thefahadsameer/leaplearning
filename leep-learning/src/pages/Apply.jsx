@@ -88,7 +88,7 @@ function Apply() {
         html: `
         <div style="font-size:15px">
           Thank you for applying with <b>Leap Learning</b>.<br><br>
-          Our academic advisor will review your application and contact you within 24–48 hours.
+          Our Team will review your application and contact you soon.
         </div>
       `,
         confirmButtonText: "Continue",

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../styles/Contact.css";
-import { MapPin, Mail, Clock, Phone, ChevronDown } from "lucide-react";
+import { MapPin, Mail, Clock, Phone } from "lucide-react";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -14,7 +14,7 @@ function Contact() {
     message: "",
   });
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const timeOptions = [
     "10 AM - 10:30 AM",
@@ -44,27 +44,25 @@ function Contact() {
     });
   };
 
-  const handleSelect = (value) => {
-    setFormData({ ...formData, timeSlot: value });
-    setDropdownOpen(false);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://leaplearning.onrender.com/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://leaplearning.onrender.com/api/contact",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await res.json();
 
       if (data.success) {
-        alert("Inquiry submitted successfully!");
+        setShowSuccess(true);
 
         setFormData({
           name: "",
@@ -124,12 +122,10 @@ function Contact() {
             </div>
           </div>
 
-          {/* FORM */}
           <div className="contact-form-wrapper">
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label>Name *</label>
-
                 <input
                   name="name"
                   value={formData.name}
@@ -140,7 +136,6 @@ function Contact() {
 
               <div className="form-group">
                 <label>Email *</label>
-
                 <input
                   name="email"
                   value={formData.email}
@@ -149,7 +144,6 @@ function Contact() {
                 />
               </div>
 
-              {/* PHONE INPUT WITH COUNTRY CODE */}
               <div className="form-group">
                 <label>Phone</label>
 
@@ -181,14 +175,9 @@ function Contact() {
                   containerStyle={{
                     width: "100%",
                   }}
-                  dropdownStyle={{
-                    borderRadius: "12px",
-                    border: "1px solid #dbe3ef",
-                  }}
                 />
               </div>
 
-              {/* PREMIUM DROPDOWN */}
               <div className="form-group">
                 <label>Preferred Time</label>
 
@@ -240,6 +229,29 @@ function Contact() {
           loading="lazy"
         ></iframe>
       </section>
+
+      {showSuccess && (
+        <div className="contact-success-overlay">
+          <div className="contact-success-modal">
+            <div className="success-check">✓</div>
+
+            <h2>Inquiry Submitted Successfully</h2>
+
+            <p>
+              Thank you for reaching <strong>Leap Learning</strong>.
+            </p>
+
+            <p>Our support team will connect with you soon.</p>
+
+            <button
+              className="success-btn"
+              onClick={() => setShowSuccess(false)}
+            >
+              Continue
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
