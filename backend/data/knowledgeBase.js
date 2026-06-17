@@ -196,7 +196,7 @@ The universities associated with Leap Learning programs, including Kennedy Unive
 
 For Indian universities, recognition by the Association of Indian Universities (AIU) may be required for certain academic equivalency purposes. However, international universities are governed by their respective national regulatory and accreditation standards rather than AIU regulations.
 
-To support learners in their professional and academic journey, membership and recognition support may be provided through the Association of Indian Private Universities (AIPU).
+To support learners in their professional and academic journey, membership and recognition support may be provided through the Association of Indian Private Universities (AIPU) https://aipu.in/.
 
 --------------------------------------------------
 
@@ -233,10 +233,10 @@ ANSWER:
 Applying for a program at Leap Learning is simple.
 
 Option 1:
-Submit an inquiry through the website contact form.
+Submit an inquiry through the website contact form https://leaplearning.co.in/contact.
 
 Option 2:
-Apply through the Apply Now page available on the Leap Learning website.
+Apply through the Apply Now page available on the Leap Learning website https://leaplearning.co.in/apply.
 
 Option 3:
 Contact the admissions team directly through WhatsApp or other official communication channels.
