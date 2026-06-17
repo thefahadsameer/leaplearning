@@ -6,6 +6,7 @@ export default function Chatbot() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [unreadCount, setUnreadCount] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
 
   const [messages, setMessages] = useState([
     {
@@ -24,18 +25,26 @@ export default function Chatbot() {
   const sendMessage = async (text = message) => {
     if (!text.trim()) return;
 
+    const currentMessage = text;
+
+    // Clear input immediately
+    setMessage("");
+
     const userMessage = {
       sender: "user",
-      text
+      text: currentMessage
     };
 
     setMessages((prev) => [...prev, userMessage]);
+
+    // Show typing indicator
+    setIsTyping(true);
 
     try {
       const { data } = await axios.post(
         "https://leaplearning.onrender.com/api/chat",
         {
-          message: text
+          message: currentMessage
         }
       );
 
@@ -43,6 +52,8 @@ export default function Chatbot() {
         sender: "bot",
         text: data.reply
       };
+
+      setIsTyping(false);
 
       setMessages((prev) => [...prev, botReply]);
 
@@ -52,9 +63,12 @@ export default function Chatbot() {
     } catch (error) {
       console.error("CHAT ERROR:", error);
 
+      setIsTyping(false);
+
       const errorReply = {
         sender: "bot",
-        text: "Sorry, we're unable to respond right now."
+        text:
+          "Sorry, we're unable to respond right now. Please try again in a moment."
       };
 
       setMessages((prev) => [...prev, errorReply]);
@@ -63,8 +77,6 @@ export default function Chatbot() {
         setUnreadCount((prev) => prev + 1);
       }
     }
-
-    setMessage("");
   };
 
   return (
@@ -138,6 +150,12 @@ export default function Chatbot() {
                 {msg.text}
               </div>
             ))}
+
+            {isTyping && (
+              <div className="message bot typing">
+                Leap Learning is typing...
+              </div>
+            )}
           </div>
 
           <div className="chat-footer">
