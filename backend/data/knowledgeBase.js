@@ -172,4 +172,94 @@ IMPORTANT RESPONSE STYLE
 - If asked about fees, explain that fees are assessed individually and invite the user to contact admissions for an evaluation.
 - If asked about duration, explain that duration depends on profile assessment and university requirements.
 - If asked about university recognition, only provide information available in the knowledge base and do not invent approvals, rankings, or accreditations.
+FREQUENTLY ASKED QUESTIONS (FAQ)
+
+--------------------------------------------------
+
+QUESTION:
+Is the university recognized by UGC?
+
+ANSWER:
+The universities associated with Leap Learning programs, including Kennedy University, Central Christian University, and Euro Asian University, are international institutions and operate under regulatory frameworks that differ from those of Indian universities.
+
+The University Grants Commission (UGC) is the regulatory body responsible for recognizing and overseeing universities in India. Since these are international universities, they are not governed by UGC regulations and therefore do not fall under the UGC recognition framework.
+
+To support learners in their academic and professional development, membership and recognition support may be provided through the Association of Indian Private Universities (AIPU).
+
+--------------------------------------------------
+
+QUESTION:
+Is the university recognized by AIU?
+
+ANSWER:
+The universities associated with Leap Learning programs, including Kennedy University, Central Christian University, and Euro Asian University, are international institutions and operate under regulatory frameworks that differ from those of Indian universities.
+
+For Indian universities, recognition by the Association of Indian Universities (AIU) may be required for certain academic equivalency purposes. However, international universities are governed by their respective national regulatory and accreditation standards rather than AIU regulations.
+
+To support learners in their professional and academic journey, membership and recognition support may be provided through the Association of Indian Private Universities (AIPU).
+
+--------------------------------------------------
+
+QUESTION:
+How can Leap Learning offer a program with a duration of only 6 months?
+
+ANSWER:
+Leap Learning programs are designed for working professionals who already possess academic qualifications and professional experience.
+
+The program structure is developed to provide flexibility for candidates who wish to continue their careers while pursuing academic and professional advancement. Depending on the candidate's profile, prior qualifications, experience, and university evaluation, accelerated pathways may be available.
+
+The learning process remains structured and focused on research, academic development, thesis work, project activities, and professional growth.
+
+Program duration may vary according to the university, program selected, and individual candidate profile.
+
+--------------------------------------------------
+
+QUESTION:
+Is a 6-month program valid in India?
+
+ANSWER:
+Leap Learning works with international universities that operate under their own academic frameworks and regulations.
+
+Program validity depends on the candidate's purpose, professional objectives, employer requirements, industry expectations, and applicable regulations. Candidates seeking specific regulatory recognition should verify requirements with the relevant authorities before enrollment.
+
+Our admissions team can provide guidance based on individual objectives and requirements.
+
+--------------------------------------------------
+
+QUESTION:
+How can I apply for a program?
+
+ANSWER:
+Applying for a program at Leap Learning is simple.
+
+Option 1:
+Submit an inquiry through the website contact form.
+
+Option 2:
+Apply through the Apply Now page available on the Leap Learning website.
+
+Option 3:
+Contact the admissions team directly through WhatsApp or other official communication channels.
+
+After receiving your inquiry or application, a member of the admissions team will review your profile and contact you with guidance regarding eligibility, documentation, fees, and enrollment procedures.
+
+--------------------------------------------------
+
+QUESTION:
+Is Leap Learning genuine?
+
+ANSWER:
+Leap Learning is an academic consultancy and admissions support organization established in 2018. The organization assists working professionals, researchers, academicians, entrepreneurs, and aspiring candidates with admissions guidance, academic consultancy, university coordination, research support, and program completion assistance.
+
+Candidates are encouraged to review program details, university information, admission requirements, and official documentation before making any enrollment decision.
+
+--------------------------------------------------
+
+QUESTION:
+Is Leap Learning a fraud?
+
+ANSWER:
+Leap Learning operates as an academic consultancy and admissions support organization. Candidates are encouraged to evaluate all available information, review official documents, verify program details, and communicate directly with the admissions team before making enrollment decisions.
+
+Transparency and informed decision-making are always recommended when pursuing any academic program.
 `;
