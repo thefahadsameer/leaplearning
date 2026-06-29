@@ -2,9 +2,6 @@
 
 import { Routes, Route } from "react-router-dom";
 
-/* ================= CHATBOT ================= */
-import Chatbot from "./components/Chatbot/Chatbot";
-
 /* ================= PROGRAM PAGES ================= */
 import PhDProgram from "./pages/programs/PhDProgram";
 import DBAProgram from "./pages/programs/DBAProgram";
@@ -75,7 +72,6 @@ function PublicLayout({ children }) {
       <Footer />
       <FloatingCTA />
       <WhatsAppChat />
-      <Chatbot />
     </>
   );
 }
@@ -152,19 +148,15 @@ function App() {
         }
       >
         <Route path="dashboard" element={<AdminDashboard />} />
-
         <Route path="applications" element={<AdminApplications />} />
-
         <Route path="employees" element={<AdminEmployees />} />
-
         <Route path="applications/:id" element={<AdminApplicationDetail />} />
-
         <Route path="settings" element={<AdminSettings />} />
-
-        <Route path="notifications" element={<AdminNotificationsPage />} />
-
+        <Route
+          path="notifications"
+          element={<AdminNotificationsPage />}
+        />
         <Route path="students" element={<AdminStudents />} />
-
         <Route path="recycle-bin" element={<AdminRecycleBin />} />
       </Route>
 
