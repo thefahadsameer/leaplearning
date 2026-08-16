@@ -24,41 +24,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Brochure from "./pages/Brochure";
 import Contact from "./pages/Contact";
-import Login from "./pages/Login";
 import Apply from "./pages/Apply";
-
-/* ================= ADMIN PAGES ================= */
-
-import AdminLogin from "./admin/pages/AdminLogin";
-import AdminDashboard from "./admin/pages/AdminDashboard";
-import AdminApplications from "./admin/pages/AdminApplications";
-import AdminApplicationDetail from "./admin/pages/AdminApplicationDetail";
-import AdminSettings from "./admin/pages/AdminSettings";
-import AdminNotificationsPage from "./admin/pages/AdminNotificationsPage";
-import AdminStudents from "./admin/pages/AdminStudents";
-import AdminEmployees from "./admin/pages/AdminEmployees";
-import AdminRecycleBin from "./admin/pages/AdminRecycleBin";
-
-/* ================= ADMIN UTILITIES ================= */
-
-import ProtectedAdminRoute from "./admin/routes/ProtectedAdminRoute";
-import AdminLayout from "./admin/layout/AdminLayout";
-
-/* ================= EMPLOYEE PAGES ================= */
-
-import EmployeeDashboard from "./employee/pages/EmployeeDashboard";
-import EmployeeLogin from "./employee/pages/EmployeeLogin";
-import CRMInquiry from "./employee/pages/CRMInquiry";
-import CRM from "./employee/pages/CRM";
-import LeadDetail from "./employee/pages/LeadDetail";
-
-/* ================= EMPLOYEE LAYOUT ================= */
-
-import EmployeeLayout from "./employee/layout/EmployeeLayout";
-
-/* ================= EMPLOYEE UTILITIES ================= */
-
-import ProtectedEmployeeRoute from "./employee/routes/ProtectedEmployeeRoute";
 
 /* ================= STUDENT ================= */
 
@@ -91,20 +57,21 @@ function PublicLayout({ children }) {
 
 
 /* =========================================================
-   CRM PORTAL PAGE
+   CRM PORTAL
    =========================================================
-   
-   The CRM is hosted separately on Vercel, but it is displayed
-   inside Leap Learning's /login route.
+
+   The CRM is hosted separately on Vercel.
 
    IMPORTANT:
-   The browser URL remains:
+   The browser remains on:
 
-       https://leaplearning.co.in/login
+   https://leaplearning.co.in/login
 
-   The user will NOT be redirected to:
+   The CRM itself is loaded inside this page.
 
-       https://leapcrm.vercel.app/login
+   The browser will NOT redirect to:
+
+   https://leapcrm.vercel.app/login
    ========================================================= */
 
 function CRMPortal() {
@@ -145,9 +112,7 @@ function App() {
   return (
     <Routes>
 
-      {/* =====================================================
-          PUBLIC WEBSITE ROUTES
-          ===================================================== */}
+      {/* ================= PUBLIC WEBSITE ================= */}
 
       <Route
         path="/"
@@ -185,27 +150,14 @@ function App() {
         }
       />
 
-
-      {/* =====================================================
-          CRM PORTAL
-
-          IMPORTANT:
-          Do NOT wrap this with PublicLayout.
-
-          The CRM must occupy the complete browser viewport.
-
-          Browser URL:
-          https://leaplearning.co.in/login
-
-          CRM source:
-          https://leapcrm.vercel.app/login
-          ===================================================== */}
+      {/* ================= CRM LOGIN ================= */}
 
       <Route
         path="/login"
         element={<CRMPortal />}
       />
 
+      {/* ================= APPLY ================= */}
 
       <Route
         path="/apply"
@@ -216,108 +168,7 @@ function App() {
         }
       />
 
-
-      {/* =====================================================
-          ADMIN ROUTES
-          ===================================================== */}
-
-      <Route
-        path="/admin/login"
-        element={<AdminLogin />}
-      />
-
-      <Route
-        path="/admin"
-        element={
-          <ProtectedAdminRoute>
-            <AdminLayout />
-          </ProtectedAdminRoute>
-        }
-      >
-        <Route
-          path="dashboard"
-          element={<AdminDashboard />}
-        />
-
-        <Route
-          path="applications"
-          element={<AdminApplications />}
-        />
-
-        <Route
-          path="employees"
-          element={<AdminEmployees />}
-        />
-
-        <Route
-          path="applications/:id"
-          element={<AdminApplicationDetail />}
-        />
-
-        <Route
-          path="settings"
-          element={<AdminSettings />}
-        />
-
-        <Route
-          path="notifications"
-          element={<AdminNotificationsPage />}
-        />
-
-        <Route
-          path="students"
-          element={<AdminStudents />}
-        />
-
-        <Route
-          path="recycle-bin"
-          element={<AdminRecycleBin />}
-        />
-      </Route>
-
-
-      {/* =====================================================
-          EMPLOYEE ROUTES
-          ===================================================== */}
-
-      <Route
-        path="/employee/login"
-        element={<EmployeeLogin />}
-      />
-
-      <Route
-        path="/employee"
-        element={
-          <ProtectedEmployeeRoute>
-            <EmployeeLayout />
-          </ProtectedEmployeeRoute>
-        }
-      >
-        <Route
-          path="dashboard"
-          element={<EmployeeDashboard />}
-        />
-
-        <Route
-          path="crm-inquiry"
-          element={<CRMInquiry />}
-        />
-
-        <Route
-          path="crm"
-          element={<CRM />}
-        />
-
-        <Route
-          path="crm/lead/:id"
-          element={<LeadDetail />}
-        />
-      </Route>
-
-
-      {/* =====================================================
-          STUDENT ROUTES
-          ===================================================== */}
+      {/* ================= STUDENT PORTAL ================= */}
 
       <Route
         path="/student"
@@ -343,10 +194,7 @@ function App() {
         />
       </Route>
 
-
-      {/* =====================================================
-          PROGRAM ROUTES
-          ===================================================== */}
+      {/* ================= PROGRAMS ================= */}
 
       <Route
         path="/programs/phd"
@@ -402,10 +250,7 @@ function App() {
         }
       />
 
-
-      {/* =====================================================
-          FALLBACK
-          ===================================================== */}
+      {/* ================= FALLBACK ================= */}
 
       <Route
         path="*"
