@@ -8,7 +8,7 @@ function Footer() {
 
   const handleCRMPortal = () => {
     window.open(
-      "http://localhost:5173/",
+      "https://leapcrm.vercel.app/",,
       "_blank",
       "noopener,noreferrer"
     );
