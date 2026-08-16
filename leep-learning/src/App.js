@@ -3,6 +3,7 @@
 import { Routes, Route } from "react-router-dom";
 
 /* ================= PROGRAM PAGES ================= */
+
 import PhDProgram from "./pages/programs/PhDProgram";
 import DBAProgram from "./pages/programs/DBAProgram";
 import HonoraryDoctorate from "./pages/programs/HonoraryDoctorate";
@@ -11,27 +12,23 @@ import DLittProgram from "./pages/programs/DLittProgram";
 import Professorship from "./pages/programs/Professorship";
 
 /* ================= PUBLIC LAYOUT ================= */
+
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import FloatingCTA from "./components/Common/FloatingCTA/FloatingCTA";
-
-/* ================= ADMIN RECYCLE BIN ================= */
-
-import AdminRecycleBin from "./admin/pages/AdminRecycleBin";
+import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 
 /* ================= PUBLIC PAGES ================= */
+
 import Home from "./pages/Home";
-import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 import About from "./pages/About";
 import Brochure from "./pages/Brochure";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Apply from "./pages/Apply";
 
-/* ================= ADMIN EMPLOYEE ================= */
-import AdminEmployees from "./admin/pages/AdminEmployees";
-
 /* ================= ADMIN PAGES ================= */
+
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminApplications from "./admin/pages/AdminApplications";
@@ -39,12 +36,16 @@ import AdminApplicationDetail from "./admin/pages/AdminApplicationDetail";
 import AdminSettings from "./admin/pages/AdminSettings";
 import AdminNotificationsPage from "./admin/pages/AdminNotificationsPage";
 import AdminStudents from "./admin/pages/AdminStudents";
+import AdminEmployees from "./admin/pages/AdminEmployees";
+import AdminRecycleBin from "./admin/pages/AdminRecycleBin";
 
 /* ================= ADMIN UTILITIES ================= */
+
 import ProtectedAdminRoute from "./admin/routes/ProtectedAdminRoute";
 import AdminLayout from "./admin/layout/AdminLayout";
 
 /* ================= EMPLOYEE PAGES ================= */
+
 import EmployeeDashboard from "./employee/pages/EmployeeDashboard";
 import EmployeeLogin from "./employee/pages/EmployeeLogin";
 import CRMInquiry from "./employee/pages/CRMInquiry";
@@ -52,34 +53,101 @@ import CRM from "./employee/pages/CRM";
 import LeadDetail from "./employee/pages/LeadDetail";
 
 /* ================= EMPLOYEE LAYOUT ================= */
+
 import EmployeeLayout from "./employee/layout/EmployeeLayout";
 
 /* ================= EMPLOYEE UTILITIES ================= */
+
 import ProtectedEmployeeRoute from "./employee/routes/ProtectedEmployeeRoute";
 
 /* ================= STUDENT ================= */
+
 import ProtectedStudentRoute from "./student/routes/ProtectedStudentRoute";
 import StudentLayout from "./student/layout/StudentLayout";
 import StudentDashboard from "./student/pages/StudentDashboard";
 import Profile from "./student/pages/Profile";
 import Payments from "./student/pages/Payments";
 
+
+/* =========================================================
+   PUBLIC WEBSITE LAYOUT
+   ========================================================= */
+
 function PublicLayout({ children }) {
   return (
     <>
       <Navbar />
+
       {children}
+
       <Footer />
+
       <FloatingCTA />
+
       <WhatsAppChat />
     </>
   );
 }
 
+
+/* =========================================================
+   CRM PORTAL PAGE
+   =========================================================
+   
+   The CRM is hosted separately on Vercel, but it is displayed
+   inside Leap Learning's /login route.
+
+   IMPORTANT:
+   The browser URL remains:
+
+       https://leaplearning.co.in/login
+
+   The user will NOT be redirected to:
+
+       https://leapcrm.vercel.app/login
+   ========================================================= */
+
+function CRMPortal() {
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: "100vh",
+        margin: 0,
+        padding: 0,
+        overflow: "hidden",
+        background: "#ffffff",
+      }}
+    >
+      <iframe
+        title="LeapCRM"
+        src="https://leapcrm.vercel.app/login"
+        style={{
+          display: "block",
+          width: "100%",
+          height: "100%",
+          border: "none",
+          margin: 0,
+          padding: 0,
+        }}
+        allow="clipboard-read; clipboard-write"
+      />
+    </div>
+  );
+}
+
+
+/* =========================================================
+   APPLICATION
+   ========================================================= */
+
 function App() {
   return (
     <Routes>
-      {/* ================= PUBLIC ROUTES ================= */}
+
+      {/* =====================================================
+          PUBLIC WEBSITE ROUTES
+          ===================================================== */}
 
       <Route
         path="/"
@@ -117,14 +185,27 @@ function App() {
         }
       />
 
+
+      {/* =====================================================
+          CRM PORTAL
+
+          IMPORTANT:
+          Do NOT wrap this with PublicLayout.
+
+          The CRM must occupy the complete browser viewport.
+
+          Browser URL:
+          https://leaplearning.co.in/login
+
+          CRM source:
+          https://leapcrm.vercel.app/login
+          ===================================================== */}
+
       <Route
         path="/login"
-        element={
-          <PublicLayout>
-            <Login />
-          </PublicLayout>
-        }
+        element={<CRMPortal />}
       />
+
 
       <Route
         path="/apply"
@@ -135,9 +216,15 @@ function App() {
         }
       />
 
-      {/* ================= ADMIN ROUTES ================= */}
 
-      <Route path="/admin/login" element={<AdminLogin />} />
+      {/* =====================================================
+          ADMIN ROUTES
+          ===================================================== */}
+
+      <Route
+        path="/admin/login"
+        element={<AdminLogin />}
+      />
 
       <Route
         path="/admin"
@@ -147,22 +234,56 @@ function App() {
           </ProtectedAdminRoute>
         }
       >
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="applications" element={<AdminApplications />} />
-        <Route path="employees" element={<AdminEmployees />} />
-        <Route path="applications/:id" element={<AdminApplicationDetail />} />
-        <Route path="settings" element={<AdminSettings />} />
+        <Route
+          path="dashboard"
+          element={<AdminDashboard />}
+        />
+
+        <Route
+          path="applications"
+          element={<AdminApplications />}
+        />
+
+        <Route
+          path="employees"
+          element={<AdminEmployees />}
+        />
+
+        <Route
+          path="applications/:id"
+          element={<AdminApplicationDetail />}
+        />
+
+        <Route
+          path="settings"
+          element={<AdminSettings />}
+        />
+
         <Route
           path="notifications"
           element={<AdminNotificationsPage />}
         />
-        <Route path="students" element={<AdminStudents />} />
-        <Route path="recycle-bin" element={<AdminRecycleBin />} />
+
+        <Route
+          path="students"
+          element={<AdminStudents />}
+        />
+
+        <Route
+          path="recycle-bin"
+          element={<AdminRecycleBin />}
+        />
       </Route>
 
-      {/* ================= EMPLOYEE ROUTES ================= */}
 
-      <Route path="/employee/login" element={<EmployeeLogin />} />
+      {/* =====================================================
+          EMPLOYEE ROUTES
+          ===================================================== */}
+
+      <Route
+        path="/employee/login"
+        element={<EmployeeLogin />}
+      />
 
       <Route
         path="/employee"
@@ -172,13 +293,31 @@ function App() {
           </ProtectedEmployeeRoute>
         }
       >
-        <Route path="dashboard" element={<EmployeeDashboard />} />
-        <Route path="crm-inquiry" element={<CRMInquiry />} />
-        <Route path="crm" element={<CRM />} />
-        <Route path="crm/lead/:id" element={<LeadDetail />} />
+        <Route
+          path="dashboard"
+          element={<EmployeeDashboard />}
+        />
+
+        <Route
+          path="crm-inquiry"
+          element={<CRMInquiry />}
+        />
+
+        <Route
+          path="crm"
+          element={<CRM />}
+        />
+
+        <Route
+          path="crm/lead/:id"
+          element={<LeadDetail />}
+        />
       </Route>
 
-      {/* ================= STUDENT ROUTES ================= */}
+
+      {/* =====================================================
+          STUDENT ROUTES
+          ===================================================== */}
 
       <Route
         path="/student"
@@ -188,12 +327,26 @@ function App() {
           </ProtectedStudentRoute>
         }
       >
-        <Route path="dashboard" element={<StudentDashboard />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="payments" element={<Payments />} />
+        <Route
+          path="dashboard"
+          element={<StudentDashboard />}
+        />
+
+        <Route
+          path="profile"
+          element={<Profile />}
+        />
+
+        <Route
+          path="payments"
+          element={<Payments />}
+        />
       </Route>
 
-      {/* ================= PROGRAM ROUTES ================= */}
+
+      {/* =====================================================
+          PROGRAM ROUTES
+          ===================================================== */}
 
       <Route
         path="/programs/phd"
@@ -249,7 +402,10 @@ function App() {
         }
       />
 
-      {/* ================= FALLBACK ================= */}
+
+      {/* =====================================================
+          FALLBACK
+          ===================================================== */}
 
       <Route
         path="*"
@@ -259,6 +415,7 @@ function App() {
           </PublicLayout>
         }
       />
+
     </Routes>
   );
 }
