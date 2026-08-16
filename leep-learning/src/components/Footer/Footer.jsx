@@ -6,8 +6,12 @@ import "./Footer.css";
 function Footer() {
   const navigate = useNavigate();
 
-  const handleAdminAccess = () => {
-    navigate("/admin/login");
+  const handleCRMPortal = () => {
+    window.open(
+      "http://localhost:5173/",
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
@@ -47,18 +51,12 @@ function Footer() {
         <div className="footer-col">
           <h4>Portals</h4>
 
-          <p onClick={() => navigate("/login")}>Student Portal</p>
-
-          <p onClick={() => navigate("/employee/login")}>
-            Employee Portal
+          <p onClick={() => navigate("/login")}>
+            Student Portal
           </p>
 
-          <p
-            className="admin-link"
-            onDoubleClick={handleAdminAccess}
-            title="Authorized Access Only"
-          >
-            Admin Access
+          <p onClick={handleCRMPortal}>
+            CRM Portal
           </p>
         </div>
 
