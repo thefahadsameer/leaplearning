@@ -6,6 +6,7 @@ require("dotenv").config();
 const app = express();
 
 /* ================= CORS ================= */
+
 app.use(
   cors({
     origin: [
@@ -19,51 +20,87 @@ app.use(
 );
 
 /* ================= ROUTES IMPORT ================= */
+
 const paymentRoutes = require("./routes/paymentRoutes");
 const studentRoutes = require("./routes/studentRoutes");
-const adminRoutes = require("./routes/adminRoutes");
 const contactRoutes = require("./routes/contactRoutes");
-const employeeRoutes = require("./routes/employeeRoutes");
 
 /* ================= CHATBOT ROUTES ================= */
+
 const chatRoutes = require("./routes/chatRoutes");
 
-/* ================= NEW APPLICATION ROUTES ================= */
+/* ================= APPLICATION ROUTES ================= */
+
 const applicationRoutes = require("./routes/applicationRoutes");
 
 /* ================= NORMAL JSON ================= */
+
 app.use(express.json());
 
 /* ================= CHATBOT ROUTES ================= */
+
 app.use("/api/chat", chatRoutes);
 
 /* ===================================================
-   WEBHOOK MUST USE RAW BODY BEFORE express.json()
+   PAYMENT WEBHOOK
+
+   Raw body must be available before express.json()
 =================================================== */
-app.use("/api/payments/webhook", express.raw({ type: "application/json" }));
+
+app.use(
+  "/api/payments/webhook",
+  express.raw({
+    type: "application/json",
+  }),
+);
 
 /* ================= STATIC FILES ================= */
-app.use("/invoices", express.static(path.join(__dirname, "invoices")));
+
+app.use(
+  "/invoices",
+  express.static(
+    path.join(__dirname, "invoices"),
+  ),
+);
 
 /* ===================================================
-   CONTACT ROUTE (CONTROLLER HANDLES EVERYTHING)
+   CONTACT ROUTES
+
    → /api/contact
 =================================================== */
-app.use("/api/contact", contactRoutes);
+
+app.use(
+  "/api/contact",
+  contactRoutes,
+);
 
 /* ===================================================
    APPLICATION ROUTES
+
    → /api/applications
 =================================================== */
-app.use("/api/applications", applicationRoutes);
-app.use("/api/employees", employeeRoutes);
 
-/* ================= EXISTING ROUTES ================= */
-app.use("/api/students", studentRoutes);
-app.use("/api/payments", paymentRoutes);
-app.use("/api/admin", adminRoutes);
+app.use(
+  "/api/applications",
+  applicationRoutes,
+);
+
+/* ================= STUDENT ROUTES ================= */
+
+app.use(
+  "/api/students",
+  studentRoutes,
+);
+
+/* ================= PAYMENT ROUTES ================= */
+
+app.use(
+  "/api/payments",
+  paymentRoutes,
+);
 
 /* ================= HEALTH CHECK ================= */
+
 app.get("/", (req, res) => {
   res.json({
     message: "API running",
@@ -71,8 +108,12 @@ app.get("/", (req, res) => {
 });
 
 /* ================= SERVER ================= */
-const PORT = process.env.PORT || 10000;
+
+const PORT =
+  process.env.PORT || 10000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(
+    `Server running on port ${PORT}`,
+  );
 });
