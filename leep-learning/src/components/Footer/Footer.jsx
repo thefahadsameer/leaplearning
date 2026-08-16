@@ -8,7 +8,7 @@ function Footer() {
 
   const handleCRMPortal = () => {
     window.open(
-      "https://leapcrm.vercel.app/",,
+      "https://leapcrm.vercel.app/",
       "_blank",
       "noopener,noreferrer"
     );
@@ -32,7 +32,7 @@ function Footer() {
 
           <div className="footer-badges">
             <span>Global Access</span>
-            <span> Expert Support</span>
+            <span>Expert Support</span>
           </div>
         </div>
 
