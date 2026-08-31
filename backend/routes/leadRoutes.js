@@ -1,47 +1,80 @@
 const express = require("express");
+
+const {
+  createLead,
+  importLeads,
+  getLeads,
+  deleteLead,
+  deleteLeads,
+  assignLeads,
+} = require("../controllers/leadController");
+
 const router = express.Router();
 
-const multer = require("multer");
+/* =========================================================
+   CREATE ONE LEAD
 
-/* 🔥 FIX: DEFINE MULTER HERE */
-const upload = multer({ storage: multer.memoryStorage() });
+   POST /api/leads
+========================================================= */
 
-const leadController = require("../controllers/leadController");
-
-/* ============================
-   GET ROUTES
-============================ */
-router.get("/", leadController.getLeads);
-router.get("/:id", leadController.getLeadById);
-
-/* ============================
-   CREATE STUDENT (NEW)
-============================ */
-router.post("/:id/create-student", leadController.createStudentFromLead);
-
-/* ============================
-   UPDATE STAGE ROUTES
-============================ */
-router.put("/stage", leadController.updateLeadStage);
-router.put("/:id/stage", leadController.updateLeadStage);
-
-/* ============================
-   UPDATE LEAD
-============================ */
-router.put("/:id", leadController.updateLead);
-
-/* ============================
-   UPLOAD DOCUMENT (FIXED)
-============================ */
 router.post(
-  "/:id/upload-id",
-  upload.single("document"), // ✅ FIXED HERE
-  leadController.uploadLeadDocument
+  "/",
+  createLead
 );
 
-/* ============================
-   DELETE
-============================ */
-router.delete("/:id", leadController.deleteLead);
+/* =========================================================
+   IMPORT MULTIPLE LEADS
+
+   POST /api/leads/import
+========================================================= */
+
+router.post(
+  "/import",
+  importLeads
+);
+
+/* =========================================================
+   GET ALL LEADS
+
+   GET /api/leads
+========================================================= */
+
+router.get(
+  "/",
+  getLeads
+);
+
+/* =========================================================
+   DELETE ONE LEAD
+
+   DELETE /api/leads/:id
+========================================================= */
+
+router.delete(
+  "/:id",
+  deleteLead
+);
+
+/* =========================================================
+   DELETE MULTIPLE LEADS
+
+   POST /api/leads/bulk-delete
+========================================================= */
+
+router.post(
+  "/bulk-delete",
+  deleteLeads
+);
+
+/* =========================================================
+   ASSIGN LEADS TO EMPLOYEE
+
+   PUT /api/leads/assign
+========================================================= */
+
+router.put(
+  "/assign",
+  assignLeads
+);
 
 module.exports = router;

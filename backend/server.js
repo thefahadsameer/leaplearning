@@ -1,20 +1,48 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-require("dotenv").config();
+
+/* ===================================================
+   LOAD BACKEND ENVIRONMENT VARIABLES
+
+   The backend .env is located at:
+   /backend/.env
+
+   This works correctly even when the command is
+   executed from the project root.
+=================================================== */
+
+require("dotenv").config({
+  path: path.join(__dirname, ".env"),
+});
 
 const app = express();
 
-/* ================= CORS ================= */
+/* ===================================================
+   CORS
+=================================================== */
 
 app.use(
   cors({
     origin: [
+      /* Leap Learning website */
       "https://www.leaplearning.co.in",
       "https://leaplearning.co.in",
+
+      /* Local CRM frontend - Vite */
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
+
+      /* Older React development server */
       "http://localhost:3000",
+
+      /* Leap Learning backend */
       "https://leaplearning.onrender.com",
+
+      /* LeapCRM production frontend */
+      "https://leapcrm.vercel.app",
     ],
+
     credentials: true,
   }),
 );
@@ -33,13 +61,20 @@ const chatRoutes = require("./routes/chatRoutes");
 
 const applicationRoutes = require("./routes/applicationRoutes");
 
+/* ================= LEAD ROUTES ================= */
+
+const leadRoutes = require("./routes/leadRoutes");
+
 /* ================= NORMAL JSON ================= */
 
 app.use(express.json());
 
 /* ================= CHATBOT ROUTES ================= */
 
-app.use("/api/chat", chatRoutes);
+app.use(
+  "/api/chat",
+  chatRoutes,
+);
 
 /* ===================================================
    PAYMENT WEBHOOK
@@ -59,7 +94,10 @@ app.use(
 app.use(
   "/invoices",
   express.static(
-    path.join(__dirname, "invoices"),
+    path.join(
+      __dirname,
+      "invoices",
+    ),
   ),
 );
 
@@ -99,21 +137,45 @@ app.use(
   paymentRoutes,
 );
 
+/* ===================================================
+   LEAD ROUTES
+
+   → /api/leads
+
+   Used by the CRM Leads page for:
+
+   - Getting leads
+   - Creating leads
+   - Updating leads
+   - Deleting leads
+=================================================== */
+
+app.use(
+  "/api/leads",
+  leadRoutes,
+);
+
 /* ================= HEALTH CHECK ================= */
 
-app.get("/", (req, res) => {
-  res.json({
-    message: "API running",
-  });
-});
+app.get(
+  "/",
+  (req, res) => {
+    res.json({
+      message: "API running",
+    });
+  },
+);
 
 /* ================= SERVER ================= */
 
 const PORT =
   process.env.PORT || 10000;
 
-app.listen(PORT, () => {
-  console.log(
-    `Server running on port ${PORT}`,
-  );
-});
+app.listen(
+  PORT,
+  () => {
+    console.log(
+      `Server running on port ${PORT}`,
+    );
+  },
+);
