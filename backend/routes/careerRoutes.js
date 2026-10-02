@@ -1,6 +1,5 @@
 const express = require("express");
 const multer = require("multer");
-
 const {
   submitCareerApplication,
 } = require("../controllers/careerController");
@@ -9,64 +8,54 @@ const router = express.Router();
 
 /* =========================================================
    MULTER CONFIGURATION
-
-   Files remain in memory only.
-   They are NOT saved to localStorage,
-   disk storage, or your CRM.
    ========================================================= */
 
-const storage =
-  multer.memoryStorage();
+const storage = multer.memoryStorage();
 
 const upload = multer({
   storage,
 
   limits: {
-    fileSize:
-      10 * 1024 * 1024,
-    files: 2,
+    // Maximum 10 MB per uploaded file
+    fileSize: 10 * 1024 * 1024,
   },
 
-  fileFilter: (
-    req,
-    file,
-    cb,
-  ) => {
+  fileFilter: (req, file, cb) => {
+    /* =========================
+       PASSPORT PHOTO
+       ========================= */
+
     if (file.fieldname === "photo") {
       const allowedPhotoTypes = [
         "image/jpeg",
-        "image/jpg",
         "image/png",
       ];
 
-      if (
-        !allowedPhotoTypes.includes(
-          file.mimetype,
-        )
-      ) {
+      if (!allowedPhotoTypes.includes(file.mimetype)) {
         return cb(
           new Error(
-            "Passport photo must be JPG, JPEG, or PNG.",
-          ),
+            "Passport-size photo must be a JPG or PNG image."
+          )
         );
       }
 
       return cb(null, true);
     }
 
-    if (file.fieldname === "cv") {
-      const isPdf =
-        file.mimetype ===
-          "application/pdf" ||
-        file.originalname
-          .toLowerCase()
-          .endsWith(".pdf");
+    /* =========================
+       CV
+       ========================= */
 
-      if (!isPdf) {
+    if (file.fieldname === "cv") {
+      const isPdfMimeType =
+        file.mimetype === "application/pdf";
+
+      const isPdfExtension =
+        /\.pdf$/i.test(file.originalname);
+
+      if (!isPdfMimeType || !isPdfExtension) {
         return cb(
-          new Error(
-            "CV must be uploaded in PDF format only.",
-          ),
+          new Error("CV must be uploaded in PDF format only.")
         );
       }
 
@@ -75,18 +64,19 @@ const upload = multer({
 
     return cb(
       new Error(
-        "Invalid file field.",
-      ),
+        "Invalid file field. Please upload a passport photo and CV."
+      )
     );
   },
 });
 
 /* =========================================================
-   POST /api/career/apply
+   SUBMIT CAREER APPLICATION
    ========================================================= */
 
 router.post(
-  "/apply",
+  "/",
+
   (req, res, next) => {
     upload.fields([
       {
@@ -97,40 +87,39 @@ router.post(
         name: "cv",
         maxCount: 1,
       },
-    ])(
-      req,
-      res,
-      (error) => {
-        if (!error) {
-          return next();
-        }
-
-        console.error(
-          "❌ CAREER UPLOAD ERROR:",
-          error,
-        );
-
-        if (
-          error.code ===
-          "LIMIT_FILE_SIZE"
-        ) {
+    ])(req, res, (err) => {
+      if (err instanceof multer.MulterError) {
+        if (err.code === "LIMIT_FILE_SIZE") {
           return res.status(400).json({
             success: false,
-            error:
-              "Each uploaded file must not exceed 10 MB.",
+            message:
+              "Each uploaded file must be 10 MB or smaller.",
           });
         }
 
         return res.status(400).json({
           success: false,
-          error:
-            error.message ||
-            "Invalid uploaded file.",
+          message: err.message || "File upload failed.",
         });
-      },
-    );
+      }
+
+      if (err) {
+        return res.status(400).json({
+          success: false,
+          message:
+            err.message || "Invalid file upload.",
+        });
+      }
+
+      next();
+    });
   },
-  submitCareerApplication,
+
+  submitCareerApplication
 );
+
+/* =========================================================
+   EXPORT ROUTER
+   ========================================================= */
 
 module.exports = router;
