@@ -23,7 +23,7 @@ import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 
 /* ================= PROMOTION POPUP ================= */
 
-import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
+// import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
 
 
 /* ================= PUBLIC PAGES ================= */
