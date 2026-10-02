@@ -18,6 +18,10 @@ import Footer from "./components/Footer/Footer";
 import FloatingCTA from "./components/Common/FloatingCTA/FloatingCTA";
 import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 
+/* ================= PROMOTION POPUP ================= */
+
+import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
+
 /* ================= PUBLIC PAGES ================= */
 
 import Home from "./pages/Home";
@@ -110,158 +114,172 @@ function CRMPortal() {
 
 function App() {
   return (
-    <Routes>
+    <>
+      <Routes>
 
-      {/* ================= PUBLIC WEBSITE ================= */}
+        {/* ================= PUBLIC WEBSITE ================= */}
 
-      <Route
-        path="/"
-        element={
-          <PublicLayout>
-            <Home />
-          </PublicLayout>
-        }
-      />
-
-      <Route
-        path="/about"
-        element={
-          <PublicLayout>
-            <About />
-          </PublicLayout>
-        }
-      />
-
-      <Route
-        path="/brochure"
-        element={
-          <PublicLayout>
-            <Brochure />
-          </PublicLayout>
-        }
-      />
-
-      <Route
-        path="/contact"
-        element={
-          <PublicLayout>
-            <Contact />
-          </PublicLayout>
-        }
-      />
-
-      {/* ================= CRM LOGIN ================= */}
-
-      <Route
-        path="/login"
-        element={<CRMPortal />}
-      />
-
-      {/* ================= APPLY ================= */}
-
-      <Route
-        path="/apply"
-        element={
-          <PublicLayout>
-            <Apply />
-          </PublicLayout>
-        }
-      />
-
-      {/* ================= STUDENT PORTAL ================= */}
-
-      <Route
-        path="/student"
-        element={
-          <ProtectedStudentRoute>
-            <StudentLayout />
-          </ProtectedStudentRoute>
-        }
-      >
         <Route
-          path="dashboard"
-          element={<StudentDashboard />}
+          path="/"
+          element={
+            <PublicLayout>
+              <Home />
+            </PublicLayout>
+          }
         />
 
         <Route
-          path="profile"
-          element={<Profile />}
+          path="/about"
+          element={
+            <PublicLayout>
+              <About />
+            </PublicLayout>
+          }
         />
 
         <Route
-          path="payments"
-          element={<Payments />}
+          path="/brochure"
+          element={
+            <PublicLayout>
+              <Brochure />
+            </PublicLayout>
+          }
         />
-      </Route>
 
-      {/* ================= PROGRAMS ================= */}
+        <Route
+          path="/contact"
+          element={
+            <PublicLayout>
+              <Contact />
+            </PublicLayout>
+          }
+        />
 
-      <Route
-        path="/programs/phd"
-        element={
-          <PublicLayout>
-            <PhDProgram />
-          </PublicLayout>
-        }
-      />
+        {/* ================= CRM LOGIN ================= */}
 
-      <Route
-        path="/programs/dba"
-        element={
-          <PublicLayout>
-            <DBAProgram />
-          </PublicLayout>
-        }
-      />
+        <Route
+          path="/login"
+          element={<CRMPortal />}
+        />
 
-      <Route
-        path="/programs/honorary-doctorate"
-        element={
-          <PublicLayout>
-            <HonoraryDoctorate />
-          </PublicLayout>
-        }
-      />
+        {/* ================= APPLY ================= */}
 
-      <Route
-        path="/programs/post-doctorate"
-        element={
-          <PublicLayout>
-            <PostDoctorate />
-          </PublicLayout>
-        }
-      />
+        <Route
+          path="/apply"
+          element={
+            <PublicLayout>
+              <Apply />
+            </PublicLayout>
+          }
+        />
 
-      <Route
-        path="/programs/dlitt"
-        element={
-          <PublicLayout>
-            <DLittProgram />
-          </PublicLayout>
-        }
-      />
+        {/* ================= STUDENT PORTAL ================= */}
 
-      <Route
-        path="/programs/professorship"
-        element={
-          <PublicLayout>
-            <Professorship />
-          </PublicLayout>
-        }
-      />
+        <Route
+          path="/student"
+          element={
+            <ProtectedStudentRoute>
+              <StudentLayout />
+            </ProtectedStudentRoute>
+          }
+        >
+          <Route
+            path="dashboard"
+            element={<StudentDashboard />}
+          />
 
-      {/* ================= FALLBACK ================= */}
+          <Route
+            path="profile"
+            element={<Profile />}
+          />
 
-      <Route
-        path="*"
-        element={
-          <PublicLayout>
-            <Home />
-          </PublicLayout>
-        }
-      />
+          <Route
+            path="payments"
+            element={<Payments />}
+          />
+        </Route>
 
-    </Routes>
+        {/* ================= PROGRAMS ================= */}
+
+        <Route
+          path="/programs/phd"
+          element={
+            <PublicLayout>
+              <PhDProgram />
+            </PublicLayout>
+          }
+        />
+
+        <Route
+          path="/programs/dba"
+          element={
+            <PublicLayout>
+              <DBAProgram />
+            </PublicLayout>
+          }
+        />
+
+        <Route
+          path="/programs/honorary-doctorate"
+          element={
+            <PublicLayout>
+              <HonoraryDoctorate />
+            </PublicLayout>
+          }
+        />
+
+        <Route
+          path="/programs/post-doctorate"
+          element={
+            <PublicLayout>
+              <PostDoctorate />
+            </PublicLayout>
+          }
+        />
+
+        <Route
+          path="/programs/dlitt"
+          element={
+            <PublicLayout>
+              <DLittProgram />
+            </PublicLayout>
+          }
+        />
+
+        <Route
+          path="/programs/professorship"
+          element={
+            <PublicLayout>
+              <Professorship />
+            </PublicLayout>
+          }
+        />
+
+        {/* ================= FALLBACK ================= */}
+
+        <Route
+          path="*"
+          element={
+            <PublicLayout>
+              <Home />
+            </PublicLayout>
+          }
+        />
+
+      </Routes>
+
+      {/* =====================================================
+          GLOBAL PROMOTION POPUP
+
+          This is intentionally outside <Routes> so that
+          the popup can appear across the public website.
+
+          It does NOT affect the CRM route functionality.
+          ===================================================== */}
+
+      <PromotionPopup />
+
+    </>
   );
 }
 
