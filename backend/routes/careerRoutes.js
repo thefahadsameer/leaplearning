@@ -1,5 +1,6 @@
 const express = require("express");
 const multer = require("multer");
+
 const {
   submitCareerApplication,
 } = require("../controllers/careerController");
@@ -8,7 +9,7 @@ const router = express.Router();
 
 /* =========================================================
    MULTER CONFIGURATION
-   ========================================================= */
+========================================================= */
 
 const storage = multer.memoryStorage();
 
@@ -21,9 +22,9 @@ const upload = multer({
   },
 
   fileFilter: (req, file, cb) => {
-    /* =========================
+    /* =====================================================
        PASSPORT PHOTO
-       ========================= */
+    ===================================================== */
 
     if (file.fieldname === "photo") {
       const allowedPhotoTypes = [
@@ -42,9 +43,9 @@ const upload = multer({
       return cb(null, true);
     }
 
-    /* =========================
+    /* =====================================================
        CV
-       ========================= */
+    ===================================================== */
 
     if (file.fieldname === "cv") {
       const isPdfMimeType =
@@ -55,7 +56,9 @@ const upload = multer({
 
       if (!isPdfMimeType || !isPdfExtension) {
         return cb(
-          new Error("CV must be uploaded in PDF format only.")
+          new Error(
+            "CV must be uploaded in PDF format only."
+          )
         );
       }
 
@@ -72,7 +75,7 @@ const upload = multer({
 
 /* =========================================================
    SUBMIT CAREER APPLICATION
-   ========================================================= */
+========================================================= */
 
 router.post(
   "/",
@@ -92,21 +95,22 @@ router.post(
         if (err.code === "LIMIT_FILE_SIZE") {
           return res.status(400).json({
             success: false,
-            message:
+            error:
               "Each uploaded file must be 10 MB or smaller.",
           });
         }
 
         return res.status(400).json({
           success: false,
-          message: err.message || "File upload failed.",
+          error:
+            err.message || "File upload failed.",
         });
       }
 
       if (err) {
         return res.status(400).json({
           success: false,
-          message:
+          error:
             err.message || "Invalid file upload.",
         });
       }
@@ -120,6 +124,6 @@ router.post(
 
 /* =========================================================
    EXPORT ROUTER
-   ========================================================= */
+========================================================= */
 
 module.exports = router;

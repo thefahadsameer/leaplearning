@@ -226,12 +226,54 @@ app.use(
   }),
 );
 
-/* ================= ROUTES IMPORT ================= */
+/* ===================================================
+   ROUTES IMPORT
+=================================================== */
 
 const paymentRoutes = require("./routes/paymentRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const contactRoutes = require("./routes/contactRoutes");
-const careerRoutes = require("./routes/careerRoutes");
+
+/* ===================================================
+   CAREER ROUTES
+
+   The Career router is loaded separately so that
+   the Career application system remains isolated.
+=================================================== */
+
+const careerRoutesModule =
+  require("./routes/careerRoutes");
+
+/*
+   Support the normal CommonJS router export:
+
+   module.exports = router;
+
+   The fallback also makes the startup error clearer
+   if the route module is accidentally exported as:
+
+   module.exports = { router };
+*/
+
+const careerRoutes =
+  typeof careerRoutesModule === "function"
+    ? careerRoutesModule
+    : careerRoutesModule?.router;
+
+/* ===================================================
+   CAREER ROUTER VALIDATION
+=================================================== */
+
+console.log(
+  "CAREER ROUTES TYPE:",
+  typeof careerRoutes,
+);
+
+if (typeof careerRoutes !== "function") {
+  throw new TypeError(
+    "Career routes failed to load. careerRoutes must be an Express router function.",
+  );
+}
 
 /* ================= CHATBOT ROUTES ================= */
 
@@ -245,11 +287,17 @@ const applicationRoutes = require("./routes/applicationRoutes");
 
 const leadRoutes = require("./routes/leadRoutes");
 
-/* ================= NORMAL JSON ================= */
+/* ===================================================
+   NORMAL JSON
+=================================================== */
 
 app.use(express.json());
 
-/* ================= CHATBOT ROUTES ================= */
+/* ===================================================
+   CHATBOT ROUTES
+
+   → /api/chat
+=================================================== */
 
 app.use(
   "/api/chat",
@@ -269,7 +317,9 @@ app.use(
   }),
 );
 
-/* ================= STATIC FILES ================= */
+/* ===================================================
+   STATIC FILES
+=================================================== */
 
 app.use(
   "/invoices",
@@ -295,11 +345,18 @@ app.use(
 /* ===================================================
    CAREER ROUTES
 
-   → /api/career/apply
+   → /api/careers
+
+   Career application form:
+   - Applicant details
+   - Passport photo
+   - CV
+   - HR email
+   - Applicant confirmation email
 =================================================== */
 
 app.use(
-  "/api/career",
+  "/api/careers",
   careerRoutes,
 );
 
@@ -314,14 +371,22 @@ app.use(
   applicationRoutes,
 );
 
-/* ================= STUDENT ROUTES ================= */
+/* ===================================================
+   STUDENT ROUTES
+
+   → /api/students
+=================================================== */
 
 app.use(
   "/api/students",
   studentRoutes,
 );
 
-/* ================= PAYMENT ROUTES ================= */
+/* ===================================================
+   PAYMENT ROUTES
+
+   → /api/payments
+=================================================== */
 
 app.use(
   "/api/payments",
@@ -346,7 +411,9 @@ app.use(
   leadRoutes,
 );
 
-/* ================= HEALTH CHECK ================= */
+/* ===================================================
+   HEALTH CHECK
+=================================================== */
 
 app.get(
   "/",
@@ -357,7 +424,9 @@ app.get(
   },
 );
 
-/* ================= SERVER ================= */
+/* ===================================================
+   SERVER
+=================================================== */
 
 const PORT =
   process.env.PORT || 10000;
