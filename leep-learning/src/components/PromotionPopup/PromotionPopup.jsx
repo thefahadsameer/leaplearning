@@ -8,21 +8,13 @@ import "./PromotionPopup.css";
    CHANGE ONLY THIS SECTION WHEN YOU WANT TO CHANGE THE AD.
    ========================================================= */
 
+import promotionBanner from "../../assets/promotion/promotion-banner.jpg";
+
 const PROMOTION = {
   enabled: true,
 
-  // Popup title / campaign label
-  badge: "SPECIAL ANNOUNCEMENT",
-
-  // Main heading
-  title: "Additional Scholarships Available",
-
-  // Supporting text
-  description:
-    "Leap Learning is offering additional scholarship opportunities for eligible applicants. Explore the available programs and scholarship benefits.",
-
-  // Optional promotional image
-  image: "/promotion/promotion-banner.jpg",
+  // Promotional image
+  image: promotionBanner,
 
   // Button
   buttonText: "Explore Now",
@@ -33,9 +25,10 @@ const PROMOTION = {
   // Set to true if buttonLink is an external website
   externalLink: false,
 
-  // Popup timing
+  // Popup delay in milliseconds
   delay: 1200,
 };
+
 
 /* =========================================================
    COMPONENT
@@ -44,20 +37,14 @@ const PROMOTION = {
 function PromotionPopup() {
   const [isOpen, setIsOpen] = useState(false);
 
+  /* =======================================================
+     SHOW POPUP ONCE PER BROWSER SESSION
+     ======================================================= */
+
   useEffect(() => {
     if (!PROMOTION.enabled) {
       return;
     }
-
-    /*
-      Session-based display:
-
-      The popup appears once during a browser session.
-      Closing it means it will not immediately appear again
-      while the visitor continues browsing the website.
-
-      This does NOT use localStorage.
-    */
 
     const alreadyShown = sessionStorage.getItem(
       "leap_learning_promotion_shown"
@@ -69,6 +56,7 @@ function PromotionPopup() {
 
     const timer = setTimeout(() => {
       setIsOpen(true);
+
       sessionStorage.setItem(
         "leap_learning_promotion_shown",
         "true"
@@ -77,6 +65,11 @@ function PromotionPopup() {
 
     return () => clearTimeout(timer);
   }, []);
+
+
+  /* =======================================================
+     PREVENT BACKGROUND SCROLL WHEN POPUP IS OPEN
+     ======================================================= */
 
   useEffect(() => {
     if (!isOpen) {
@@ -91,9 +84,19 @@ function PromotionPopup() {
     };
   }, [isOpen]);
 
+
+  /* =======================================================
+     CLOSE POPUP
+     ======================================================= */
+
   const handleClose = () => {
     setIsOpen(false);
   };
+
+
+  /* =======================================================
+     ACTION BUTTON
+     ======================================================= */
 
   const handleAction = () => {
     setIsOpen(false);
@@ -104,15 +107,22 @@ function PromotionPopup() {
         "_blank",
         "noopener,noreferrer"
       );
+
       return;
     }
 
     window.location.href = PROMOTION.buttonLink;
   };
 
+
+  /* =======================================================
+     RENDER
+     ======================================================= */
+
   if (!PROMOTION.enabled || !isOpen) {
     return null;
   }
+
 
   return (
     <div
@@ -123,62 +133,67 @@ function PromotionPopup() {
         }
       }}
     >
+
       <div
         className="promotion-popup"
         role="dialog"
         aria-modal="true"
-        aria-labelledby="promotion-popup-title"
+        aria-label="Leap Learning promotion"
       >
-        {/* Close Button */}
+
+        {/* =================================================
+            CLOSE BUTTON
+            ================================================= */}
+
         <button
           type="button"
           className="promotion-close"
           onClick={handleClose}
           aria-label="Close promotion"
         >
-          <X size={20} strokeWidth={2} />
+          <X
+            size={20}
+            strokeWidth={2}
+          />
         </button>
 
-        {/* Promotional Image */}
-        {PROMOTION.image && (
-          <div className="promotion-image-wrapper">
-            <img
-              src={PROMOTION.image}
-              alt={PROMOTION.title}
-              className="promotion-image"
-            />
-          </div>
-        )}
 
-        {/* Content */}
-        <div className="promotion-content">
+        {/* =================================================
+            PROMOTIONAL IMAGE
+            ================================================= */}
 
-          {PROMOTION.badge && (
-            <span className="promotion-badge">
-              {PROMOTION.badge}
-            </span>
-          )}
+        <div className="promotion-image-wrapper">
 
-          <h2 id="promotion-popup-title">
-            {PROMOTION.title}
-          </h2>
+          <img
+            src={PROMOTION.image}
+            alt="Leap Learning Promotion"
+            className="promotion-image"
+          />
 
-          <p className="promotion-description">
-            {PROMOTION.description}
-          </p>
+        </div>
+
+
+        {/* =================================================
+            ACTION AREA
+            ================================================= */}
+
+        <div className="promotion-actions">
 
           <button
             type="button"
             className="promotion-action"
             onClick={handleAction}
           >
-            <span>{PROMOTION.buttonText}</span>
+            <span>
+              {PROMOTION.buttonText}
+            </span>
 
             <ArrowRight
               size={18}
               strokeWidth={2}
             />
           </button>
+
 
           <button
             type="button"
@@ -189,7 +204,9 @@ function PromotionPopup() {
           </button>
 
         </div>
+
       </div>
+
     </div>
   );
 }
