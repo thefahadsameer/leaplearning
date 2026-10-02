@@ -4,9 +4,7 @@
 
 .promotion-overlay {
   position: fixed;
-
   inset: 0;
-
   z-index: 99999;
 
   display: flex;
@@ -118,7 +116,6 @@
 
 .promotion-image {
   width: 100%;
-
   height: auto;
 
   display: block;
@@ -160,7 +157,6 @@
   padding: 13px 20px;
 
   border: none;
-
   border-radius: 9px;
 
   background: #1264c4;
@@ -170,7 +166,6 @@
   font-family: inherit;
 
   font-size: 15px;
-
   font-weight: 600;
 
   cursor: pointer;
@@ -219,7 +214,8 @@
 
   cursor: pointer;
 
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease;
 }
 
 .promotion-dismiss:hover {
@@ -244,7 +240,6 @@
 @keyframes promotionPopupIn {
   from {
     opacity: 0;
-
     transform:
       translateY(25px)
       scale(0.97);
@@ -252,7 +247,6 @@
 
   to {
     opacity: 1;
-
     transform:
       translateY(0)
       scale(1);
@@ -265,7 +259,6 @@
    ========================================================= */
 
 @media (max-width: 768px) {
-
   .promotion-overlay {
     padding: 18px;
   }
@@ -279,7 +272,6 @@
   .promotion-actions {
     padding: 18px 22px 20px;
   }
-
 }
 
 
@@ -288,7 +280,6 @@
    ========================================================= */
 
 @media (max-width: 480px) {
-
   .promotion-overlay {
     padding: 14px;
   }
@@ -301,7 +292,6 @@
     border-radius: 16px;
   }
 
-
   .promotion-close {
     top: 10px;
     right: 10px;
@@ -310,11 +300,9 @@
     height: 34px;
   }
 
-
   .promotion-actions {
     padding: 15px 16px 18px;
   }
-
 
   .promotion-action {
     min-height: 48px;
@@ -322,13 +310,11 @@
     font-size: 14px;
   }
 
-
   .promotion-dismiss {
     margin-top: 10px;
 
     font-size: 13px;
   }
-
 }
 
 
@@ -337,7 +323,6 @@
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .promotion-overlay,
   .promotion-popup {
     animation: none;
@@ -347,5 +332,4 @@
   .promotion-action {
     transition: none;
   }
-
 }

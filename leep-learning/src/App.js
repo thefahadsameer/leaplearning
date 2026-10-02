@@ -2,6 +2,7 @@
 
 import { Routes, Route } from "react-router-dom";
 
+
 /* ================= PROGRAM PAGES ================= */
 
 import PhDProgram from "./pages/programs/PhDProgram";
@@ -11,6 +12,7 @@ import PostDoctorate from "./pages/programs/PostDoctorate";
 import DLittProgram from "./pages/programs/DLittProgram";
 import Professorship from "./pages/programs/Professorship";
 
+
 /* ================= PUBLIC LAYOUT ================= */
 
 import Navbar from "./components/Navbar/Navbar";
@@ -18,9 +20,11 @@ import Footer from "./components/Footer/Footer";
 import FloatingCTA from "./components/Common/FloatingCTA/FloatingCTA";
 import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 
+
 /* ================= PROMOTION POPUP ================= */
 
 import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
+
 
 /* ================= PUBLIC PAGES ================= */
 
@@ -29,6 +33,7 @@ import About from "./pages/About";
 import Brochure from "./pages/Brochure";
 import Contact from "./pages/Contact";
 import Apply from "./pages/Apply";
+
 
 /* ================= STUDENT ================= */
 
@@ -155,12 +160,14 @@ function App() {
           }
         />
 
+
         {/* ================= CRM LOGIN ================= */}
 
         <Route
           path="/login"
           element={<CRMPortal />}
         />
+
 
         {/* ================= APPLY ================= */}
 
@@ -172,6 +179,7 @@ function App() {
             </PublicLayout>
           }
         />
+
 
         {/* ================= STUDENT PORTAL ================= */}
 
@@ -198,6 +206,7 @@ function App() {
             element={<Payments />}
           />
         </Route>
+
 
         {/* ================= PROGRAMS ================= */}
 
@@ -255,6 +264,7 @@ function App() {
           }
         />
 
+
         {/* ================= FALLBACK ================= */}
 
         <Route
@@ -268,11 +278,12 @@ function App() {
 
       </Routes>
 
+
       {/* =====================================================
           GLOBAL PROMOTION POPUP
 
-          This is intentionally outside <Routes> so that
-          the popup can appear across the public website.
+          The popup is outside <Routes> so it can appear
+          across the public website.
 
           It does NOT affect the CRM route functionality.
           ===================================================== */}

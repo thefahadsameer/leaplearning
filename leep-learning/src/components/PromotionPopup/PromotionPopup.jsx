@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 import "./PromotionPopup.css";
 
-import promotionBanner from "../../assets/promotion/promotion-banner.png";
+/* =========================================================
+   PROMOTION IMAGE
+   ========================================================= */
+
+import promotionBanner from "../../assets/promotions/promotion-banner.png";
 
 
 /* =========================================================
@@ -17,7 +21,7 @@ const PROMOTION = {
   // Promotional image
   image: promotionBanner,
 
-  // Button
+  // Main button
   buttonText: "Explore Now",
 
   // Where the button should go
@@ -65,7 +69,9 @@ function PromotionPopup() {
       );
     }, PROMOTION.delay);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
 
