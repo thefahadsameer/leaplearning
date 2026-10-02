@@ -288,7 +288,7 @@ function App() {
           It does NOT affect the CRM route functionality.
           ===================================================== */}
 
-      <PromotionPopup />
+      {/* <PromotionPopup /> */}
 
     </>
   );
