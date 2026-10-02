@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
-import { X, ArrowRight } from "lucide-react";
+import { X } from "lucide-react";
 import "./PromotionPopup.css";
-
-/* =========================================================
-   PROMOTION IMAGE
-   ========================================================= */
 
 import promotionBanner from "../../assets/promotions/promotion-banner.png";
 
 
 /* =========================================================
    PROMOTION CONFIGURATION
-   =========================================================
-   CHANGE ONLY THIS SECTION WHEN YOU WANT TO CHANGE THE AD.
    ========================================================= */
 
 const PROMOTION = {
@@ -20,15 +14,6 @@ const PROMOTION = {
 
   // Promotional image
   image: promotionBanner,
-
-  // Main button
-  buttonText: "Explore Now",
-
-  // Where the button should go
-  buttonLink: "/contact",
-
-  // Set to true if buttonLink is an external website
-  externalLink: false,
 
   // Popup delay in milliseconds
   delay: 1200,
@@ -103,27 +88,6 @@ function PromotionPopup() {
 
 
   /* =======================================================
-     ACTION BUTTON
-     ======================================================= */
-
-  const handleAction = () => {
-    setIsOpen(false);
-
-    if (PROMOTION.externalLink) {
-      window.open(
-        PROMOTION.buttonLink,
-        "_blank",
-        "noopener,noreferrer"
-      );
-
-      return;
-    }
-
-    window.location.href = PROMOTION.buttonLink;
-  };
-
-
-  /* =======================================================
      RENDER
      ======================================================= */
 
@@ -175,39 +139,6 @@ function PromotionPopup() {
             alt="Leap Learning Promotion"
             className="promotion-image"
           />
-        </div>
-
-
-        {/* =================================================
-            ACTION AREA
-            ================================================= */}
-
-        <div className="promotion-actions">
-
-          <button
-            type="button"
-            className="promotion-action"
-            onClick={handleAction}
-          >
-            <span>
-              {PROMOTION.buttonText}
-            </span>
-
-            <ArrowRight
-              size={18}
-              strokeWidth={2}
-            />
-          </button>
-
-
-          <button
-            type="button"
-            className="promotion-dismiss"
-            onClick={handleClose}
-          >
-            Maybe Later
-          </button>
-
         </div>
 
       </div>
