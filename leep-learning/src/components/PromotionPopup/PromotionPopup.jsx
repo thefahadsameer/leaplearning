@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { X, ArrowRight } from "lucide-react";
 import "./PromotionPopup.css";
 
+import promotionBanner from "../../assets/promotion/promotion-banner.png";
+
+
 /* =========================================================
    PROMOTION CONFIGURATION
    =========================================================
    CHANGE ONLY THIS SECTION WHEN YOU WANT TO CHANGE THE AD.
    ========================================================= */
-
-import promotionBanner from "../../assets/promotion/promotion-banner.jpg";
 
 const PROMOTION = {
   enabled: true,
@@ -36,6 +37,7 @@ const PROMOTION = {
 
 function PromotionPopup() {
   const [isOpen, setIsOpen] = useState(false);
+
 
   /* =======================================================
      SHOW POPUP ONCE PER BROWSER SESSION
@@ -133,7 +135,6 @@ function PromotionPopup() {
         }
       }}
     >
-
       <div
         className="promotion-popup"
         role="dialog"
@@ -163,13 +164,11 @@ function PromotionPopup() {
             ================================================= */}
 
         <div className="promotion-image-wrapper">
-
           <img
             src={PROMOTION.image}
             alt="Leap Learning Promotion"
             className="promotion-image"
           />
-
         </div>
 
 
@@ -206,7 +205,6 @@ function PromotionPopup() {
         </div>
 
       </div>
-
     </div>
   );
 }
