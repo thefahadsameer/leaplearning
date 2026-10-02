@@ -1,23 +1,292 @@
 // src/pages/Career.jsx
 
+import { useEffect, useState } from "react";
 import "../styles/Career.css";
 import { Link } from "react-router-dom";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 import {
   BriefcaseBusiness,
   GraduationCap,
   TrendingUp,
   Users,
-  MapPin,
   Clock3,
   ArrowRight,
   CheckCircle2,
+  X,
+  Upload,
+  FileText,
+  Image as ImageIcon,
 } from "lucide-react";
 
 function Career() {
+  const [showApplicationModal, setShowApplicationModal] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [submitError, setSubmitError] = useState("");
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+  });
+
+  const [photoFile, setPhotoFile] = useState(null);
+  const [cvFile, setCvFile] = useState(null);
+
+  useEffect(() => {
+    if (showApplicationModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showApplicationModal]);
+
+  const openApplicationModal = () => {
+    setSubmitMessage("");
+    setSubmitError("");
+    setShowApplicationModal(true);
+  };
+
+  const closeApplicationModal = () => {
+    if (submitting) return;
+
+    setShowApplicationModal(false);
+    setSubmitMessage("");
+    setSubmitError("");
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+  };
+
+  const handlePhotoChange = (event) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      setPhotoFile(null);
+      return;
+    }
+
+    const maxSize = 10 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      setSubmitError("Passport photo must not exceed 10 MB.");
+      event.target.value = "";
+      setPhotoFile(null);
+      return;
+    }
+
+    const allowedTypes = [
+      "image/jpeg",
+      "image/jpg",
+      "image/png",
+    ];
+
+    if (!allowedTypes.includes(file.type)) {
+      setSubmitError(
+        "Please upload a JPG, JPEG, or PNG passport size photo.",
+      );
+      event.target.value = "";
+      setPhotoFile(null);
+      return;
+    }
+
+    setSubmitError("");
+    setPhotoFile(file);
+  };
+
+  const handleCvChange = (event) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      setCvFile(null);
+      return;
+    }
+
+    const maxSize = 10 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+      setSubmitError("CV must not exceed 10 MB.");
+      event.target.value = "";
+      setCvFile(null);
+      return;
+    }
+
+    const isPdf =
+      file.type === "application/pdf" ||
+      file.name.toLowerCase().endsWith(".pdf");
+
+    if (!isPdf) {
+      setSubmitError("Please upload your CV in PDF format only.");
+      event.target.value = "";
+      setCvFile(null);
+      return;
+    }
+
+    setSubmitError("");
+    setCvFile(file);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      phone: "",
+      email: "",
+    });
+
+    setPhotoFile(null);
+    setCvFile(null);
+
+    const photoInput = document.getElementById(
+      "career-photo",
+    );
+
+    const cvInput = document.getElementById(
+      "career-cv",
+    );
+
+    if (photoInput) {
+      photoInput.value = "";
+    }
+
+    if (cvInput) {
+      cvInput.value = "";
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setSubmitError("");
+    setSubmitMessage("");
+
+    if (!formData.firstName.trim()) {
+      setSubmitError("Please enter your first name.");
+      return;
+    }
+
+    if (!formData.lastName.trim()) {
+      setSubmitError("Please enter your last name.");
+      return;
+    }
+
+    if (!formData.phone.trim()) {
+      setSubmitError("Please enter your phone number.");
+      return;
+    }
+
+    if (!formData.email.trim()) {
+      setSubmitError("Please enter your email address.");
+      return;
+    }
+
+    if (!photoFile) {
+      setSubmitError("Please upload your passport size photo.");
+      return;
+    }
+
+    if (!cvFile) {
+      setSubmitError("Please upload your CV in PDF format.");
+      return;
+    }
+
+    setSubmitting(true);
+
+    try {
+      const submissionData = new FormData();
+
+      submissionData.append(
+        "firstName",
+        formData.firstName.trim(),
+      );
+
+      submissionData.append(
+        "middleName",
+        formData.middleName.trim(),
+      );
+
+      submissionData.append(
+        "lastName",
+        formData.lastName.trim(),
+      );
+
+      submissionData.append(
+        "phone",
+        formData.phone.trim(),
+      );
+
+      submissionData.append(
+        "email",
+        formData.email.trim(),
+      );
+
+      submissionData.append(
+        "photo",
+        photoFile,
+      );
+
+      submissionData.append(
+        "cv",
+        cvFile,
+      );
+
+      const response = await fetch(
+        "https://leaplearning.onrender.com/api/career/apply",
+        {
+          method: "POST",
+          body: submissionData,
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.error ||
+            "Unable to submit your application. Please try again.",
+        );
+      }
+
+      setSubmitMessage(
+        "Your application has been submitted successfully. A confirmation email has been sent to your email address.",
+      );
+
+      resetForm();
+    } catch (error) {
+      console.error(
+        "Career application error:",
+        error,
+      );
+
+      setSubmitError(
+        error.message ||
+          "Something went wrong while submitting your application. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <main className="career-page">
 
       {/* ================= HERO ================= */}
+
       <section className="career-hero">
         <div className="career-hero-overlay"></div>
 
@@ -38,7 +307,10 @@ function Career() {
             difference.
           </p>
 
-          <a href="#open-positions" className="career-hero-btn">
+          <a
+            href="#open-positions"
+            className="career-hero-btn"
+          >
             Explore Open Positions
             <ArrowRight size={18} />
           </a>
@@ -46,6 +318,7 @@ function Career() {
       </section>
 
       {/* ================= INTRO ================= */}
+
       <section className="career-intro">
         <div className="career-container">
 
@@ -79,6 +352,7 @@ function Career() {
       </section>
 
       {/* ================= WHY JOIN ================= */}
+
       <section className="career-benefits">
         <div className="career-container">
 
@@ -156,6 +430,7 @@ function Career() {
       </section>
 
       {/* ================= OPEN POSITIONS ================= */}
+
       <section
         className="career-openings"
         id="open-positions"
@@ -177,7 +452,8 @@ function Career() {
             </p>
           </div>
 
-          {/* JOB CARD */}
+          {/* ================= JOB CARD ================= */}
+
           <article className="career-job-card">
 
             <div className="career-job-main">
@@ -196,11 +472,6 @@ function Career() {
                 </h3>
 
                 <div className="career-job-meta">
-
-                  <span>
-                    <MapPin size={16} />
-                    Noida, Uttar Pradesh
-                  </span>
 
                   <span>
                     <Clock3 size={16} />
@@ -299,19 +570,16 @@ function Career() {
                 <span>
                   <strong>Experience:</strong> Fresher
                 </span>
-
-                <span>
-                  <strong>Location:</strong> On-site
-                </span>
               </div>
 
-              <Link
-                to="/careers/business-development-executive"
+              <button
+                type="button"
                 className="career-apply-btn"
+                onClick={openApplicationModal}
               >
                 View Details & Apply
                 <ArrowRight size={17} />
-              </Link>
+              </button>
 
             </div>
 
@@ -321,6 +589,7 @@ function Career() {
       </section>
 
       {/* ================= CTA ================= */}
+
       <section className="career-cta">
         <div className="career-container">
 
@@ -340,7 +609,10 @@ function Career() {
               professional experiences.
             </p>
 
-            <Link to="/contact" className="career-cta-btn">
+            <Link
+              to="/contact"
+              className="career-cta-btn"
+            >
               Contact Leap Learning
               <ArrowRight size={18} />
             </Link>
@@ -349,6 +621,325 @@ function Career() {
 
         </div>
       </section>
+
+      {/* =========================================================
+         APPLICATION MODAL
+         ========================================================= */}
+
+      {showApplicationModal && (
+        <div
+          className="career-modal-overlay"
+          onMouseDown={(event) => {
+            if (
+              event.target === event.currentTarget &&
+              !submitting
+            ) {
+              closeApplicationModal();
+            }
+          }}
+        >
+          <div className="career-application-modal">
+
+            {/* ================= MODAL HEADER ================= */}
+
+            <div className="career-modal-header">
+              <div>
+                <span className="career-modal-eyebrow">
+                  JOB APPLICATION
+                </span>
+
+                <h2>
+                  Business Development Executive
+                </h2>
+
+                <p>
+                  Complete the form below to submit your application.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="career-modal-close"
+                onClick={closeApplicationModal}
+                disabled={submitting}
+                aria-label="Close application form"
+              >
+                <X size={22} />
+              </button>
+            </div>
+
+            {/* ================= FORM ================= */}
+
+            <form
+              className="career-application-form"
+              onSubmit={handleSubmit}
+            >
+
+              <div className="career-form-grid">
+
+                {/* FIRST NAME */}
+
+                <div className="career-form-group">
+                  <label htmlFor="career-first-name">
+                    First Name <span>*</span>
+                  </label>
+
+                  <input
+                    id="career-first-name"
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    placeholder="Enter first name"
+                    autoComplete="given-name"
+                    required
+                  />
+                </div>
+
+                {/* MIDDLE NAME */}
+
+                <div className="career-form-group">
+                  <label htmlFor="career-middle-name">
+                    Middle Name
+                    <small>Optional</small>
+                  </label>
+
+                  <input
+                    id="career-middle-name"
+                    type="text"
+                    name="middleName"
+                    value={formData.middleName}
+                    onChange={handleInputChange}
+                    placeholder="Enter middle name"
+                    autoComplete="additional-name"
+                  />
+                </div>
+
+                {/* LAST NAME */}
+
+                <div className="career-form-group">
+                  <label htmlFor="career-last-name">
+                    Last Name <span>*</span>
+                  </label>
+
+                  <input
+                    id="career-last-name"
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    placeholder="Enter last name"
+                    autoComplete="family-name"
+                    required
+                  />
+                </div>
+
+                {/* PHONE */}
+
+                <div className="career-form-group career-phone-group">
+                  <label>
+                    Phone Number <span>*</span>
+                  </label>
+
+                  <PhoneInput
+                    country="in"
+                    value={formData.phone}
+                    onChange={(phone) =>
+                      setFormData((previous) => ({
+                        ...previous,
+                        phone,
+                      }))
+                    }
+                    enableSearch
+                    countryCodeEditable={false}
+                    inputProps={{
+                      name: "phone",
+                      required: true,
+                      autoComplete: "tel",
+                    }}
+                    containerClass="career-phone-container"
+                    inputClass="career-phone-input"
+                    buttonClass="career-phone-button"
+                    dropdownClass="career-phone-dropdown"
+                  />
+                </div>
+
+              </div>
+
+              {/* EMAIL */}
+
+              <div className="career-form-group">
+                <label htmlFor="career-email">
+                  Email ID <span>*</span>
+                </label>
+
+                <input
+                  id="career-email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email address"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+
+              {/* FILE UPLOADS */}
+
+              <div className="career-file-grid">
+
+                {/* PHOTO */}
+
+                <div className="career-file-group">
+                  <label>
+                    Passport Size Photo <span>*</span>
+                  </label>
+
+                  <label
+                    htmlFor="career-photo"
+                    className={`career-file-upload ${
+                      photoFile
+                        ? "career-file-selected"
+                        : ""
+                    }`}
+                  >
+                    <input
+                      id="career-photo"
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png"
+                      onChange={handlePhotoChange}
+                    />
+
+                    {photoFile ? (
+                      <>
+                        <ImageIcon size={22} />
+
+                        <div>
+                          <strong>
+                            {photoFile.name}
+                          </strong>
+
+                          <small>
+                            {(photoFile.size / 1024 / 1024).toFixed(2)} MB
+                          </small>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={22} />
+
+                        <div>
+                          <strong>
+                            Upload Passport Photo
+                          </strong>
+
+                          <small>
+                            JPG, JPEG or PNG • Maximum 10 MB
+                          </small>
+                        </div>
+                      </>
+                    )}
+                  </label>
+                </div>
+
+                {/* CV */}
+
+                <div className="career-file-group">
+                  <label>
+                    Attach CV <span>*</span>
+                  </label>
+
+                  <label
+                    htmlFor="career-cv"
+                    className={`career-file-upload ${
+                      cvFile
+                        ? "career-file-selected"
+                        : ""
+                    }`}
+                  >
+                    <input
+                      id="career-cv"
+                      type="file"
+                      accept=".pdf,application/pdf"
+                      onChange={handleCvChange}
+                    />
+
+                    {cvFile ? (
+                      <>
+                        <FileText size={22} />
+
+                        <div>
+                          <strong>
+                            {cvFile.name}
+                          </strong>
+
+                          <small>
+                            {(cvFile.size / 1024 / 1024).toFixed(2)} MB
+                          </small>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <FileText size={22} />
+
+                        <div>
+                          <strong>
+                            Upload CV
+                          </strong>
+
+                          <small>
+                            PDF only • Maximum 10 MB
+                          </small>
+                        </div>
+                      </>
+                    )}
+                  </label>
+                </div>
+
+              </div>
+
+              {/* ERROR */}
+
+              {submitError && (
+                <div className="career-form-error">
+                  {submitError}
+                </div>
+              )}
+
+              {/* SUCCESS */}
+
+              {submitMessage && (
+                <div className="career-form-success">
+                  {submitMessage}
+                </div>
+              )}
+
+              {/* SUBMIT */}
+
+              <div className="career-form-actions">
+
+                <button
+                  type="submit"
+                  className="career-submit-btn"
+                  disabled={submitting}
+                >
+                  {submitting
+                    ? "Submitting Application..."
+                    : "Apply"}
+
+                  {!submitting && (
+                    <ArrowRight size={18} />
+                  )}
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      )}
 
     </main>
   );
