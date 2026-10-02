@@ -1,80 +1,80 @@
-const express = require("express");
+// const express = require("express");
 
-const {
-  createLead,
-  importLeads,
-  getLeads,
-  deleteLead,
-  deleteLeads,
-  assignLeads,
-} = require("../controllers/leadController");
+// const {
+//   createLead,
+//   importLeads,
+//   getLeads,
+//   deleteLead,
+//   deleteLeads,
+//   assignLeads,
+// } = require("../controllers/leadController");
 
-const router = express.Router();
+// const router = express.Router();
 
-/* =========================================================
-   CREATE ONE LEAD
+// /* =========================================================
+//    CREATE ONE LEAD
 
-   POST /api/leads
-========================================================= */
+//    POST /api/leads
+// ========================================================= */
 
-router.post(
-  "/",
-  createLead
-);
+// router.post(
+//   "/",
+//   createLead
+// );
 
-/* =========================================================
-   IMPORT MULTIPLE LEADS
+// /* =========================================================
+//    IMPORT MULTIPLE LEADS
 
-   POST /api/leads/import
-========================================================= */
+//    POST /api/leads/import
+// ========================================================= */
 
-router.post(
-  "/import",
-  importLeads
-);
+// router.post(
+//   "/import",
+//   importLeads
+// );
 
-/* =========================================================
-   GET ALL LEADS
+// /* =========================================================
+//    GET ALL LEADS
 
-   GET /api/leads
-========================================================= */
+//    GET /api/leads
+// ========================================================= */
 
-router.get(
-  "/",
-  getLeads
-);
+// router.get(
+//   "/",
+//   getLeads
+// );
 
-/* =========================================================
-   DELETE ONE LEAD
+// /* =========================================================
+//    DELETE ONE LEAD
 
-   DELETE /api/leads/:id
-========================================================= */
+//    DELETE /api/leads/:id
+// ========================================================= */
 
-router.delete(
-  "/:id",
-  deleteLead
-);
+// router.delete(
+//   "/:id",
+//   deleteLead
+// );
 
-/* =========================================================
-   DELETE MULTIPLE LEADS
+// /* =========================================================
+//    DELETE MULTIPLE LEADS
 
-   POST /api/leads/bulk-delete
-========================================================= */
+//    POST /api/leads/bulk-delete
+// ========================================================= */
 
-router.post(
-  "/bulk-delete",
-  deleteLeads
-);
+// router.post(
+//   "/bulk-delete",
+//   deleteLeads
+// );
 
-/* =========================================================
-   ASSIGN LEADS TO EMPLOYEE
+// /* =========================================================
+//    ASSIGN LEADS TO EMPLOYEE
 
-   PUT /api/leads/assign
-========================================================= */
+//    PUT /api/leads/assign
+// ========================================================= */
 
-router.put(
-  "/assign",
-  assignLeads
-);
+// router.put(
+//   "/assign",
+//   assignLeads
+// );
 
-module.exports = router;
+// module.exports = router;
