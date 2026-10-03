@@ -20,7 +20,9 @@ function Footer() {
 
       <div className="footer-container">
 
-        {/* Brand */}
+        {/* =================================================
+            BRAND
+            ================================================= */}
         <div className="footer-col brand-col">
           <h3>Leap Learning</h3>
 
@@ -36,7 +38,10 @@ function Footer() {
           </div>
         </div>
 
-        {/* Quick Links */}
+
+        {/* =================================================
+            QUICK LINKS
+            ================================================= */}
         <div className="footer-col">
           <h4>Quick Links</h4>
 
@@ -45,9 +50,19 @@ function Footer() {
           <p onClick={() => navigate("/brochure")}>Programs</p>
           <p onClick={() => navigate("/contact")}>Contact</p>
           <p onClick={() => navigate("/apply")}>Apply Now</p>
+
+          <p
+            className="footer-legal-link"
+            onClick={() => navigate("/terms-and-conditions")}
+          >
+            Terms &amp; Conditions
+          </p>
         </div>
 
-        {/* Portals */}
+
+        {/* =================================================
+            PORTALS
+            ================================================= */}
         <div className="footer-col">
           <h4>Portals</h4>
 
@@ -60,7 +75,10 @@ function Footer() {
           </p>
         </div>
 
-        {/* Contact */}
+
+        {/* =================================================
+            CONTACT
+            ================================================= */}
         <div className="footer-col">
           <h4>Contact</h4>
 
@@ -69,8 +87,13 @@ function Footer() {
           <p>Global Admissions Support</p>
           <p>10 Winterslow Rd, London, United Kingdom</p>
         </div>
+
       </div>
 
+
+      {/* =================================================
+          FOOTER BOTTOM
+          ================================================= */}
       <div className="footer-bottom">
         © {new Date().getFullYear()} Leap Learning. All rights reserved.
       </div>
