@@ -300,39 +300,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>10. Refund Request Procedure</h2>
-
-            <p>
-              A refund request must be submitted through the official
-              communication channel of Leap Learning.
-            </p>
-
-            <p>The request should contain, where applicable:</p>
-
-            <ul>
-              <li>Full Name</li>
-              <li>Registered Mobile Number</li>
-              <li>Registered Email Address</li>
-              <li>Program Name</li>
-              <li>Application/Admission Reference Number</li>
-              <li>Payment Transaction Reference</li>
-              <li>Date of Payment</li>
-              <li>Amount Paid</li>
-              <li>Reason for Cancellation or Postponement</li>
-            </ul>
-
-            <p>
-              Leap Learning may request additional information or
-              documentation reasonably required to verify the refund
-              request.
-            </p>
-
-          </section>
-
-
-          <section className="refund-section">
-
-            <h2>11. Refund Processing</h2>
+            <h2>10. Refund Processing</h2>
 
             <p>
               Once a refund is approved and the required verification has
@@ -351,7 +319,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>12. Mode of Refund</h2>
+            <h2>11. Mode of Refund</h2>
 
             <p>
               Approved refunds shall ordinarily be made through the
@@ -373,7 +341,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>13. Non-Refundable Charges</h2>
+            <h2>12. Non-Refundable Charges</h2>
 
             <p>
               Apart from the registration fee, any charge specifically
@@ -388,7 +356,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>14. Non-Attendance or Failure to Participate</h2>
+            <h2>13. Non-Attendance or Failure to Participate</h2>
 
             <p>
               Failure to attend, participate in or utilize a program,
@@ -403,7 +371,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>15. Incomplete Admission Formalities</h2>
+            <h2>14. Incomplete Admission Formalities</h2>
 
             <p>
               Where a Candidate fails to provide required documents,
@@ -418,7 +386,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>16. False or Misleading Information</h2>
+            <h2>15. False or Misleading Information</h2>
 
             <p>
               If a Candidate provides false, fraudulent, forged or
@@ -438,7 +406,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>17. Changes in Academic or Institutional Requirements</h2>
+            <h2>16. Changes in Academic or Institutional Requirements</h2>
 
             <p>
               Universities, institutions and other academic authorities
@@ -458,7 +426,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>18. Exceptional Circumstances</h2>
+            <h2>17. Exceptional Circumstances</h2>
 
             <p>
               Requests arising from exceptional or unforeseen
@@ -477,7 +445,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>19. No Waiver of Statutory Rights</h2>
+            <h2>18. No Waiver of Statutory Rights</h2>
 
             <p>
               Nothing in this Policy is intended to exclude, restrict or
@@ -502,7 +470,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>20. Policy Amendments</h2>
+            <h2>19. Policy Amendments</h2>
 
             <p>
               Leap Learning may update or amend this Refund &amp;
@@ -522,7 +490,7 @@ function RefundPolicy() {
 
           <section className="refund-section">
 
-            <h2>21. Governing Law</h2>
+            <h2>20. Governing Law</h2>
 
             <p>
               This Policy shall be governed by and interpreted in
