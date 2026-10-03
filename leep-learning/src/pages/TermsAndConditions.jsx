@@ -786,21 +786,6 @@ function TermsAndConditions() {
 
           </section>
 
-
-          {/* ================= RELATED POLICY ================= */}
-
-          <div className="legal-related-policy">
-
-            <span>
-              Related Policy
-            </span>
-
-            <Link to="/refund-policy">
-              Refund &amp; Cancellation Policy
-            </Link>
-
-          </div>
-
         </div>
 
       </div>

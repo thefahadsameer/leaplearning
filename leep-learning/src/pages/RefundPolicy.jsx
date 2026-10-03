@@ -539,20 +539,6 @@ function RefundPolicy() {
           </section>
 
 
-          {/* ================= RELATED POLICY ================= */}
-
-          <div className="refund-related-policy">
-
-            <span>
-              Related Document
-            </span>
-
-            <Link to="/terms-and-conditions">
-              Terms &amp; Conditions
-            </Link>
-
-          </div>
-
         </div>
 
       </div>
