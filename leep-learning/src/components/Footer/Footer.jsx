@@ -1,11 +1,9 @@
 // src/components/Footer/Footer.jsx
 
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
-  const navigate = useNavigate();
-
   const handleCRMPortal = () => {
     window.open(
       "https://leapcrm.vercel.app/",
@@ -16,6 +14,7 @@ function Footer() {
 
   return (
     <footer className="footer">
+
       <div className="footer-top-line"></div>
 
       <div className="footer-container">
@@ -23,7 +22,9 @@ function Footer() {
         {/* =================================================
             BRAND
             ================================================= */}
+
         <div className="footer-col brand-col">
+
           <h3>Leap Learning</h3>
 
           <p>
@@ -36,67 +37,104 @@ function Footer() {
             <span>Global Access</span>
             <span>Expert Support</span>
           </div>
+
         </div>
 
 
         {/* =================================================
             QUICK LINKS
             ================================================= */}
+
         <div className="footer-col">
+
           <h4>Quick Links</h4>
 
-          <p onClick={() => navigate("/")}>Home</p>
-          <p onClick={() => navigate("/about")}>About Us</p>
-          <p onClick={() => navigate("/brochure")}>Programs</p>
-          <p onClick={() => navigate("/contact")}>Contact</p>
-          <p onClick={() => navigate("/apply")}>Apply Now</p>
+          <Link to="/">Home</Link>
 
-          <p
-            className="footer-legal-link"
-            onClick={() => navigate("/terms-and-conditions")}
-          >
-            Terms &amp; Conditions
-          </p>
+          <Link to="/about">About Us</Link>
+
+          <Link to="/brochure">Programs</Link>
+
+          <Link to="/contact">Contact</Link>
+
+          <Link to="/apply">Apply Now</Link>
+
         </div>
 
 
         {/* =================================================
             PORTALS
             ================================================= */}
+
         <div className="footer-col">
+
           <h4>Portals</h4>
 
-          <p onClick={() => navigate("/login")}>
+          <Link to="/login">
             Student Portal
-          </p>
+          </Link>
 
-          <p onClick={handleCRMPortal}>
+          <button
+            type="button"
+            className="footer-link-button"
+            onClick={handleCRMPortal}
+          >
             CRM Portal
-          </p>
+          </button>
+
         </div>
 
 
         {/* =================================================
             CONTACT
             ================================================= */}
+
         <div className="footer-col">
+
           <h4>Contact</h4>
 
           <p>admissions@leaplearning.co.in</p>
+
           <p>Mon - Sat | 10 AM - 7 PM</p>
+
           <p>Global Admissions Support</p>
-          <p>10 Winterslow Rd, London, United Kingdom</p>
+
+          <p>
+            10 Winterslow Rd, London, United Kingdom
+          </p>
+
         </div>
 
       </div>
 
 
       {/* =================================================
-          FOOTER BOTTOM
+          LEGAL LINKS
           ================================================= */}
+
+      <div className="footer-legal">
+
+        <Link to="/terms-and-conditions">
+          Terms &amp; Conditions
+        </Link>
+
+        <span className="footer-legal-divider">|</span>
+
+        <Link to="/refund-policy">
+          Refund Policy
+        </Link>
+
+      </div>
+
+
+      {/* =================================================
+          COPYRIGHT
+          ================================================= */}
+
       <div className="footer-bottom">
         © {new Date().getFullYear()} Leap Learning. All rights reserved.
       </div>
+
     </footer>
   );
 }

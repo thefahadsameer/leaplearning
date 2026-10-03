@@ -1,11 +1,15 @@
 // src/App.js
 
-import { Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+
+import { useEffect } from "react";
 
 
-/* =========================================================
-   PROGRAM PAGES
-   ========================================================= */
+/* ================= PROGRAM PAGES ================= */
 
 import PhDProgram from "./pages/programs/PhDProgram";
 import DBAProgram from "./pages/programs/DBAProgram";
@@ -15,9 +19,7 @@ import DLittProgram from "./pages/programs/DLittProgram";
 import Professorship from "./pages/programs/Professorship";
 
 
-/* =========================================================
-   PUBLIC LAYOUT
-   ========================================================= */
+/* ================= PUBLIC LAYOUT ================= */
 
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
@@ -25,34 +27,52 @@ import FloatingCTA from "./components/Common/FloatingCTA/FloatingCTA";
 import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 
 
-/* =========================================================
-   PROMOTION POPUP
-   ========================================================= */
+/* ================= PROMOTION POPUP ================= */
 
-import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
+// import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
 
 
-/* =========================================================
-   PUBLIC PAGES
-   ========================================================= */
+/* ================= PUBLIC PAGES ================= */
 
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Brochure from "./pages/Brochure";
 import Contact from "./pages/Contact";
 import Apply from "./pages/Apply";
-import TermsAndConditions from "./pages/TermsAndConditions";
+import RefundPolicy from "./pages/RefundPolicy";
 
 
-/* =========================================================
-   STUDENT
-   ========================================================= */
+/* ================= TERMS & CONDITIONS ================= */
+
+import TermsConditions from "./pages/TermsConditions";
+
+
+/* ================= STUDENT ================= */
 
 import ProtectedStudentRoute from "./student/routes/ProtectedStudentRoute";
 import StudentLayout from "./student/layout/StudentLayout";
 import StudentDashboard from "./student/pages/StudentDashboard";
 import Profile from "./student/pages/Profile";
 import Payments from "./student/pages/Payments";
+
+
+/* =========================================================
+   SCROLL TO TOP
+   ========================================================= */
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  }, [pathname]);
+
+  return null;
+}
 
 
 /* =========================================================
@@ -131,11 +151,16 @@ function CRMPortal() {
 function App() {
   return (
     <>
+      {/* ================= SCROLL POSITION ================= */}
+
+      <ScrollToTop />
+
+
+      {/* ================= ROUTES ================= */}
+
       <Routes>
 
-        {/* =================================================
-            PUBLIC WEBSITE
-            ================================================= */}
+        {/* ================= PUBLIC WEBSITE ================= */}
 
         <Route
           path="/"
@@ -146,7 +171,6 @@ function App() {
           }
         />
 
-
         <Route
           path="/about"
           element={
@@ -156,7 +180,6 @@ function App() {
           }
         />
 
-
         <Route
           path="/brochure"
           element={
@@ -165,7 +188,6 @@ function App() {
             </PublicLayout>
           }
         />
-
 
         <Route
           path="/contact"
@@ -177,23 +199,7 @@ function App() {
         />
 
 
-        {/* =================================================
-            TERMS & CONDITIONS
-            ================================================= */}
-
-        <Route
-          path="/terms-and-conditions"
-          element={
-            <PublicLayout>
-              <TermsAndConditions />
-            </PublicLayout>
-          }
-        />
-
-
-        {/* =================================================
-            CRM LOGIN
-            ================================================= */}
+        {/* ================= CRM LOGIN ================= */}
 
         <Route
           path="/login"
@@ -201,9 +207,7 @@ function App() {
         />
 
 
-        {/* =================================================
-            APPLY
-            ================================================= */}
+        {/* ================= APPLY ================= */}
 
         <Route
           path="/apply"
@@ -215,9 +219,31 @@ function App() {
         />
 
 
-        {/* =================================================
-            STUDENT PORTAL
-            ================================================= */}
+        {/* ================= TERMS & CONDITIONS ================= */}
+
+        <Route
+          path="/terms-and-conditions"
+          element={
+            <PublicLayout>
+              <TermsConditions />
+            </PublicLayout>
+          }
+        />
+
+
+        {/* ================= REFUND POLICY ================= */}
+
+        <Route
+          path="/refund-policy"
+          element={
+            <PublicLayout>
+              <RefundPolicy />
+            </PublicLayout>
+          }
+        />
+
+
+        {/* ================= STUDENT PORTAL ================= */}
 
         <Route
           path="/student"
@@ -244,9 +270,7 @@ function App() {
         </Route>
 
 
-        {/* =================================================
-            PROGRAMS
-            ================================================= */}
+        {/* ================= PROGRAMS ================= */}
 
         <Route
           path="/programs/phd"
@@ -257,7 +281,6 @@ function App() {
           }
         />
 
-
         <Route
           path="/programs/dba"
           element={
@@ -266,7 +289,6 @@ function App() {
             </PublicLayout>
           }
         />
-
 
         <Route
           path="/programs/honorary-doctorate"
@@ -277,7 +299,6 @@ function App() {
           }
         />
 
-
         <Route
           path="/programs/post-doctorate"
           element={
@@ -287,7 +308,6 @@ function App() {
           }
         />
 
-
         <Route
           path="/programs/dlitt"
           element={
@@ -296,7 +316,6 @@ function App() {
             </PublicLayout>
           }
         />
-
 
         <Route
           path="/programs/professorship"
@@ -308,9 +327,7 @@ function App() {
         />
 
 
-        {/* =================================================
-            FALLBACK
-            ================================================= */}
+        {/* ================= FALLBACK ================= */}
 
         <Route
           path="*"
@@ -327,13 +344,13 @@ function App() {
       {/* =====================================================
           GLOBAL PROMOTION POPUP
 
-          This remains outside <Routes> so the promotion
-          popup can appear across the public website.
+          This remains outside <Routes> so the popup can
+          appear across the public website.
 
           It does NOT affect the CRM route functionality.
           ===================================================== */}
 
-      <PromotionPopup />
+      {/* <PromotionPopup /> */}
 
     </>
   );
