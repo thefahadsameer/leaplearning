@@ -19,7 +19,7 @@
   padding: 0 28px 50px;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr 1fr;
   gap: 28px;
 }
 
@@ -40,118 +40,68 @@
   line-height: 1.8;
   color: #cbd5e1;
   margin-bottom: 10px;
-  cursor: pointer;
-
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
+  cursor: default;
+  transition: color 0.2s ease;
 }
 
 .footer-col p:hover {
   color: #ffffff;
 }
 
-.footer-col p:active {
-  transform: translateY(1px);
+/* Clickable footer links */
+.footer-col p[onclick] {
+  cursor: pointer;
 }
 
-
-/* =========================================================
-   LEGAL LINKS
-   ========================================================= */
-
-.footer-legal-link {
-  color: #cbd5e1;
-}
-
-.footer-legal-link:hover {
-  color: #60a5fa !important;
-}
-
-
-/* =========================================================
-   BRAND
-   ========================================================= */
-
+/* Brand */
 .brand-col p {
   cursor: default;
 }
 
-.brand-col p:hover {
-  color: #cbd5e1;
-  transform: none;
-}
-
-
-/* =========================================================
-   BADGES
-   ========================================================= */
-
+/* Footer badges */
 .footer-badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .footer-badges span {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-
   padding: 7px 12px;
-
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-
-  background: rgba(255, 255, 255, 0.04);
-
-  color: #cbd5e1;
-
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
+  color: #cbd5e1;
 }
 
-
-/* =========================================================
-   FOOTER BOTTOM
-   ========================================================= */
-
+/* Bottom */
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-
   text-align: center;
-
   padding: 22px 20px;
-
   font-size: 14px;
   color: #94a3b8;
 }
 
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1100px) {
-
+/* Responsive */
+@media (max-width: 1150px) {
   .footer-container {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
-
 }
 
-
-@media (max-width: 768px) {
-
+@media (max-width: 800px) {
   .footer {
     padding-top: 60px;
   }
 
   .footer-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     padding: 0 20px 40px;
-    gap: 22px;
+    gap: 28px 22px;
   }
 
   .footer-col h3,
@@ -166,28 +116,20 @@
   .footer-bottom {
     font-size: 13px;
   }
-
 }
 
-
-@media (max-width: 480px) {
-
-  .footer {
-    padding-top: 50px;
-  }
-
+@media (max-width: 520px) {
   .footer-container {
-    padding-left: 18px;
-    padding-right: 18px;
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
-  .footer-badges {
-    gap: 6px;
+  .footer-col h3,
+  .footer-col h4 {
+    font-size: 17px;
   }
 
-  .footer-badges span {
-    font-size: 11px;
-    padding: 6px 10px;
+  .footer-col p {
+    font-size: 14px;
   }
-
 }

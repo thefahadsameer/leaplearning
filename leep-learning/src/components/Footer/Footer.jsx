@@ -14,17 +14,22 @@ function Footer() {
     );
   };
 
+  const handleFooterNavigation = (path) => {
+    navigate(path);
+
+    // Always start the destination page from the very top
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 50);
+  };
+
   return (
     <footer className="footer">
-
       <div className="footer-top-line"></div>
 
       <div className="footer-container">
-
-        {/* ================= BRAND ================= */}
-
+        {/* Brand */}
         <div className="footer-col brand-col">
-
           <h3>Leap Learning</h3>
 
           <p>
@@ -37,106 +42,79 @@ function Footer() {
             <span>Global Access</span>
             <span>Expert Support</span>
           </div>
-
         </div>
 
-
-        {/* ================= QUICK LINKS ================= */}
-
+        {/* Quick Links */}
         <div className="footer-col">
-
           <h4>Quick Links</h4>
 
-          <p onClick={() => navigate("/")}>
-            Home
-          </p>
+          <p onClick={() => handleFooterNavigation("/")}>Home</p>
 
-          <p onClick={() => navigate("/about")}>
+          <p onClick={() => handleFooterNavigation("/about")}>
             About Us
           </p>
 
-          <p onClick={() => navigate("/brochure")}>
+          <p onClick={() => handleFooterNavigation("/brochure")}>
             Programs
           </p>
 
-          <p onClick={() => navigate("/contact")}>
+          <p onClick={() => handleFooterNavigation("/contact")}>
             Contact
           </p>
 
-          <p onClick={() => navigate("/apply")}>
+          <p onClick={() => handleFooterNavigation("/apply")}>
             Apply Now
           </p>
-
-          <p
-            className="footer-legal-link"
-            onClick={() => navigate("/terms-and-conditions")}
-          >
-            Terms &amp; Conditions
-          </p>
-
-          <p
-            className="footer-legal-link"
-            onClick={() => navigate("/refund-policy")}
-          >
-            Refund Policy
-          </p>
-
         </div>
 
-
-        {/* ================= PORTALS ================= */}
-
+        {/* Portals */}
         <div className="footer-col">
-
           <h4>Portals</h4>
 
-          <p onClick={() => navigate("/login")}>
+          <p onClick={() => handleFooterNavigation("/login")}>
             Student Portal
           </p>
 
           <p onClick={handleCRMPortal}>
             CRM Portal
           </p>
-
         </div>
 
-
-        {/* ================= CONTACT ================= */}
-
+        {/* Contact */}
         <div className="footer-col">
-
           <h4>Contact</h4>
 
-          <p>
-            admissions@leaplearning.co.in
-          </p>
-
-          <p>
-            Mon - Sat | 10 AM - 7 PM
-          </p>
-
-          <p>
-            Global Admissions Support
-          </p>
-
-          <p>
-            10 Winterslow Rd, London, United Kingdom
-          </p>
-
+          <p>admissions@leaplearning.co.in</p>
+          <p>Mon - Sat | 10 AM - 7 PM</p>
+          <p>Global Admissions Support</p>
+          <p>10 Winterslow Rd, London, United Kingdom</p>
         </div>
 
+        {/* Legal */}
+        <div className="footer-col footer-legal-col">
+          <h4>Legal</h4>
+
+          <p
+            onClick={() =>
+              handleFooterNavigation("/terms-and-conditions")
+            }
+          >
+            Terms &amp; Conditions
+          </p>
+
+          <p
+            onClick={() =>
+              handleFooterNavigation("/refund-policy")
+            }
+          >
+            Refund Policy
+          </p>
+        </div>
       </div>
-
-
-      {/* ================= FOOTER BOTTOM ================= */}
 
       <div className="footer-bottom">
-
-        © {new Date().getFullYear()} Leap Learning.
-        All rights reserved.
-
+        © {new Date().getFullYear()} Leap Learning. All rights reserved.
       </div>
-
     </footer>
   );
 }
