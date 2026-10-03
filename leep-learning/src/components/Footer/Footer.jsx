@@ -1,9 +1,11 @@
 // src/components/Footer/Footer.jsx
 
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
+  const navigate = useNavigate();
+
   const handleCRMPortal = () => {
     window.open(
       "https://leapcrm.vercel.app/",
@@ -19,9 +21,7 @@ function Footer() {
 
       <div className="footer-container">
 
-        {/* =================================================
-            BRAND
-            ================================================= */}
+        {/* ================= BRAND ================= */}
 
         <div className="footer-col brand-col">
 
@@ -41,63 +41,83 @@ function Footer() {
         </div>
 
 
-        {/* =================================================
-            QUICK LINKS
-            ================================================= */}
+        {/* ================= QUICK LINKS ================= */}
 
         <div className="footer-col">
 
           <h4>Quick Links</h4>
 
-          <Link to="/">Home</Link>
+          <p onClick={() => navigate("/")}>
+            Home
+          </p>
 
-          <Link to="/about">About Us</Link>
+          <p onClick={() => navigate("/about")}>
+            About Us
+          </p>
 
-          <Link to="/brochure">Programs</Link>
+          <p onClick={() => navigate("/brochure")}>
+            Programs
+          </p>
 
-          <Link to="/contact">Contact</Link>
+          <p onClick={() => navigate("/contact")}>
+            Contact
+          </p>
 
-          <Link to="/apply">Apply Now</Link>
+          <p onClick={() => navigate("/apply")}>
+            Apply Now
+          </p>
+
+          <p
+            className="footer-legal-link"
+            onClick={() => navigate("/terms-and-conditions")}
+          >
+            Terms &amp; Conditions
+          </p>
+
+          <p
+            className="footer-legal-link"
+            onClick={() => navigate("/refund-policy")}
+          >
+            Refund Policy
+          </p>
 
         </div>
 
 
-        {/* =================================================
-            PORTALS
-            ================================================= */}
+        {/* ================= PORTALS ================= */}
 
         <div className="footer-col">
 
           <h4>Portals</h4>
 
-          <Link to="/login">
+          <p onClick={() => navigate("/login")}>
             Student Portal
-          </Link>
+          </p>
 
-          <button
-            type="button"
-            className="footer-link-button"
-            onClick={handleCRMPortal}
-          >
+          <p onClick={handleCRMPortal}>
             CRM Portal
-          </button>
+          </p>
 
         </div>
 
 
-        {/* =================================================
-            CONTACT
-            ================================================= */}
+        {/* ================= CONTACT ================= */}
 
         <div className="footer-col">
 
           <h4>Contact</h4>
 
-          <p>admissions@leaplearning.co.in</p>
+          <p>
+            admissions@leaplearning.co.in
+          </p>
 
-          <p>Mon - Sat | 10 AM - 7 PM</p>
+          <p>
+            Mon - Sat | 10 AM - 7 PM
+          </p>
 
-          <p>Global Admissions Support</p>
+          <p>
+            Global Admissions Support
+          </p>
 
           <p>
             10 Winterslow Rd, London, United Kingdom
@@ -108,31 +128,13 @@ function Footer() {
       </div>
 
 
-      {/* =================================================
-          LEGAL LINKS
-          ================================================= */}
-
-      <div className="footer-legal">
-
-        <Link to="/terms-and-conditions">
-          Terms &amp; Conditions
-        </Link>
-
-        <span className="footer-legal-divider">|</span>
-
-        <Link to="/refund-policy">
-          Refund Policy
-        </Link>
-
-      </div>
-
-
-      {/* =================================================
-          COPYRIGHT
-          ================================================= */}
+      {/* ================= FOOTER BOTTOM ================= */}
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} Leap Learning. All rights reserved.
+
+        © {new Date().getFullYear()} Leap Learning.
+        All rights reserved.
+
       </div>
 
     </footer>

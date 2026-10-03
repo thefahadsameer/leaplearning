@@ -1,13 +1,11 @@
 // src/App.js
 
+import { useEffect } from "react";
 import {
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
-
-import { useEffect } from "react";
-
 
 /* ================= PROGRAM PAGES ================= */
 
@@ -18,7 +16,6 @@ import PostDoctorate from "./pages/programs/PostDoctorate";
 import DLittProgram from "./pages/programs/DLittProgram";
 import Professorship from "./pages/programs/Professorship";
 
-
 /* ================= PUBLIC LAYOUT ================= */
 
 import Navbar from "./components/Navbar/Navbar";
@@ -26,11 +23,9 @@ import Footer from "./components/Footer/Footer";
 import FloatingCTA from "./components/Common/FloatingCTA/FloatingCTA";
 import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 
-
 /* ================= PROMOTION POPUP ================= */
 
 // import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
-
 
 /* ================= PUBLIC PAGES ================= */
 
@@ -39,13 +34,11 @@ import About from "./pages/About";
 import Brochure from "./pages/Brochure";
 import Contact from "./pages/Contact";
 import Apply from "./pages/Apply";
+
+/* ================= LEGAL PAGES ================= */
+
+import TermsAndConditions from "./pages/TermsAndConditions";
 import RefundPolicy from "./pages/RefundPolicy";
-
-
-/* ================= TERMS & CONDITIONS ================= */
-
-import TermsConditions from "./pages/TermsConditions";
-
 
 /* ================= STUDENT ================= */
 
@@ -58,6 +51,9 @@ import Payments from "./student/pages/Payments";
 
 /* =========================================================
    SCROLL TO TOP
+   =========================================================
+   Whenever the route changes, the page automatically returns
+   to the beginning of the new page.
    ========================================================= */
 
 function ScrollToTop() {
@@ -67,7 +63,7 @@ function ScrollToTop() {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: "instant",
+      behavior: "auto",
     });
   }, [pathname]);
 
@@ -109,9 +105,7 @@ function PublicLayout({ children }) {
 
    The CRM itself is loaded inside this page.
 
-   The browser will NOT redirect to:
-
-   https://leapcrm.vercel.app/login
+   This route has intentionally NOT been changed.
    ========================================================= */
 
 function CRMPortal() {
@@ -151,12 +145,7 @@ function CRMPortal() {
 function App() {
   return (
     <>
-      {/* ================= SCROLL POSITION ================= */}
-
       <ScrollToTop />
-
-
-      {/* ================= ROUTES ================= */}
 
       <Routes>
 
@@ -198,14 +187,12 @@ function App() {
           }
         />
 
-
         {/* ================= CRM LOGIN ================= */}
 
         <Route
           path="/login"
           element={<CRMPortal />}
         />
-
 
         {/* ================= APPLY ================= */}
 
@@ -218,20 +205,16 @@ function App() {
           }
         />
 
-
-        {/* ================= TERMS & CONDITIONS ================= */}
+        {/* ================= LEGAL PAGES ================= */}
 
         <Route
           path="/terms-and-conditions"
           element={
             <PublicLayout>
-              <TermsConditions />
+              <TermsAndConditions />
             </PublicLayout>
           }
         />
-
-
-        {/* ================= REFUND POLICY ================= */}
 
         <Route
           path="/refund-policy"
@@ -241,7 +224,6 @@ function App() {
             </PublicLayout>
           }
         />
-
 
         {/* ================= STUDENT PORTAL ================= */}
 
@@ -268,7 +250,6 @@ function App() {
             element={<Payments />}
           />
         </Route>
-
 
         {/* ================= PROGRAMS ================= */}
 
@@ -326,7 +307,6 @@ function App() {
           }
         />
 
-
         {/* ================= FALLBACK ================= */}
 
         <Route
@@ -340,18 +320,16 @@ function App() {
 
       </Routes>
 
-
       {/* =====================================================
           GLOBAL PROMOTION POPUP
 
-          This remains outside <Routes> so the popup can
-          appear across the public website.
+          This remains outside Routes so the popup can appear
+          across the public website.
 
-          It does NOT affect the CRM route functionality.
+          It does NOT affect the CRM route.
           ===================================================== */}
 
       {/* <PromotionPopup /> */}
-
     </>
   );
 }

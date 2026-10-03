@@ -10,29 +10,24 @@
 .footer-top-line {
   width: 100%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .footer-container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 28px 45px;
+  padding: 0 28px 50px;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 28px;
 }
 
-
-/* =========================================================
-   COLUMNS
-   ========================================================= */
-
 .footer-col h3,
 .footer-col h4 {
   font-size: 20px;
   font-weight: 800;
-  margin: 0 0 18px;
+  margin-bottom: 18px;
   color: #ffffff;
 }
 
@@ -40,35 +35,11 @@
   font-size: 18px;
 }
 
-
-/* =========================================================
-   TEXT
-   ========================================================= */
-
 .footer-col p {
   font-size: 15px;
   line-height: 1.8;
   color: #cbd5e1;
-  margin: 0 0 10px;
-}
-
-
-/* =========================================================
-   ROUTER LINKS
-   ========================================================= */
-
-.footer-col a {
-  display: block;
-  width: fit-content;
-
   margin-bottom: 10px;
-
-  color: #cbd5e1;
-  text-decoration: none;
-
-  font-size: 15px;
-  line-height: 1.8;
-
   cursor: pointer;
 
   transition:
@@ -76,43 +47,39 @@
     transform 0.2s ease;
 }
 
-.footer-col a:hover {
+.footer-col p:hover {
   color: #ffffff;
-  transform: translateX(2px);
+}
+
+.footer-col p:active {
+  transform: translateY(1px);
 }
 
 
 /* =========================================================
-   CRM BUTTON
+   LEGAL LINKS
    ========================================================= */
 
-.footer-link-button {
-  display: block;
-  width: fit-content;
-
-  margin: 0 0 10px;
-  padding: 0;
-
-  border: none;
-  background: transparent;
-
+.footer-legal-link {
   color: #cbd5e1;
-
-  font-family: inherit;
-  font-size: 15px;
-  line-height: 1.8;
-
-  cursor: pointer;
-  text-align: left;
-
-  transition:
-    color 0.2s ease,
-    transform 0.2s ease;
 }
 
-.footer-link-button:hover {
-  color: #ffffff;
-  transform: translateX(2px);
+.footer-legal-link:hover {
+  color: #60a5fa !important;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand-col p {
+  cursor: default;
+}
+
+.brand-col p:hover {
+  color: #cbd5e1;
+  transform: none;
 }
 
 
@@ -124,63 +91,30 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .footer-badges span {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 
-  padding: 6px 10px;
+  padding: 7px 12px;
 
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.04);
 
   color: #cbd5e1;
+
   font-size: 12px;
   font-weight: 600;
 }
 
 
 /* =========================================================
-   LEGAL LINKS
-   ========================================================= */
-
-.footer-legal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-
-  gap: 12px;
-
-  padding: 20px 20px;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.footer-legal a {
-  color: #cbd5e1;
-  text-decoration: none;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  transition: color 0.2s ease;
-}
-
-.footer-legal a:hover {
-  color: #ffffff;
-}
-
-.footer-legal-divider {
-  color: #64748b;
-  font-size: 13px;
-}
-
-
-/* =========================================================
-   COPYRIGHT
+   FOOTER BOTTOM
    ========================================================= */
 
 .footer-bottom {
@@ -200,21 +134,24 @@
    ========================================================= */
 
 @media (max-width: 1100px) {
+
   .footer-container {
     grid-template-columns: repeat(2, 1fr);
   }
+
 }
 
 
 @media (max-width: 768px) {
+
   .footer {
     padding-top: 60px;
   }
 
   .footer-container {
     grid-template-columns: 1fr;
-    padding: 0 20px 35px;
-    gap: 28px;
+    padding: 0 20px 40px;
+    gap: 22px;
   }
 
   .footer-col h3,
@@ -222,21 +159,35 @@
     margin-bottom: 12px;
   }
 
-  .footer-col p,
-  .footer-col a,
-  .footer-link-button {
+  .footer-col p {
     font-size: 14px;
-  }
-
-  .footer-legal {
-    gap: 9px;
-  }
-
-  .footer-legal a {
-    font-size: 13px;
   }
 
   .footer-bottom {
     font-size: 13px;
   }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .footer {
+    padding-top: 50px;
+  }
+
+  .footer-container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .footer-badges {
+    gap: 6px;
+  }
+
+  .footer-badges span {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+
 }
