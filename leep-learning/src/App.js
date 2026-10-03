@@ -25,7 +25,7 @@ import WhatsAppChat from "./components/WhatsAppChat/WhatsAppChat";
 
 /* ================= PROMOTION POPUP ================= */
 
-// import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
+import PromotionPopup from "./components/PromotionPopup/PromotionPopup";
 
 /* ================= PUBLIC PAGES ================= */
 
@@ -329,7 +329,7 @@ function App() {
           It does NOT affect the CRM route.
           ===================================================== */}
 
-      {/* <PromotionPopup /> */}
+      <PromotionPopup />
     </>
   );
 }
